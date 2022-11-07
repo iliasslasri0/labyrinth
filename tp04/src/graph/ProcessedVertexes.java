@@ -1,8 +1,8 @@
+package graph;
 public interface ProcessedVertexes {
 		// cette méthode servera à ajouter le pivot 
 		// dés qu'il soit traité
 		// et le sommet de start
-		
 		public void unionPivot(Vertex V);
 		
 		//Cette méthode servera à tester si 

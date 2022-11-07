@@ -1,3 +1,4 @@
+package graph;
 public interface Vertex {
 	
 	// Cette méthode affecte à un sommet V une distance d

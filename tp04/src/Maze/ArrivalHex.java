@@ -1,5 +1,5 @@
 package Maze;
 
-public class ArrivalHex {
+public class ArrivalHex extends Hex {
 
 }

@@ -1,15 +1,25 @@
 package Maze;
+
 import java.util.*;
 
 public class MazeHex{
-	int sizeMaze = 10;
-	ArrayList<Hex> maze=new ArrayList<Hex>(sizeMaze);
+	List<MazeHex> neighborsOfHex;
+	int x;
+	int y;
 	
-	public void transformToWallHex(int x,int y) {
-		WallHex n = new wallHex;
-		
-	}
-	public void transformToEmptyHex(int x , int y) {
+	public void setX(int x) {
+		this.x = x;
 	}
 	
+	public int getX(MazeHex H) {
+		return H.x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public int getY(MazeHex H) {
+		return H.y;
+	}
 }

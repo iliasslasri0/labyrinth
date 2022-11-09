@@ -1,5 +1,5 @@
 package Maze;
 
-public class EmptyHex {
-
+public class EmptyHex extends MazeHex {
+	
 }

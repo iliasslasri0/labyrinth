@@ -1,5 +1,6 @@
 package Maze;
 
-public class WallHex {
-
+public class WallHex extends MazeHex {
+	
+	
 }

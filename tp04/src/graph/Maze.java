@@ -1,7 +1,7 @@
-package Maze;
+package graph;
 import java.util.*;
 
-public class Maze {
+public class Maze implements Graph {
 	final int sizeMaze = 10;
 	ArrayList<MazeHex> maze=new ArrayList<MazeHex>(sizeMaze);
 	
@@ -51,9 +51,15 @@ public class Maze {
 		}else if (y==9){
 			neighbors.add(maze[x+1][8]);
 			neighbors.add(maze[x][18]);
-			
 		}
-		
+		else {
+			neighbors.add(maze[x-1][y-1]);
+			neighbors.add(maze[x-1][y+1]);
+			neighbors.add(maze[x-1][y]);
+			neighbors.add(maze[x][y-1]);
+			neighbors.add(maze[x][y+1]);
+			neighbors.add(maze[x+1][y]);
+		}
 	
 		
 		

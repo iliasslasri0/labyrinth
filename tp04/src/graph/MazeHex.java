@@ -6,31 +6,30 @@ public class MazeHex implements Vertex {
 	List<MazeHex> neighborsOfHex;
 	private int x;
 	private int y;
-	private final String label;
+	private String label;
 	
-	public void setX(int x) {
-		this.x = x;
+	public void mazeHex(int x,int y, String label) {
+		this.x=x;
+		this.y=y;
+		this.label=label;
 	}
-	
 	/**
 	 * 
 	 * @return abscisse de la case (l'Hexagone)
 	 */
 	
 	public int getX() {
-		return H.x;
+		return this.x;
 	}
 	
-	public void setY(int y) {
-		this.y = y;
-	}
+
 	
 	/**
 	 * 
 	 * @return Ordonné de la case (l'Hexagone)
 	 */
 	public int getY() {
-		return H.y;
+		return this.y;
 	}
 	
 	/**

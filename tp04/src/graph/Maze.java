@@ -18,9 +18,33 @@ public class Maze implements Graph {
 	}
 
 	public List<MazeHex> neighborsOfHex(MazeHex h) {
+		
+	}
+	/**
+	 * @return A list of all the boxes possible to pass through
+	 * 
+	 */
+	public List<Vertex> getAllVertexes(){
+		
+		ArrayList<MazeHex> allPossibleMazeHex = new ArrayList<MazeHex>();
+		
+		for (MazeHex h : maze ) {
+			if (h.getLabel() == "E") {
+				allPossibleMazeHex.add(h);
+			}
+		}	
+	}
+	
+	/**
+	 * @return A list of the neighbors of a box(Hexagon)
+	 */
+	public List<Vertex> getSuccessors(Vertex vertex){
+		
 		List<MazeHex> neighbors = new ArrayList<MazeHex>();
-		int x = h.getX(h);
-		int y = h.getY(h);
+		MazeHex Hex = (MazeHex) vertex ;
+		
+		int x = Hex.getX();
+		int y = Hex.getY();
 		if (x == 0) {
 			if (y == 0) {
 				neighbors.add(maze[0][1]);
@@ -60,19 +84,6 @@ public class Maze implements Graph {
 			neighbors.add(maze[x][y+1]);
 			neighbors.add(maze[x+1][y]);
 		}
-	}
-	/**
-	 * @return A list of all the boxes possible to pass through
-	 * 
-	 */
-	public List<Vertex> getAllVertexes(){
-		
-	}
-	
-	/**
-	 * @return A list of the neighbors of a box
-	 */
-	public List<Vertex> getSuccessors(Vertex vertex){
 		
 	}
 	/**

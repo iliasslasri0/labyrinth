@@ -7,7 +7,7 @@ public class DepartureHex extends MazeHex {
 	 * @param y ordinate of a Hexagon
 	 */
 	
-	public void departureHex(int x,int y) {
+	public void departureHex(Maze maze,int x,int y) {
 		super(x,y,"D");
 	}
 

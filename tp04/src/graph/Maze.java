@@ -48,7 +48,7 @@ public class Maze implements Graph {
 		if (x == 0) {
 			if (y == 0) {
 				neighbors.add(maze[0][1]);
-				neighbors.add(maze[1][0]);///ici 
+				neighbors.add(maze[1][0]);
 			}
 			else {
 				neighbors.add(maze[x][y-1]);

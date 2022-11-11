@@ -3,23 +3,8 @@ import java.util.*;
 
 public class Maze implements Graph {
 	final int sizeMaze = 10;
-	ArrayList<MazeHex> maze=new ArrayList<MazeHex>(sizeMaze);
+	MazeHex[][] maze=new MazeHex[sizeMaze][sizeMaze];
 	
-	public void wallHex(int x,int y) {
-		
-	}
-	public void emptyHex(int x , int y) {
-	}
-	
-	public void departureHex(int x,int y) {
-	}
-	
-	public void arrivalHex(int x,int y) {
-	}
-
-	public List<MazeHex> neighborsOfHex(MazeHex h) {
-		
-	}
 	/**
 	 * @return A list of all the boxes possible to pass through
 	 * 
@@ -87,10 +72,14 @@ public class Maze implements Graph {
 		
 	}
 	/**
-	 * @return 
+	 * @return the weight of the arc src to dst 
 	 */
 	public int getWeight(Vertex src, Vertex dst) {
+		return 1;
 		
 	}
 	
+	public final void initFromTextFile(String fileName) {
+		
+	}
 }

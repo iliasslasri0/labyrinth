@@ -1,5 +1,8 @@
 package graph;
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Maze implements Graph {
 	final int sizeMaze = 10;
@@ -69,17 +72,37 @@ public class Maze implements Graph {
 			neighbors.add(maze[x][y+1]);
 			neighbors.add(maze[x+1][y]);
 		}
-		
+		return (ArrayList<Vertex>)neighbors; 
 	}
 	/**
 	 * @return the weight of the arc src to dst 
 	 */
 	public int getWeight(Vertex src, Vertex dst) {
-		return 1;
-		
+		return 1;	
 	}
 	
+	/**
+	 * Read the text file that describes thes maze
+	 * @param fileName
+	 */
 	public final void initFromTextFile(String fileName) {
+		
+		try {
+			
+			BufferedReader readMazeParam = new BufferedReader(new FileReader(fileName));
+			String line;
+			while ((line = readMazeParam.readLine()) != null) {
+				System.out.println(line);
+						}
+			readMazeParam.close();
+			
+		} catch (IOException e) {
+			System.out.println("Please, Enter a valid directory.");
+		}
+		
+		//pour écrire cette fonction on utilisera un REader de character 
+		// et un switch selon les cas du charactere on construit le maze
+		// ici on build the maze , on l'initie
 		
 	}
 }

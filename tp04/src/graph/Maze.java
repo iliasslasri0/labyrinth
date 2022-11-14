@@ -5,18 +5,20 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Maze implements Graph {
-	final int sizeMaze = 10;
-	MazeHex[][] maze = new MazeHex[sizeMaze][sizeMaze];
+	final int sizeMazeLine = 10;
+	final int sizeMazeColum = 10;
+	MazeHex[][] maze = new MazeHex[sizeMazeLine][sizeMazeColum];
 	
 	/**
 	 * @return A list of all the boxes possible to pass through
 	 * 
 	 */
+	/**
 	public List<Vertex> getAllVertexes(){
 		
 		ArrayList<MazeHex> allPossibleMazeHex = new ArrayList<MazeHex>();
 		
-		for (MazeHex h : maze ) {
+		for (ArrayList<MazeHex> h : maze ) { ///// attention a corrige !!!!!!!!!!!%%%%%%%
 			if (h.getLabel() == "E") {
 				allPossibleMazeHex.add(h);
 			}
@@ -85,17 +87,19 @@ public class Maze implements Graph {
 	 * Read the text file that describes thes maze
 	 * @param fileName
 	 */
-	public final void initFromTextFile(String fileName) {
-		
-		
+	public void initFromTextFile(String fileName) {
 		
 		try {
 			BufferedReader readMazeParam = new BufferedReader(new FileReader(fileName));
 			String line;
-			for (int lineNum=0; lineNum < sizeMaze ; lineNum++) {
+			for (int lineNum=0; lineNum < sizeMazeLine ; lineNum++) {
 				while ((line = readMazeParam.readLine()) != null) {
-					for (int colonNum = 0; colonNum < sizeMaze ;colonNum++) {
-						
+					
+					if ( line.length() > this.sizeMazeColum) { throw new MazeReadingException(fileName,lineNum,"Reducing the number of columns is required");}
+					if ( line.length() < this.sizeMazeColum) { throw new MazeReadingException(fileName,lineNum,"Increasing the number of columns is required");}
+					
+					for (int colonNum = 0; colonNum < sizeMazeColum ;colonNum++) {
+						System.out.println(line.charAt(colonNum));
 						switch (line.charAt(colonNum))
 						{
 						case 'A':
@@ -122,10 +126,5 @@ public class Maze implements Graph {
 		}finally {
 			try {  readMazeParam.close();   }catch(Exception ex){}
 		}
-		
-		//pour écrire cette fonction on utilisera un REader de character 
-		// et un switch selon les cas du charactere on construit le maze
-		// ici on build the maze , on l'initie
-		
 	}
 }

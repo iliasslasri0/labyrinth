@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Maze implements Graph {
 	final int sizeMaze = 10;
-	MazeHex[][] maze=new MazeHex[sizeMaze][sizeMaze];
+	MazeHex[][] maze = new MazeHex[sizeMaze][sizeMaze];
 	
 	/**
 	 * @return A list of all the boxes possible to pass through
@@ -87,17 +87,40 @@ public class Maze implements Graph {
 	 */
 	public final void initFromTextFile(String fileName) {
 		
+		
+		
 		try {
-			
 			BufferedReader readMazeParam = new BufferedReader(new FileReader(fileName));
 			String line;
-			while ((line = readMazeParam.readLine()) != null) {
-				System.out.println(line);
+			for (int lineNum=0; lineNum < sizeMaze ; lineNum++) {
+				while ((line = readMazeParam.readLine()) != null) {
+					for (int colonNum = 0; colonNum < sizeMaze ;colonNum++) {
+						
+						switch (line.charAt(colonNum))
+						{
+						case 'A':
+								maze[lineNum][colonNum] =new ArrivalHex(this,colonNum,lineNum);break;
+						case 'D':
+						        maze[lineNum][colonNum] =new DepartureHex(this,colonNum,lineNum);break;
+						case 'E':
+								maze[lineNum][colonNum] =new EmptyHex(this,colonNum,lineNum);break;
+						case 'W':
+								maze[lineNum][colonNum] =new WallHex(this,colonNum,lineNum);break;
+				        
+				      
+						
 						}
-			readMazeParam.close();
+					}
+				}
+			}
+			
+				
+
 			
 		} catch (IOException e) {
 			System.out.println("Please, Enter a valid directory.");
+		}finally {
+			try {  readMazeParam.close();   }catch(Exception ex){}
 		}
 		
 		//pour écrire cette fonction on utilisera un REader de character 

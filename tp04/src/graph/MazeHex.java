@@ -45,7 +45,7 @@ public class MazeHex implements Vertex {
 	 */
 	
 	public final String getLabel() {
-		return label;
+		return this.label;
 		
 	}
 }

@@ -1,6 +1,8 @@
 package graph;
 import java.util.*;
+import java.io.PrintWriter;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -87,14 +89,13 @@ public class Maze implements Graph {
 	 * Read the text file that describes thes maze
 	 * @param fileName
 	 */
-	public void initFromTextFile(String fileName) {
+	public final void initFromTextFile(String fileName) {
 		
 		try {
 			BufferedReader readMazeParam = new BufferedReader(new FileReader(fileName));
 			String line;
 			for (int lineNum=0; lineNum < sizeMazeLine ; lineNum++) {
-				while ((line = readMazeParam.readLine()) != null) {
-					
+					if (line == null) {throw new MazeReadingException(fileName, lineNum, "Increasing the number of lines is required");}
 					if ( line.length() > this.sizeMazeColum) { throw new MazeReadingException(fileName,lineNum,"Reducing the number of columns is required");}
 					if ( line.length() < this.sizeMazeColum) { throw new MazeReadingException(fileName,lineNum,"Increasing the number of columns is required");}
 					
@@ -110,21 +111,36 @@ public class Maze implements Graph {
 								maze[lineNum][colonNum] =new EmptyHex(this,colonNum,lineNum);break;
 						case 'W':
 								maze[lineNum][colonNum] =new WallHex(this,colonNum,lineNum);break;
-				        
-				      
+				        default :
+				        	throw new MazeReadingException(fileName , lineNum , "Inkown character");
 						
 						}
-					}
-				}
-			}
+					 }
 			
 				
 
-			
+			}	
 		} catch (IOException e) {
 			System.out.println("Please, Enter a valid directory.");
 		}finally {
 			try {  readMazeParam.close();   }catch(Exception ex){}
 		}
 	}
+	
+	/*
+	 * This method saves the state of the maze in a text file
+	 */
+	public final void saveToTextFile(String fileName)throws FileNotFoundException{
+		PrintWriter pw = new PrintWriter(fileName);
+		for (int lineNum = 0; lineNum < sizeMazeLine; lineNum++) {
+			MazeHex[] line = maze[lineNum];
+			for (int columNum=0; columNum < sizeMazeColum; columNum++ ) {
+				line[columNum].writeCharTo(pw);
+				
+			}
+			pw.println();
+			/// ici
+		}
+	}
+	
 }

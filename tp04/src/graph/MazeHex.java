@@ -9,11 +9,11 @@ public class MazeHex implements Vertex {
 	private int y;
 	private String label;
 	
-	public void mazeHex(int x,int y,String label) throws Exception {
+	public MazeHex(int x,int y,String label) throws Exception {
 		if (!(label.equals("A")) && !(label.equals("D")) && !(label.equals("E")) && !(label.equals("W"))) {
 			 throw new IOException("Enter a valid type of box, please!");
 		}
-		if (x>10 || y>10) {
+		if (x> Maze.sizeMazeColum || y> Maze.sizeMazeLine) {
 			throw new IOException("Enter a valid coordnates, please!");
 		}
 		this.x=x;

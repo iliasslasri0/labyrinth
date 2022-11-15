@@ -7,24 +7,30 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Maze implements Graph {
-	final int sizeMazeLine = 10;
-	final int sizeMazeColum = 10;
-	MazeHex[][] maze = new MazeHex[sizeMazeLine][sizeMazeColum];
-	
+	final int sizeMazeLine;
+	final int sizeMazeColum ;
+	private MazeHex[][] maze;
+	public Maze(int colums,int lines) {
+		sizeMazeColum = colums;
+		sizeMazeLine = lines ;
+	}
 	/**
 	 * @return A list of all the boxes possible to pass through
 	 * 
 	 */
-	/**
+
 	public List<Vertex> getAllVertexes(){
 		
-		ArrayList<MazeHex> allPossibleMazeHex = new ArrayList<MazeHex>();
+		ArrayList<Vertex> allPossibleMazeHex = new ArrayList<Vertex>();
 		
-		for (ArrayList<MazeHex> h : maze ) { ///// attention a corrige !!!!!!!!!!!%%%%%%%
-			if (h.getLabel() == "E") {
-				allPossibleMazeHex.add(h);
+		for (MazeHex[] h : maze ) {
+			for (MazeHex hex : h){
+			if (hex.getLabel() == "E") {
+				allPossibleMazeHex.add((Vertex)hex);
 			}
-		}	
+			}
+		}
+		return allPossibleMazeHex;
 	}
 	
 	/**
@@ -32,7 +38,7 @@ public class Maze implements Graph {
 	 */
 	public List<Vertex> getSuccessors(Vertex vertex){
 		
-		List<MazeHex> neighbors = new ArrayList<MazeHex>();
+		List<Vertex> neighbors = new ArrayList<Vertex>();
 		MazeHex Hex = (MazeHex) vertex ;
 		
 		int x = Hex.getX();
@@ -122,8 +128,6 @@ public class Maze implements Graph {
 			}	
 		} catch (IOException e) {
 			System.out.println("Please, Enter a valid directory.");
-		}finally {
-			try {  readMazeParam.close();   }catch(Exception ex){}
 		}
 	}
 	
@@ -131,15 +135,16 @@ public class Maze implements Graph {
 	 * This method saves the state of the maze in a text file
 	 */
 	public final void saveToTextFile(String fileName)throws FileNotFoundException{
-		PrintWriter pw = new PrintWriter(fileName);
-		for (int lineNum = 0; lineNum < sizeMazeLine; lineNum++) {
-			MazeHex[] line = maze[lineNum];
-			for (int columNum=0; columNum < sizeMazeColum; columNum++ ) {
-				line[columNum].writeCharTo(pw);
-				
+		try (PrintWriter pw = new PrintWriter(fileName)) {
+			for (int lineNum = 0; lineNum < this.sizeMazeLine; lineNum++) {
+				for (int columNum=0; columNum < this.sizeMazeColum; columNum++ ) {
+					pw.print(this.maze[lineNum][columNum].getLabel());
+					
+				}
+				pw.println();
 			}
-			pw.println();
-			/// ici
+		}catch(Exception ex) {
+			
 		}
 	}
 	

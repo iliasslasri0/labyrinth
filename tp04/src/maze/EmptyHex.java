@@ -1,4 +1,4 @@
-package graph;
+package maze;
 
 public class EmptyHex extends MazeHex {
 	

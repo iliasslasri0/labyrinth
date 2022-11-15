@@ -1,6 +1,9 @@
-package graph;
+package maze;
 
 import java.util.*;
+
+import graph.Vertex;
+
 import java.io.*;
 
 public class MazeHex implements Vertex {

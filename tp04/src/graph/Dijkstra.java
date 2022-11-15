@@ -3,7 +3,13 @@ import java.util.*;
 
 public class Dijkstra {
 
-	public ShortestPaths dijkstra(Graph graph,Vertex startVertex,Vertex endVertex,ProcessedVertexes processedVertexes, MinDistance minDistance,Distance distance) {
+	public ShortestPaths dijkstra(Graph graph,
+			Vertex startVertex,
+			Vertex endVertex,
+			ProcessedVertexes processedVertexes,
+			MinDistance minDistance,
+			Distance distance) {
+		
 		ProcessedVertexes processedvertexes = new ProcessedVertexes;
 		unionPivot(Vertex startVertex);
 		replaceMinDistance(0,startVertex);

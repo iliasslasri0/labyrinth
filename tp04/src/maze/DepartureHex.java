@@ -1,4 +1,4 @@
-package graph;
+package maze;
 
 public class DepartureHex extends MazeHex {
 	/**

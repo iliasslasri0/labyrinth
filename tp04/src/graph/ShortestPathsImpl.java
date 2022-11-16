@@ -1,17 +1,10 @@
 package graph;
 
-import java.util.ArrayList;
 
-public class ShortestPathsImpl extends HashMap implements ShortestPaths{
+import java.util.HashMap;
 
-	@Override
-	public Vertex selectionVertex(Vertex pivotVertex) {
-		
-	}
-
-	@Override
-	public ArrayList<Vertex> succVertexNotProcce(Vertex V) {
-		
-	}
-
+public class ShortestPathsImpl extends HashMap<Vertex,Vertex> implements ShortestPaths{
+	private static final long serialVersionUID = 1L;
+	
+	
 }

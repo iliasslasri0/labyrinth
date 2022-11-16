@@ -37,6 +37,14 @@ public class Maze implements Graph {
 		return allPossibleMazeHex;
 	}
 	
+	@Override
+	public ArrayList<Vertex> succVertexNotProcce(Vertex V) {
+		for (Vertex vertex : getSuccessors(V)) {
+			
+		}
+	}
+	
+	
 	/**
 	 * @return A list of the neighbors of a box(Hexagon)
 	 */
@@ -88,13 +96,6 @@ public class Maze implements Graph {
 		}
 		return (ArrayList<Vertex>)neighbors; 
 	}
-	/**
-	 * @return the weight of the arc src to dst 
-	 */
-	public int getWeight(Vertex src, Vertex dst) {
-		return 1;	
-	}
-	
 	/**
 	 * Read the text file that describes thes maze
 	 * @param fileName
@@ -152,5 +153,4 @@ public class Maze implements Graph {
 			
 		}
 	}
-	
 }

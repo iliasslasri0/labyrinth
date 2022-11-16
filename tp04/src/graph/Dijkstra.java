@@ -1,44 +1,44 @@
 package graph;
-import java.util.*;
+
+import java.util.ArrayList;
 
 public class Dijkstra {
 
-	public ShortestPaths dijkstra(Graph graph,
+	public ArrayList<Vertex> dijkstra(Graph graph,
 			Vertex startVertex,
 			Vertex endVertex,
 			ProcessedVertexes processedVertexes,
 			MinDistance minDistance,
 			Distance distance) {
+
+		processedVertexes.unionPivot(startVertex);
+		minDistance.replaceMinDistance(0,startVertex);
+		Vertex pivotVertex =  startVertex;
 		
-		ProcessedVertexes processedvertexes = new ProcessedVertexes;
-		unionPivot(Vertex startVertex);
-		replaceMinDistance(0,startVertex);
+		ArrayList<Vertex> path = new ArrayList<Vertex>();
+		path.add(startVertex);
 		
-		for (Vertex v : graph) {
-			replaceMinDistance(Float.POSITIVE_INFINITY,v);
+		for (Vertex v : graph.getAllVertexes()) {
+			minDistance.replaceMinDistance(Float.POSITIVE_INFINITY,v);
 		}
-		while (!( isInProcessedVertexes(endVertex))){
-			for (Vertex v:succVertexNotProcce(pivotVertex)) {
-				if (actuelMinDistance(pivotVertex) + distance(pivotVertex, v) < actuelMinDistance(v)) {
-					replaceMinDistance(minDistance(pivotVertex) + distance(pivotVertex, v), v);
-					previous(v)=pivot;
-					
+		while ( processedVertexes.isInProcessedVertexes(endVertex)){
+			for (Vertex v: graph.succVertexNotProcce(pivotVertex)) {
+				if (minDistance.actuelMinDistance(pivotVertex) + minDistance.getWeight(pivotVertex, v) < minDistance.actuelMinDistance(v)) {
+					minDistance.replaceMinDistance( minDistance.actuelMinDistance(pivotVertex) + minDistance.getWeight(pivotVertex, v), v);
+					path.add(v);
 				}
-			
-			for (Vertex v : succVertexNotProcce(pivotVertex) ;float i= Float.POSITIVE_INFINITY) {
-				if (actuelMinDistance(v) <=   i) {
-					i = actuelMimnDistance(v);
-					pivotVertex = v;
-					
-					
+			int m = minDistance.actuelMinDistance(graph.succVertexNotProcce(pivotVertex).get(0));
+			pivotVertex = graph.succVertexNotProcce(pivotVertex).get(0) ;
+			for (Vertex nextVertex: graph.succVertexNotProcce(pivotVertex)) {
+				if (minDistance.actuelMinDistance(nextVertex) < m) {
+					pivotVertex = nextVertex;
+					m = minDistance.actuelMinDistance(nextVertex);
 				}
-				unionPivot(v);
-				
-			}
+				}
+			processedVertexes.unionPivot(v);
 			}
 		}
+		return path;
 	}
 
-	
-	
 }

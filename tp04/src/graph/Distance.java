@@ -1,5 +1,5 @@
 package graph;
 public interface Distance {
-	// calcul de distance entre deux sommets
-	public int distance(Vertex V,Vertex V2);
+	// return the weight of the arc between two vertexes
+		public int distance(Vertex V, Vertex V2);
 }

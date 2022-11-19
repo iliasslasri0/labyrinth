@@ -1,22 +1,23 @@
 package graph;
 
-public class MinDistanceImpl implements MinDistance {
+import java.util.HashMap;
 
+public class MinDistanceImpl extends HashMap<Vertex,Integer> implements MinDistance {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Override
-	public void replaceMinDistance(float d, Vertex V) {
-		// TODO Auto-generated method stub
-		
+	public void replaceMinDistance(int d, Vertex V) {
+		this.put(V, d);//We don't have a problem here because if the Vertex V
+					// already exists in the HashMap, tha value d will replace 
+					// the previous value
 	}
 
 	@Override
 	public int actuelMinDistance(Vertex V) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.get(V);
 	}
-
-	@Override
-	public int distance(Vertex V, Vertex V2) {
-		return 1;
-	}
-
 }

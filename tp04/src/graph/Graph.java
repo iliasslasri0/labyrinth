@@ -8,6 +8,7 @@ public interface Graph {
 	
 	public List<Vertex> getSuccessors(Vertex vertex);
 	
+	
 	public ArrayList<Vertex> succVertexNotProcce(Vertex V);
 	
 	

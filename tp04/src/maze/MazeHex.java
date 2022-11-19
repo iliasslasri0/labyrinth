@@ -7,6 +7,7 @@ import graph.Vertex;
 import java.io.*;
 
 public class MazeHex implements Vertex {
+	private Maze maze;
 	List<MazeHex> neighborsOfHex;
 	private int x;
 	private int y;
@@ -16,7 +17,7 @@ public class MazeHex implements Vertex {
 		if (!(label.equals("A")) && !(label.equals("D")) && !(label.equals("E")) && !(label.equals("W"))) {
 			 throw new IOException("Enter a valid type of box, please!");
 		}
-		if (x> Maze.sizeMazeColum || y> Maze.sizeMazeLine) {
+		if (x> maze.sizeMazeColum || y> maze.sizeMazeLine) {
 			throw new IOException("Enter a valid coordnates, please!");
 		}
 		this.x=x;

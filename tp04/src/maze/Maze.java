@@ -1,7 +1,9 @@
 package maze;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import graph.Graph;
+import graph.ProcessedVertexesImpl;
 import graph.Vertex;
 
 import java.io.PrintWriter;
@@ -14,12 +16,13 @@ public class Maze implements Graph {
 	final int sizeMazeLine;
 	final int sizeMazeColum ;
 	private MazeHex[][] maze;
+	ProcessedVertexesImpl processedVertex;
 	public Maze(int colums,int lines) {
 		sizeMazeColum = colums;
 		sizeMazeLine = lines ;
 	}
 	/**
-	 * @return A list of all the boxes possible to pass through
+	 * @return A list of all the boxes possible to pass through & the departure Hex & the arrival Hex
 	 * 
 	 */
 
@@ -36,12 +39,19 @@ public class Maze implements Graph {
 		}
 		return allPossibleMazeHex;
 	}
+	/**
+	 * @return a list of the not processed successors of a vertex
+	 */
 	
 	@Override
 	public ArrayList<Vertex> succVertexNotProcce(Vertex V) {
+		ArrayList<Vertex> succVertexNotProcce = new ArrayList<>();
 		for (Vertex vertex : getSuccessors(V)) {
-			
+			if (!processedVertex.contains(vertex)) {
+				succVertexNotProcce.add(V);
+			}
 		}
+		return succVertexNotProcce;
 	}
 	
 	
@@ -97,7 +107,7 @@ public class Maze implements Graph {
 		return (ArrayList<Vertex>)neighbors; 
 	}
 	/**
-	 * Read the text file that describes thes maze
+	 * Read the text file that describes the maze
 	 * @param fileName
 	 * @throws Exception 
 	 */
@@ -137,8 +147,8 @@ public class Maze implements Graph {
 		}
 	}
 	
-	/*
-	 * This method saves the state of the maze in a text file
+	/**
+	 * This method saves the state of the maze into a text file
 	 */
 	public final void saveToTextFile(String fileName)throws FileNotFoundException{
 		try (PrintWriter pw = new PrintWriter(fileName)) {

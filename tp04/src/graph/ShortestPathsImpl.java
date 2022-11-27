@@ -6,14 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ShortestPathsImpl extends HashMap<Vertex,Vertex> implements ShortestPaths{
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
+	
 	@Override
 	public HashMap<Vertex, Vertex> path(HashMap<Vertex, Vertex> shortestPath, Vertex vertex2,
 			Vertex vertex1) {
@@ -21,9 +16,6 @@ public class ShortestPathsImpl extends HashMap<Vertex,Vertex> implements Shortes
 		return shortestPath;
 	}
 	
-	/**
-	 * 
-	 */
 	@Override
 	public List<Vertex> getShortestPath(HashMap<Vertex, Vertex> path,Vertex departVertex) {
 		List<Vertex> shortestPath = new ArrayList<>();

@@ -13,6 +13,7 @@ public class ProcessedVertexesImpl extends HashSet<Vertex> implements ProcessedV
 		add(V);
 	}
 	
+	
 	/**
 	 * this method examine the exictence of the vertex V in the processed vertexes
 	 * @return boolean 

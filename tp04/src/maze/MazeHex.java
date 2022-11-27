@@ -28,7 +28,7 @@ public class MazeHex implements Vertex {
 	
 	/**
 	 * 
-	 * @return abscisse de la case (l'Hexagone)
+	 * @return l'abscisse de la case (l'Hexagone)
 	 */
 	public int getX() {
 		return this.x;
@@ -44,33 +44,11 @@ public class MazeHex implements Vertex {
 		return this.y;
 	}
 	
+	
 	/**
 	 * @return Type of the box
 	 */
-	
 	public final String getLabel() {
-		return this.label;
-		
-	}
-
-
-	@Override
-	public void minDistance(Vertex V, int d) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public int minDistance(Vertex V) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int distance(Vertex pivot, Vertex succ) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.label;	
 	}
 }

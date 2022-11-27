@@ -15,17 +15,17 @@ import java.io.IOException;
 public class Maze implements Graph {
 	final int sizeMazeLine;
 	final int sizeMazeColum ;
-	private MazeHex[][] maze;
+	private MazeHex[][] maze ;
 	ProcessedVertexesImpl processedVertex;
 	public Maze(int colums,int lines) {
 		sizeMazeColum = colums;
 		sizeMazeLine = lines ;
 	}
+	
 	/**
 	 * @return A list of all the boxes possible to pass through & the departure Hex & the arrival Hex
 	 * 
 	 */
-
 	public List<Vertex> getAllVertexes(){
 		
 		ArrayList<Vertex> allPossibleMazeHex = new ArrayList<Vertex>();
@@ -39,10 +39,11 @@ public class Maze implements Graph {
 		}
 		return allPossibleMazeHex;
 	}
-	/**
-	 * @return a list of the not processed successors of a vertex
-	 */
+
 	
+	/**
+	 * @return the list of the not processed successors of a vertex
+	 */
 	@Override
 	public ArrayList<Vertex> succVertexNotProcce(Vertex V) {
 		ArrayList<Vertex> succVertexNotProcce = new ArrayList<>();
@@ -106,6 +107,8 @@ public class Maze implements Graph {
 		}
 		return (ArrayList<Vertex>)neighbors; 
 	}
+	
+	
 	/**
 	 * Read the text file that describes the maze
 	 * @param fileName
@@ -138,14 +141,12 @@ public class Maze implements Graph {
 						
 						}
 					 }
-			
-				
-
 			}	
 		} catch (IOException e) {
 			System.out.println("Please, Enter a valid directory.");
 		}
 	}
+	
 	
 	/**
 	 * This method saves the state of the maze into a text file
@@ -159,8 +160,7 @@ public class Maze implements Graph {
 				}
 				pw.println();
 			}
-		}catch(Exception ex) {
-			
+		}catch(Exception ex) {	
 		}
 	}
 }

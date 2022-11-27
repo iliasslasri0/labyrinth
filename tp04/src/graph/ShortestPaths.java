@@ -20,5 +20,5 @@ public interface ShortestPaths {
 	 * @param departVertex
 	 * @return
 	 */
-	List<Vertex> getShortestPath(HashMap<Vertex, Vertex> path, Vertex departVertex);
+	public List<Vertex> getShortestPath(HashMap<Vertex, Vertex> path, Vertex departVertex);
 }

@@ -5,9 +5,8 @@ public class Dijkstra {
 	public ShortestPathsImpl dijkstra(Graph graph,
 			Vertex startVertex,
 			Vertex endVertex,
-			ProcessedVertexes processedVertexes,
-			MinDistance minDistance,
-			Distance distance) {
+			ProcessedVertexesImpl processedVertexes,
+			MinDistance minDistance) {
 
 		processedVertexes.unionPivot(startVertex);
 		minDistance.replaceMinDistance(0,startVertex);
@@ -19,8 +18,8 @@ public class Dijkstra {
 		}
 		while ( processedVertexes.isInProcessedVertexes(endVertex)){
 			for (Vertex v: graph.succVertexNotProcce(pivotVertex)) {
-				if (minDistance.actuelMinDistance(pivotVertex) + distance.distance(pivotVertex, v) < minDistance.actuelMinDistance(v)) {
-					minDistance.replaceMinDistance( minDistance.actuelMinDistance(pivotVertex) + distance.distance(pivotVertex, v), v);
+				if (minDistance.actuelMinDistance(pivotVertex) + 1 < minDistance.actuelMinDistance(v)) {
+					minDistance.replaceMinDistance( minDistance.actuelMinDistance(pivotVertex) + 1, v);
 					path.path(path,pivotVertex,v);
 				}
 				int m = minDistance.actuelMinDistance(graph.succVertexNotProcce(pivotVertex).get(0));

@@ -11,12 +11,18 @@ public interface Graph {
 	 */
 	public List<Vertex> getAllVertexes();
 	
+	
+	
 	/**
 	 * @return A list of the neighbors of a box(Hexagon)
 	 */
 	public List<Vertex> getSuccessors(Vertex vertex);
 	
 	
+	
+	/**
+	 * @return the list of the not processed successors of a vertex
+	 */
 	public ArrayList<Vertex> succVertexNotProcce(Vertex V);
 	
 	

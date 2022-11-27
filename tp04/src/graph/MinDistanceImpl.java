@@ -4,9 +4,6 @@ import java.util.HashMap;
 
 public class MinDistanceImpl extends HashMap<Vertex,Integer> implements MinDistance {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Override

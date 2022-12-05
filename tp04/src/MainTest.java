@@ -23,6 +23,5 @@ public class MainTest {
 		for ( Vertex key : path.keySet()) {
 			System.out.println(((MazeHex)key).getLabel());
 		}
-		
 	}
 }

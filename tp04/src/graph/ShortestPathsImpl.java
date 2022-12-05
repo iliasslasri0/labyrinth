@@ -10,10 +10,9 @@ public class ShortestPathsImpl extends HashMap<Vertex,Vertex> implements Shortes
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	public HashMap<Vertex, Vertex> path(HashMap<Vertex, Vertex> shortestPath, Vertex vertex2,
-			Vertex vertex1) {
-		shortestPath.put(vertex2, vertex1);
-		return shortestPath;
+	public HashMap<Vertex, Vertex> path(Vertex vertex2,Vertex vertex1) {
+		this.put(vertex2, vertex1);
+		return this;
 	}
 	
 	@Override

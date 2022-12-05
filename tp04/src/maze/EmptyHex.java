@@ -9,7 +9,7 @@ public class EmptyHex extends MazeHex {
 	 * @throws Exception 
 	 */
 	public EmptyHex(Maze maze,int x,int y) throws Exception {
-		super(x,y,"E");
+		super(maze,x,y,"E");
 	}
 	
 }

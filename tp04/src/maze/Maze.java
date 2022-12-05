@@ -15,13 +15,23 @@ import java.io.IOException;
 public class Maze implements Graph {
 	final int sizeMazeLine;
 	final int sizeMazeColum ;
-	private MazeHex[][] maze ;
+	public MazeHex[][] maze;
 	ProcessedVertexesImpl processedVertex;
+	
 	public Maze(int colums,int lines) {
-		sizeMazeColum = colums;
-		sizeMazeLine = lines ;
+		this.sizeMazeColum = colums;
+		this.sizeMazeLine = lines ;
+		this.processedVertex = new ProcessedVertexesImpl();
+		this.maze =new MazeHex[lines][colums] ;
 	}
 	
+	public int getsizeMazeLine() {
+		return this.sizeMazeLine;
+	}
+	
+	public int getsizeMazeColum() {
+		return this.sizeMazeColum;
+	}
 	/**
 	 * @return A list of all the boxes possible to pass through & the departure Hex & the arrival Hex
 	 * 
@@ -30,7 +40,7 @@ public class Maze implements Graph {
 		
 		ArrayList<Vertex> allPossibleMazeHex = new ArrayList<Vertex>();
 		
-		for (MazeHex[] h : maze ) {
+		for (MazeHex[] h : this.maze ) {
 			for (MazeHex hex : h){
 			if (hex.getLabel() == "E") {
 				allPossibleMazeHex.add((Vertex)hex);
@@ -48,8 +58,8 @@ public class Maze implements Graph {
 	public ArrayList<Vertex> succVertexNotProcce(Vertex V) {
 		ArrayList<Vertex> succVertexNotProcce = new ArrayList<>();
 		for (Vertex vertex : getSuccessors(V)) {
-			if (!processedVertex.contains(vertex)) {
-				succVertexNotProcce.add(V);
+			if (!(processedVertex.contains(vertex))) {
+				succVertexNotProcce.add(vertex);
 			}
 		}
 		return succVertexNotProcce;
@@ -61,7 +71,7 @@ public class Maze implements Graph {
 	 */
 	public List<Vertex> getSuccessors(Vertex vertex){
 		
-		List<Vertex> neighbors = new ArrayList<Vertex>();
+		List<MazeHex> neighbors = new ArrayList<MazeHex>();
 		MazeHex Hex = (MazeHex) vertex ;
 		
 		int x = Hex.getX();
@@ -90,14 +100,15 @@ public class Maze implements Graph {
 			}
 			
 		}
-		if (y== 0) {
+		if ( y==0 && x!=0) {
+			
 			neighbors.add(maze[x-1][1]);
 			neighbors.add(maze[x][1]);
 		}else if (y==9){
 			neighbors.add(maze[x+1][8]);
 			neighbors.add(maze[x][18]);
 		}
-		else {
+		else if (y!=0 && x!=0){
 			neighbors.add(maze[x-1][y-1]);
 			neighbors.add(maze[x-1][y+1]);
 			neighbors.add(maze[x-1][y]);
@@ -105,9 +116,25 @@ public class Maze implements Graph {
 			neighbors.add(maze[x][y+1]);
 			neighbors.add(maze[x+1][y]);
 		}
-		return (ArrayList<Vertex>)neighbors; 
+		List<Vertex> neighborsVertex = new ArrayList<Vertex>();
+		for (MazeHex mhex : neighbors) {
+			if (isntAWall(mhex)) {
+				neighborsVertex.add((Vertex) mhex);
+			}
+		}
+		return neighborsVertex;
 	}
 	
+	private boolean isntAWall(MazeHex v) {
+		String label = v.getLabel();
+		if (label == "W"){
+				return false;
+		}else {
+			
+			return true;
+		}
+		
+	}
 	
 	/**
 	 * Read the text file that describes the maze
@@ -118,24 +145,23 @@ public class Maze implements Graph {
 		
 		try (BufferedReader readMazeParam = new BufferedReader(new FileReader(fileName))) {
 			String line;
-			for (int lineNum=0; lineNum < sizeMazeLine ; lineNum++) {
+			for (int lineNum=0; lineNum < this.sizeMazeLine ; lineNum++) {
 					line = readMazeParam.readLine();
 					if (line == null) {throw new MazeReadingException(fileName, lineNum, "Increasing the number of lines is required");}
 					if ( line.length() > this.sizeMazeColum) { throw new MazeReadingException(fileName,lineNum,"Reducing the number of columns is required");}
 					if ( line.length() < this.sizeMazeColum) { throw new MazeReadingException(fileName,lineNum,"Increasing the number of columns is required");}
 					
-					for (int colonNum = 0; colonNum < sizeMazeColum ;colonNum++) {
-						System.out.println(line.charAt(colonNum));
+					for (int colonNum = 0; colonNum < this.sizeMazeColum ;colonNum++) {
 						switch (line.charAt(colonNum))
 						{
 						case 'A':
-								maze[lineNum][colonNum] =new ArrivalHex(this,colonNum,lineNum);break;
+								this.maze[lineNum][colonNum] =new ArrivalHex(this,colonNum,lineNum);break;
 						case 'D':
-						        maze[lineNum][colonNum] =new DepartureHex(this,colonNum,lineNum);break;
+						        this.maze[lineNum][colonNum] =new DepartureHex(this,colonNum,lineNum);break;
 						case 'E':
-								maze[lineNum][colonNum] =new EmptyHex(this,colonNum,lineNum);break;
+								this.maze[lineNum][colonNum] =new EmptyHex(this,colonNum,lineNum);break;
 						case 'W':
-								maze[lineNum][colonNum] =new WallHex(this,colonNum,lineNum);break;
+								this.maze[lineNum][colonNum] =new WallHex(this,colonNum,lineNum);break;
 				        default :
 				        	throw new MazeReadingException(fileName , lineNum , "Inkown character");
 						

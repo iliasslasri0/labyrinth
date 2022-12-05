@@ -11,9 +11,8 @@ public interface ShortestPaths {
 	 * @param vertex1
 	 * @return
 	 */
-	public HashMap<Vertex, Vertex> path(HashMap<Vertex, Vertex> shortestPath,
-													Vertex vertex2,
-													Vertex vertex1);
+	public HashMap<Vertex, Vertex> path(Vertex vertex2,
+										Vertex vertex1);
 	/**
 	 * 
 	 * @param path

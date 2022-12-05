@@ -8,7 +8,7 @@ public class ArrivalHex extends MazeHex {
 	 * @param y ordinate of a Hexagon 
 	 */
 	public ArrivalHex(Maze maze,int x,int y) throws Exception {
-		super(x,y,"A");
+		super(maze,x,y,"A");
 	}
 	
 }

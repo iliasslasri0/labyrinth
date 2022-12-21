@@ -10,7 +10,7 @@ public class ProcessedVertexesImpl extends HashSet<Vertex> implements ProcessedV
 	 */
 	@Override
 	public void unionPivot(Vertex V) {
-		add(V);
+		this.add(V);
 	}
 	
 	
@@ -20,7 +20,7 @@ public class ProcessedVertexesImpl extends HashSet<Vertex> implements ProcessedV
 	 */
 	@Override
 	public boolean isInProcessedVertexes(Vertex V) {
-		return contains(V);
+		return this.contains(V);
 	}
 
 

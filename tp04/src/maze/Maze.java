@@ -42,9 +42,9 @@ public class Maze implements Graph {
 		
 		for (MazeHex[] h : this.maze ) {
 			for (MazeHex hex : h){
-			if (hex.getLabel() == "E") {
-				allPossibleMazeHex.add((Vertex)hex);
-			}
+				if (hex.getLabel() == "E") {
+					allPossibleMazeHex.add((Vertex)hex);
+				}
 			}
 		}
 		return allPossibleMazeHex;
@@ -96,9 +96,7 @@ public class Maze implements Graph {
 				neighbors.add(maze[x][y-1]);
 				neighbors.add(maze[x][y+1]);
 				neighbors.add(maze[x-1][y]);
-				
 			}
-			
 		}
 		if ( y==0 && x!=0) {
 			
@@ -106,7 +104,7 @@ public class Maze implements Graph {
 			neighbors.add(maze[x][1]);
 		}else if (y==9){
 			neighbors.add(maze[x+1][8]);
-			neighbors.add(maze[x][18]);
+			neighbors.add(maze[x][8]);
 		}
 		else if (y!=0 && x!=0){
 			neighbors.add(maze[x-1][y-1]);
@@ -125,12 +123,16 @@ public class Maze implements Graph {
 		return neighborsVertex;
 	}
 	
+	/**
+	 * 
+	 * @param un MazeHex V
+	 * @return false si le MazeHex est de type Wall, true sinon
+	 */
 	private boolean isntAWall(MazeHex v) {
 		String label = v.getLabel();
 		if (label == "W"){
 				return false;
 		}else {
-			
 			return true;
 		}
 		

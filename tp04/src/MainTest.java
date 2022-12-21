@@ -5,9 +5,7 @@ import maze.Maze;
 import maze.MazeHex;
 
 public class MainTest {
-
 	public static void main(String[] args) throws Exception {
-		
 		Dijkstra dij = new Dijkstra();
 		Maze maze = new Maze(10,10);
 		maze.initFromTextFile("data/labyrinthe.maze");
@@ -20,8 +18,12 @@ public class MainTest {
 		ShortestPathsImpl path = new ShortestPathsImpl();
 		
 		path = dij.dijkstra(maze,d,a,processedVertexs,minDistance);
+		
 		for ( Vertex key : path.keySet()) {
-			System.out.println(((MazeHex)key).getLabel());
+			System.out.println(((MazeHex)key).getLabel() );
 		}
+		
 	}
+	
+	
 }

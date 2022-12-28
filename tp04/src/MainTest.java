@@ -8,10 +8,10 @@ public class MainTest {
 	public static void main(String[] args) throws Exception {
 		Dijkstra dij = new Dijkstra();
 		Maze maze = new Maze(10,10);
-		maze.initFromTextFile("data/labyrinthe.maze");
+		maze.initFromTextFile("C:\\Users\\user\\inf103tp\\tp04\\data\\labyrinthe.maze");
 		
-		MazeHex d= new DepartureHex(maze,0,0);
-		MazeHex a= new ArrivalHex(maze,9,9);
+		MazeHex d= maze.maze[0][0];
+		MazeHex a= maze.maze[9][9];
 		
 		ProcessedVertexesImpl processedVertexs = new ProcessedVertexesImpl();
 		MinDistanceImpl minDistance = new MinDistanceImpl();

@@ -13,10 +13,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Maze implements Graph {
-	final int sizeMazeLine;
-	final int sizeMazeColum ;
+	private final int sizeMazeLine;
+	private final int sizeMazeColum ;
 	public MazeHex[][] maze;
-	ProcessedVertexesImpl processedVertex;
+	private ProcessedVertexesImpl processedVertex;
 	
 	public Maze(int colums,int lines) {
 		this.sizeMazeColum = colums;
@@ -58,7 +58,7 @@ public class Maze implements Graph {
 	public ArrayList<Vertex> succVertexNotProcce(Vertex V) {
 		ArrayList<Vertex> succVertexNotProcce = new ArrayList<>();
 		for (Vertex vertex : getSuccessors(V)) {
-			if (!(processedVertex.contains(vertex))) {
+			if (!(this.processedVertex.contains(vertex))) {
 				succVertexNotProcce.add(vertex);
 			}
 		}
@@ -78,41 +78,41 @@ public class Maze implements Graph {
 		int y = Hex.getY();
 		if (x == 0) {
 			if (y == 0) {
-				neighbors.add(maze[0][1]);
-				neighbors.add(maze[1][0]);
+				neighbors.add(this.maze[0][1]);
+				neighbors.add(this.maze[1][0]);
 			}
 			else {
-				neighbors.add(maze[x][y-1]);
-				neighbors.add(maze[x][y+1]);
-				neighbors.add(maze[x+1][y]);
+				neighbors.add(this.maze[x][y-1]);
+				neighbors.add(this.maze[x][y+1]);
+				neighbors.add(this.maze[x+1][y]);
 				
 			}
 			
 		}else if(x==9){
 			if (y==9) {
-				neighbors.add(maze[9][8]);
-				neighbors.add(maze[8][9]);
+				neighbors.add(this.maze[9][8]);
+				neighbors.add(this.maze[8][9]);
 			}else {
-				neighbors.add(maze[x][y-1]);
-				neighbors.add(maze[x][y+1]);
-				neighbors.add(maze[x-1][y]);
+				neighbors.add(this.maze[x][y-1]);
+				neighbors.add(this.maze[x][y+1]);
+				neighbors.add(this.maze[x-1][y]);
 			}
 		}
 		if ( y==0 && x!=0) {
 			
-			neighbors.add(maze[x-1][1]);
-			neighbors.add(maze[x][1]);
+			neighbors.add(this.maze[x-1][1]);
+			neighbors.add(this.maze[x][1]);
 		}else if (y==9){
-			neighbors.add(maze[x+1][8]);
-			neighbors.add(maze[x][8]);
+			neighbors.add(this.maze[x+1][8]);
+			neighbors.add(this.maze[x][8]);
 		}
 		else if (y!=0 && x!=0){
-			neighbors.add(maze[x-1][y-1]);
-			neighbors.add(maze[x-1][y+1]);
-			neighbors.add(maze[x-1][y]);
-			neighbors.add(maze[x][y-1]);
-			neighbors.add(maze[x][y+1]);
-			neighbors.add(maze[x+1][y]);
+			neighbors.add(this.maze[x-1][y-1]);
+			neighbors.add(this.maze[x-1][y+1]);
+			neighbors.add(this.maze[x-1][y]);
+			neighbors.add(this.maze[x][y-1]);
+			neighbors.add(this.maze[x][y+1]);
+			neighbors.add(this.maze[x+1][y]);
 		}
 		List<Vertex> neighborsVertex = new ArrayList<Vertex>();
 		for (MazeHex mhex : neighbors) {
@@ -129,8 +129,7 @@ public class Maze implements Graph {
 	 * @return false si le MazeHex est de type Wall, true sinon
 	 */
 	private boolean isntAWall(MazeHex v) {
-		String label = v.getLabel();
-		if (label == "W"){
+		if (v.getLabel() == "W"){
 				return false;
 		}else {
 			return true;
@@ -169,7 +168,8 @@ public class Maze implements Graph {
 						
 						}
 					 }
-			}	
+			}
+			readMazeParam.close();	
 		} catch (IOException e) {
 			System.out.println("Please, Enter a valid directory.");
 		}

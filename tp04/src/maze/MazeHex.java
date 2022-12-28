@@ -1,18 +1,15 @@
 package maze;
 
-import java.util.*;
-
 import graph.Vertex;
 
 import java.io.*;
 
 public class MazeHex implements Vertex {
-	List<MazeHex> neighborsOfHex;
 	private int x;
 	private int y;
 	private String label;
 	
-	public MazeHex(Maze maze, int x, int y,String label) throws Exception {
+	public MazeHex(Maze maze, int x, int y, String label) throws Exception {
 		if (!(label.equals("A")) && !(label.equals("D")) && !(label.equals("E")) && !(label.equals("W"))) {
 			 throw new IOException("Enter a valid type of box, please!");
 		}
@@ -21,7 +18,7 @@ public class MazeHex implements Vertex {
 		}
 		this.x=x;
 		this.y=y;
-		this.label=label;
+		this.label = label;
 	}
 	
 	

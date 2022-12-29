@@ -21,4 +21,8 @@ private final DrawingPanel drawingPanel ;
       add(drawingPanel = new DrawingPanel (drawingApp), BorderLayout.CENTER) ;
       add(buttonsPanel = new ButtonsPanel (drawingApp), BorderLayout.SOUTH) ;
    }
+   public void notifyForUpdate() {
+	   drawingPanel.notifyForUpdate() ;
+	   buttonsPanel.notifyForUpdate() ;
+	}
 }

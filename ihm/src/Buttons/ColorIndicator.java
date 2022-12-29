@@ -15,4 +15,7 @@ public class ColorIndicator extends JPanel {
       
       drawingApp.setPreferredSize(new Dimension(1000,1000)) ;
    }
+   public void notifyForUpdate() {
+	   repaint() ;		
+	}
 }

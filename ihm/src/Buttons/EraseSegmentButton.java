@@ -17,4 +17,9 @@ private final DrawingApp drawingApp ;
 		
       this.drawingApp = drawingApp ;		
    }
+   public void notifyForUpdate() {
+	   DrawingApp selected = drawingApp.getDrawingAppModel().getHexagon(horizontalAlignment, horizontalAlignment) ;
+
+	   setEnabled(selected != null) ;		
+	}
 }

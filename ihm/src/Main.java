@@ -11,7 +11,8 @@ public class Main extends JFrame {
     }
 
     public Main() {
-        super("titre de la fenetre");
+        super("Labyrinthe");
+        
         MainPanel panel = new MainPanel();
 
         setContentPane(panel);

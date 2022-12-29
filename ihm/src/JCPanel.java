@@ -5,15 +5,13 @@ import java.awt.event.MouseListener;
 
 public class JCPanel extends JPanel implements MouseListener {
 	int x;
-	int y;
+	int y=0;
     private static final long serialVersionUID = 1L;
-	public JCPanel(int x,int y) {
+	public JCPanel() {
         super();
-        this.x = x;
-        this.y = y;
+       
         
-        setPreferredSize(new Dimension(500,500));
-        setBackground(Color.white);
+        setPreferredSize(new Dimension(2,2));
         addMouseListener(this);
     }
 
@@ -22,12 +20,12 @@ public class JCPanel extends JPanel implements MouseListener {
 	     
   	   g.clearRect(0,0,2000,2000);
          g.setColor(c);
-         for (int i=0;i<5;i++) {
+         int i =0;
+
         	 int[] HexagonXs = {150+100*i,200+100*i,200+100*i,150+100*i,100+100*i,100+100*i};
              int[] HexagonYs = {50+this.y*250,100+this.y*250,200+this.y*250,250+this.y*250,200+this.y*250,100+this.y*250};
              g.fillPolygon(HexagonXs, HexagonYs,6);
-         }
-         
+        
          
     
   }

@@ -1,5 +1,4 @@
 package graph;
-import maze.MazeHex;
 
 public class Dijkstra {
 

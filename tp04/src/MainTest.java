@@ -1,6 +1,5 @@
 import graph.*;
-import maze.ArrivalHex;
-import maze.DepartureHex;
+import maze.*;
 import maze.Maze;
 import maze.MazeHex;
 

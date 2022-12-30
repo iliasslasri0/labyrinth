@@ -27,7 +27,7 @@ public class DrawingPanel extends JPanel {
 	      // Paint the background
 	      super.paintComponent(graphics) ;
 			
-	      // Ask the model to draw the hexagons
+	  
 	      drawingApp.getDrawingAppModel().paintComponent(graphics) ;
 	   }
 	   

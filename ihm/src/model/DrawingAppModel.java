@@ -1,9 +1,15 @@
 package model;
 
 import java.awt.* ;
+
+
+
 import java.util.ArrayList;
 
 import javax.swing.event.*;
+
+import Hex.Hex;
+
 import javax.swing.JPanel;
 
 public class DrawingAppModel extends JPanel {
@@ -15,11 +21,12 @@ public class DrawingAppModel extends JPanel {
 	private Color currentColor= Color.WHITE;
 	private static final long serialVersionUID = 1L;
 	private final Polygon hexagon = new Polygon();
-    private final BasicStroke bs = new BasicStroke(1);
-    private final Dimension dimension = getHexagon(0, 0).getBounds().getSize();;
-    private final int rows=10, columns=10, side=40;
-    private boolean modified = false ;
-	
+	private Hex currentHex = null ;
+	private Hex selectedHex = null ;
+    private Hex[][] hexes ;
+    private int height =5;
+    private int width =5;
+	private boolean modified = false;
    // getters et setters
    
     private final ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>() ;
@@ -31,6 +38,9 @@ public class DrawingAppModel extends JPanel {
     	      stateChanged() ;
     	   }
     	}
+    public Color getCurrentColor() {
+    	return this.currentColor;
+    }
     
     public void stateChanged() {
 		   ChangeEvent evt = new ChangeEvent(this) ;
@@ -40,49 +50,45 @@ public class DrawingAppModel extends JPanel {
 		   }
 		}
    
+    public void setHex(int x, int y, String Label) {
+		this.hexes[x][y] = new Hex(x,y,Label);
+		modified = true ;
+		stateChanged();
+	}
+    public Hex[][] getHexes() {return hexes;}
+	public void setBoxes(Hex[][] hexes) {
+		this.hexes = hexes;
+		modified = true ; 
+		stateChanged();
+	}
+   
     
 	public void addObserver(ChangeListener listener) {
 		listeners.add(listener) ;
 	}
 	
     
-   @Override
-   public void paintComponent(Graphics g) {
-       super.paintComponent(g);
-       Graphics2D g2d = (Graphics2D) g;
-       g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-               RenderingHints.VALUE_ANTIALIAS_ON);
-       g2d.setColor(Color.black);
-       g2d.setStroke(bs);
-       for (int row = 0; row < rows; row += 2) {
-           for (int column = 0; column < columns; column++) {
-               getHexagon(column * dimension.width,
-                       (int) (row * side * 1.5));
-               
-               g2d.draw(hexagon);
-           }
-       }
-       for (int row = 1; row < rows; row += 2) {
-           for (int column = 0; column < columns; column++) {
-               getHexagon(column * dimension.width + dimension.width / 2,
-                       (int) (row * side * 1.5 + 0.5));
-               
-               g2d.draw(hexagon);
-               
-           }
-       }
-   }
-   public Polygon getHexagon(final int x, final int y) {
-       hexagon.reset();
-       int h = side / 2;
-       int w = (int) (side * (Math.sqrt(3) / 2));
-       hexagon.addPoint(x, y + h);
-       hexagon.addPoint(x + w, y);
-       hexagon.addPoint(x + 2 * w, y + h);
-       hexagon.addPoint(x + 2 * w, y + (int) (1.5 * side));
-       hexagon.addPoint(x + w, y + 2 * side);
-       hexagon.addPoint(x, y + (int) (1.5 * side));
-       return hexagon;
-   }
+	public DrawingAppModel() {
+		hexes =new Hex[height][width];
+		for(int i = 0 ; i<height ; i++) {
+			for(int j = 0 ; j< width ; j++) {
+				hexes[i][j] = new Hex(i, j , "W");
+			}
+		}
+	}
+	
+   public void setCurrentHex(Hex currentHex) {
+		if(this.currentHex != currentHex) {
+			this.currentHex = currentHex;
+			modified = true;
+			stateChanged();
+			}	
+	}
+
+	public Hex getSelectedHex() {
+		// TODO Auto-generated method stub
+		return selectedHex;
+	}
+	
    
 }

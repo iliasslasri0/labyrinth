@@ -1,11 +1,14 @@
 package iu;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 
 import javax.swing.* ;
 
-public class QuitMenuItem extends JMenuItem {
+import model.DrawingAppModel;
+
+public class QuitMenuItem extends JMenuItem implements ActionListener{
 
    /**
 	 * 
@@ -17,10 +20,31 @@ public class QuitMenuItem extends JMenuItem {
 		super("Quit") ; // Text of menu item
 
 		this.drawingApp = drawingApp ;
-		this.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                System.exit(0);
-            }
-        });
+		addActionListener(this) ;
    }
+
+	@Override
+	public void actionPerformed(ActionEvent evt) {
+	      DrawingAppModel drawingAppModel = drawingApp.getDrawingAppModel() ;
+		   
+	      if (drawingAppModel.isModified()) {
+	         int response = JOptionPane.showInternalOptionDialog(this,
+	                                                             "Drawing not saved. Save it ?",
+	                                                             "Quit application",
+	                                                             JOptionPane.YES_NO_CANCEL_OPTION,
+	                                                             JOptionPane.WARNING_MESSAGE,
+	                                                             null,null,null) ;
+			   switch (response) {
+			   case JOptionPane.CANCEL_OPTION:
+				   return ;
+			   case JOptionPane.OK_OPTION:
+				   drawingAppModel.saveToFile() ;
+				   break ;
+			   case JOptionPane.NO_OPTION:
+				   break ;
+			   }
+		   }
+		   System.exit(0) ;
+	   }
+	
 }

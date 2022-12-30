@@ -14,9 +14,9 @@ public class DrawingApp extends JFrame implements ChangeListener{
 	private static final long serialVersionUID = 1L;
 	private final DrawingMenuBar drawingMenuBar ;
 	private final WindowPanel windowPanel ;
-	private DrawingAppModel drawingAppModel = new DrawingAppModel() ;
+	private DrawingAppModel drawingAppModel = new DrawingAppModel();
 	
-   public DrawingApp() {
+	public DrawingApp() {
       super("Drawing Application") ;
 		
       setJMenuBar(drawingMenuBar = new DrawingMenuBar(this)) ;
@@ -26,7 +26,6 @@ public class DrawingApp extends JFrame implements ChangeListener{
       // Window content creation
       		
       drawingAppModel.addObserver(this);
-      		
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
       pack() ;
       setVisible(true) ;

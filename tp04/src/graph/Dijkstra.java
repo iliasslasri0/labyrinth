@@ -1,41 +1,53 @@
 package graph;
 
+import maze.MazeHex;
+
 public class Dijkstra {
 
 	public ShortestPathsImpl dijkstra(Graph graph,
 			Vertex startVertex,
-			Vertex endVertex,
-			ProcessedVertexesImpl processedVertexes,
-			MinDistance minDistance) {
-
+			Vertex endVertex) {
+		
+		MinDistanceImpl minDistance = new MinDistanceImpl();
+		ProcessedVertexesImpl processedVertexes = new ProcessedVertexesImpl();
+		
 		processedVertexes.unionPivot(startVertex);
 		Vertex pivotVertex =  startVertex;
+		
 		ShortestPathsImpl path = new ShortestPathsImpl();
 		
-		for (Vertex v : graph.getAllVertexes()) {
-			minDistance.replaceMinDistance(Integer.MAX_VALUE,v);
+		for ( Vertex v : graph.getAllVertexes() ) {
+			minDistance.replaceMinDistance(2147483640,v);
+			
 		}
+		
 		minDistance.replaceMinDistance(0,startVertex);
-	
-		while ( !( processedVertexes.isInProcessedVertexes(endVertex)) ){
-			for (Vertex v: graph.succVertexNotProcce(pivotVertex)) {
+		for ( Vertex v1 : graph.getAllVertexes() ){
+			for (Vertex v: graph.getSuccessors(pivotVertex)) {
 				
-				if (minDistance.actuelMinDistance(pivotVertex) + 1 < minDistance.actuelMinDistance(v)) {
+				
+				if (!processedVertexes.contains(v) && ((minDistance.actuelMinDistance(pivotVertex) + 1) < minDistance.actuelMinDistance(v))) {
 					minDistance.replaceMinDistance( minDistance.actuelMinDistance(pivotVertex) + 1 , v);
 					path.path(pivotVertex,v);
+					System.out.println(((MazeHex)v).getX() );
+					System.out.println(((MazeHex)v).getY() );
+					System.out.println("O ici ohhhh");
 					
 				}
 			}
 			
 			
-			int m = Integer.MAX_VALUE ;
-			
-			for (Vertex nextVertex: graph.succVertexNotProcce(pivotVertex)) {
-				if ( minDistance.actuelMinDistance(nextVertex) < m) {
-					pivotVertex = nextVertex;
-					m = minDistance.actuelMinDistance(nextVertex);
+			int m = 2147483647 ;
+			Vertex pV = null;
+			for (Vertex v2 : graph.getAllVertexes() ) {
+				if ( minDistance.actuelMinDistance(v2) < m && !processedVertexes.isInProcessedVertexes(v2) ) {
+					pV = v2;
+					m = minDistance.actuelMinDistance(v2);
+					System.out.println(((MazeHex)pV).getLabel() );
+					
 				}
 			}
+			pivotVertex = pV;
 			processedVertexes.unionPivot(pivotVertex);
 		}
 		return path;

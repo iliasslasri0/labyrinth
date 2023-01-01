@@ -18,12 +18,4 @@ public interface Graph {
 	 */
 	public List<Vertex> getSuccessors(Vertex vertex);
 	
-	
-	
-	/**
-	 * @return the list of the not processed successors of a vertex
-	 */
-	public ArrayList<Vertex> succVertexNotProcce(Vertex V);
-	
-	
 }

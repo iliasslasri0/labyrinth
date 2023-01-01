@@ -16,12 +16,10 @@ public class Maze implements Graph {
 	private final int sizeMazeLine;
 	private final int sizeMazeColum ;
 	public MazeHex[][] maze;
-	private ProcessedVertexesImpl processedVertex;
 	
 	public Maze(int colums,int lines) {
 		this.sizeMazeColum = colums;
 		this.sizeMazeLine = lines ;
-		this.processedVertex = new ProcessedVertexesImpl();
 		this.maze =new MazeHex[lines][colums] ;
 	}
 	
@@ -49,21 +47,6 @@ public class Maze implements Graph {
 		}
 		return allPossibleMazeHex;
 	}
-
-	
-	/**
-	 * @return the list of the not processed successors of a vertex
-	 */
-	@Override
-	public ArrayList<Vertex> succVertexNotProcce(Vertex V) {
-		ArrayList<Vertex> succVertexNotProcce = new ArrayList<>();
-		for (Vertex vertex : getSuccessors(V)) {
-			if (!(this.processedVertex.contains(vertex))) {
-				succVertexNotProcce.add(vertex);
-			}
-		}
-		return succVertexNotProcce;
-	}
 	
 	
 	/**
@@ -81,7 +64,7 @@ public class Maze implements Graph {
 				neighbors.add(this.maze[0][1]);
 				neighbors.add(this.maze[1][0]);
 			}
-			else {
+			else if (y!=9){
 				neighbors.add(this.maze[x][y-1]);
 				neighbors.add(this.maze[x][y+1]);
 				neighbors.add(this.maze[x+1][y]);
@@ -92,7 +75,7 @@ public class Maze implements Graph {
 			if (y==9) {
 				neighbors.add(this.maze[9][8]);
 				neighbors.add(this.maze[8][9]);
-			}else {
+			}else if (y!=0) {
 				neighbors.add(this.maze[x][y-1]);
 				neighbors.add(this.maze[x][y+1]);
 				neighbors.add(this.maze[x-1][y]);
@@ -106,7 +89,7 @@ public class Maze implements Graph {
 			neighbors.add(this.maze[x+1][8]);
 			neighbors.add(this.maze[x][8]);
 		}
-		else if (y!=0 && x!=0){
+		else if (y!=0 && x!=0 && x !=9 && y!=9){
 			neighbors.add(this.maze[x-1][y-1]);
 			neighbors.add(this.maze[x-1][y+1]);
 			neighbors.add(this.maze[x-1][y]);

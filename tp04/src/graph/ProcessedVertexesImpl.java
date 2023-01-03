@@ -22,6 +22,4 @@ public class ProcessedVertexesImpl extends HashSet<Vertex> implements ProcessedV
 	public boolean isInProcessedVertexes(Vertex V) {
 		return this.contains(V);
 	}
-
-
 }

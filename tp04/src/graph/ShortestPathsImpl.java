@@ -3,25 +3,27 @@ package graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
-public class ShortestPathsImpl extends HashMap<Vertex,Vertex> implements ShortestPaths{
+
+public class ShortestPathsImpl extends Hashtable<Vertex,Vertex> implements ShortestPaths{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	public HashMap<Vertex, Vertex> path(Vertex vertex2,Vertex vertex1) {
-		this.put(vertex2, vertex1);
-		return this;
+	public void path(Vertex vertex1,Vertex vertex2) {
+		this.put(vertex1, vertex2);
 	}
-	
+
 	@Override
-	public List<Vertex> getShortestPath(HashMap<Vertex, Vertex> path,Vertex departVertex) {
-		List<Vertex> shortestPath = new ArrayList<>();
-		shortestPath.add(departVertex);
-		for ( Entry<Vertex, Vertex> connection : path.entrySet()) {
-			shortestPath.add(connection.getValue());
+	public ArrayList<Vertex> getShortestPath(Vertex depart) {
+		ArrayList<Vertex> path = new ArrayList<Vertex>();
+		while (depart != null) {
+			path.add(depart);
+			depart = this.get(depart);
 		}
-		return shortestPath;
+		return path;
+		
 	}
 }

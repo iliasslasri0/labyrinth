@@ -5,6 +5,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Buttons.ButtonsPanel;
+import Menu.DrawingMenuBar;
 
 public class DrawingApp extends JFrame implements ChangeListener{
 	
@@ -17,7 +18,7 @@ public class DrawingApp extends JFrame implements ChangeListener{
 	private DrawingAppModel drawingAppModel = new DrawingAppModel();
 	
 	public DrawingApp() {
-      super("Drawing Application") ;
+      super("Labyrinthe") ;
 		
       setJMenuBar(drawingMenuBar = new DrawingMenuBar(this)) ;
       
@@ -41,7 +42,7 @@ public void setDrawingAppModel(DrawingAppModel drawingAppModel) {
 
 @Override
 public void stateChanged(ChangeEvent e) {
-	// TODO Auto-generated method stu
+	// TODO Auto-generated method stub
 	windowPanel.notifyForUpdate() ;	
 		
 	}

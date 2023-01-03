@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import iu.DrawingApp;
 
-public class WallButton extends JButton implements ActionListener{
+public class SolveButton extends JButton implements ActionListener{
 
 	   /**
 	 * 
@@ -14,8 +14,8 @@ public class WallButton extends JButton implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private final DrawingApp drawingApp ;
 		
-	   public WallButton(DrawingApp drawingApp)	{
-	      super("Wall") ; // Button's text
+	   public SolveButton(DrawingApp drawingApp)	{
+	      super("Solve the maze") ; // Button's text
 			
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;

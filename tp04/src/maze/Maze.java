@@ -40,7 +40,7 @@ public class Maze implements Graph {
 		
 		for (MazeHex[] h : this.maze ) {
 			for (MazeHex hex : h){
-				if (hex.getLabel() == "E") {
+				if (!(hex.getLabel() == "W")) {
 					allPossibleMazeHex.add((Vertex)hex);
 				}
 			}
@@ -64,21 +64,32 @@ public class Maze implements Graph {
 				neighbors.add(this.maze[0][1]);
 				neighbors.add(this.maze[1][0]);
 			}
-			else if (y!=9){
+			else if (y!=sizeMazeColum){
 				neighbors.add(this.maze[x][y-1]);
 				neighbors.add(this.maze[x][y+1]);
 				neighbors.add(this.maze[x+1][y]);
 				
+			} else { if (sizeMazeColum % 2 == 0) {
+				neighbors.add(this.maze[sizeMazeColum][y+1]);
+				neighbors.add(this.maze[sizeMazeColum-1][y]);
+				}else {
+					neighbors.add(this.maze[sizeMazeColum][y+1]);
+					neighbors.add(this.maze[sizeMazeColum-1][y]);
+					neighbors.add(this.maze[sizeMazeColum-1][y+1]);
+				}
+				
 			}
 			
-		}else if(x==9){
-			if (y==9) {
-				neighbors.add(this.maze[9][8]);
-				neighbors.add(this.maze[8][9]);
+		}else if(x==sizeMazeLine){
+			if (y==sizeMazeColum) {
+				neighbors.add(this.maze[sizeMazeColum][sizeMazeLine-1]);
+				neighbors.add(this.maze[sizeMazeColum-1][sizeMazeLine]);
 			}else if (y!=0) {
 				neighbors.add(this.maze[x][y-1]);
 				neighbors.add(this.maze[x][y+1]);
 				neighbors.add(this.maze[x-1][y]);
+			}else if(y==0) {
+				
 			}
 		}
 		if ( y==0 && x!=0) {
@@ -139,13 +150,13 @@ public class Maze implements Graph {
 						switch (line.charAt(colonNum))
 						{
 						case 'A':
-								this.maze[lineNum][colonNum] =new ArrivalHex(this,colonNum,lineNum);break;
+								this.maze[lineNum][colonNum] =new ArrivalHex(this,lineNum,colonNum);break;
 						case 'D':
-						        this.maze[lineNum][colonNum] =new DepartureHex(this,colonNum,lineNum);break;
+						        this.maze[lineNum][colonNum] =new DepartureHex(this,lineNum,colonNum);break;
 						case 'E':
-								this.maze[lineNum][colonNum] =new EmptyHex(this,colonNum,lineNum);break;
+								this.maze[lineNum][colonNum] =new EmptyHex(this,lineNum,colonNum);break;
 						case 'W':
-								this.maze[lineNum][colonNum] =new WallHex(this,colonNum,lineNum);break;
+								this.maze[lineNum][colonNum] =new WallHex(this,lineNum,colonNum);break;
 				        default :
 				        	throw new MazeReadingException(fileName , lineNum , "Inkown character");
 						

@@ -21,7 +21,6 @@ public class HexJPanelMouseListener extends MouseAdapter implements MouseListene
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		DrawingAppModel drawingAppModel = drawingApp.getDrawingAppModel();
 		//String options[]={ "Wall Hex", "Arrival Hex", "Departure Hex", "Empty Hex"};
 		//String option = JOptionsPane.showOptionDialog(null," What's the type of that Hex ","Select the type you want",0,4,null,options,options[0]); 
 		bl2 =true;

@@ -87,14 +87,14 @@ public class HexJPanel extends JPanel{
        }
        if (bl == true && HexJPanelMouseListener.bl2 ) {
     	   String options[]={ "Wall Hex", "Arrival Hex", "Departure Hex", "Empty Hex"};
-   		String option = JOptionsPane.showOptionDialog(null," What's the type of that Hex ","Select the type you want",0,4,null,options,options[0]);
+   		/*String option = JOptionsPane.showOptionDialog(null," What's the type of that Hex ","Select the type you want",0,4,null,options,options[0]);
    		if (option == "Wall Hex") {hex.setLabel("W");}else if (option == "Arrival Hex") {
    			hex.setLabel("A");
    		}else if (option == "Departure Hex") {
    			hex.setLabel("D");
    		}else{
    			hex.setLabel("E");
-   		}
+   		}*/
        }
    }
    public Polygon getHexagon(int x,int y) {

@@ -89,6 +89,9 @@ public class DrawingAppModel extends JPanel {
 		// TODO Auto-generated method stub
 		return selectedHex;
 	}
+	public boolean isModified() {
+		// TODO Auto-generated method stub
+		return modified;
+	}
 	
-   
 }

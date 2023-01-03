@@ -1,4 +1,4 @@
-package iu;
+package Menu;
 
 import java.awt.event.ActionEvent;
 
@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.* ;
 
+import iu.DrawingApp;
 import model.DrawingAppModel;
 
 public class QuitMenuItem extends JMenuItem implements ActionListener{
@@ -38,7 +39,7 @@ public class QuitMenuItem extends JMenuItem implements ActionListener{
 			   case JOptionPane.CANCEL_OPTION:
 				   return ;
 			   case JOptionPane.OK_OPTION:
-				   drawingAppModel.saveToFile() ;
+				   //drawingAppModel.saveToFile() ;
 				   break ;
 			   case JOptionPane.NO_OPTION:
 				   break ;

@@ -1,4 +1,4 @@
-package iu;
+/*package iu;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,9 +8,7 @@ import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel {
 
-	   /**
-	 * 
-	 */
+	 
 	private static final long serialVersionUID = 1L;
 	private final DrawingApp drawingApp ;
 		
@@ -28,11 +26,11 @@ public class DrawingPanel extends JPanel {
 	      super.paintComponent(graphics) ;
 			
 	  
-	      drawingApp.getDrawingAppModel().paintComponent(graphics) ;
+	      drawingApp.getDrawingAppModel().paint(graphics) ;
 	   }
 	   
 	   public void notifyForUpdate() {
 		   repaint() ;		
 		}
 	   
-	}
+	}*/

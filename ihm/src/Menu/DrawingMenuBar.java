@@ -1,6 +1,8 @@
-package iu;
+package Menu;
 
 import javax.swing.* ;
+
+import iu.DrawingApp;
 
 public class DrawingMenuBar extends JMenuBar {
 

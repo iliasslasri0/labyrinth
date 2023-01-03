@@ -10,12 +10,12 @@ import javax.swing.JColorChooser;
 import iu.DrawingApp;
 import model.DrawingAppModel;
 
-public class ColorChooserButton extends JButton implements ActionListener{
+public class ResetMaze extends JButton implements ActionListener{
 
 	   private final DrawingApp drawingApp ;
 		
-	   public ColorChooserButton(DrawingApp drawingApp)	{
-	      super("Choose color") ; // Button's text
+	   public ResetMaze(DrawingApp drawingApp)	{
+	      super("Reset the maze") ; // Button's text
 			
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;

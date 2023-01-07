@@ -7,7 +7,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 
-public class ShortestPathsImpl extends Hashtable<Vertex,Vertex> implements ShortestPaths{
+public class ShortestPathsImpl extends HashMap<Vertex,Vertex> implements ShortestPaths{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -17,11 +17,12 @@ public class ShortestPathsImpl extends Hashtable<Vertex,Vertex> implements Short
 	}
 
 	@Override
-	public ArrayList<Vertex> getShortestPath(Vertex depart) {
+	public ArrayList<Vertex> getShortestPath(Vertex endVertex) {
 		ArrayList<Vertex> path = new ArrayList<Vertex>();
-		while (depart != null) {
-			path.add(depart);
-			depart = this.get(depart);
+		Vertex v=endVertex;
+		while (v != null) {
+			path.add(v);
+			v = this.get(v);
 		}
 		return path;
 		

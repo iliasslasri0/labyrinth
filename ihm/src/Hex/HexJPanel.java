@@ -22,82 +22,91 @@ public class HexJPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private DrawingApp drawingApp ;
+
 	
-	private Hex hex;
 	private final BasicStroke bs1 = new BasicStroke(1);
 	private final BasicStroke bs3 = new BasicStroke(3);
-	private DrawingApp drawingApp ;
 	private final Polygon hexagon = new Polygon();
-	private final Dimension dimension = getHexagon(0, 0).getBounds().getSize();
+	private final Dimension dimension = getHexagon().getBounds().getSize();
 	HexJPanelMouseListener	HexJPanelMouseListener = new HexJPanelMouseListener(drawingApp);
-	private boolean bl =false;
 	private Point mousePosition;
 	private final Point focusedHexagonLocation = new Point();
+	private boolean bl;
+	private int x;
+	private int y;
 	
-	public HexJPanel(DrawingApp drawingApp,Hex hex){
+	public HexJPanel(DrawingApp drawingApp,int x,int y){
+		super();
+		this.drawingApp = drawingApp;
+		this.x = x;
+	    this.y = y;
+		
 		HexJPanelMouseListener = new HexJPanelMouseListener(drawingApp);
-		this.hex = hex;
+		
 		addMouseListener(HexJPanelMouseListener);
 	}
 	
-	public Hex getHex() {
-		return hex;
-		}
 	
-	 @Override
-	public void paintComponent(Graphics g) {
+	 public void paintComponent(Graphics g) {
 	   super.paintComponent(g);
        Graphics2D g2d = (Graphics2D) g;
        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                RenderingHints.VALUE_ANTIALIAS_ON);
        g2d.setColor(Color.black);
        g2d.setStroke(bs1);
-       if (hex.getY() %2 ==0) {
-               getHexagon(hex.getY() * dimension.width,
-                       (int) (hex.getX() * 40 * 1.5));
+       if (y %2 ==0) {
+               getHexagon();
                if (mousePosition !=null && hexagon.contains(mousePosition)){
-                   focusedHexagonLocation.x = hex.getY() * dimension.width;
-                   focusedHexagonLocation.y = (int) (hex.getX() * 40 * 1.5);
-                   bl =true;
+                   focusedHexagonLocation.x = y * dimension.width;
+                   focusedHexagonLocation.y = (int) (x * 40 * 1.5);
+              
                    
                }
                g2d.draw(hexagon);
-           
+             //  setBackground(Color.WHITE) ;
+      			
+      	
+          
        }else {
        
-               getHexagon(hex.getY() * dimension.width + dimension.width / 2,
-                       (int) (hex.getX() * 40 * 1.5 + 0.5));
+               getHexagon();
                if (mousePosition!= null && hexagon.contains(mousePosition)){
-                   focusedHexagonLocation.x = hex.getY() * dimension.width
+                   focusedHexagonLocation.x = y * dimension.width
                            + dimension.width / 2;
-                   focusedHexagonLocation.y =(int) (hex.getX() * 40 * 1.5 + 0.5);
+                   focusedHexagonLocation.y =(int) (x * 40 * 1.5 + 0.5);
                    bl =true;
                }
                g2d.draw(hexagon);
+              // setBackground(Color.WHITE) ;
+      			
+      	      
                
          
        }
        if (bl == true) {
            g2d.setColor(Color.red);
            g2d.setStroke(bs3);
-           Polygon focusedHexagon = getHexagon(focusedHexagonLocation.x,
-                   focusedHexagonLocation.y);
+           Polygon focusedHexagon = getHexagon();
            g2d.draw(focusedHexagon);
+           //setBackground(Color.WHITE) ;
+  			
+  	 
            
        }
-       if (bl == true && HexJPanelMouseListener.bl2 ) {
+     /*  if (bl == true && HexJPanelMouseListener.bl2 ) {
     	   String options[]={ "Wall Hex", "Arrival Hex", "Departure Hex", "Empty Hex"};
-   		/*String option = JOptionsPane.showOptionDialog(null," What's the type of that Hex ","Select the type you want",0,4,null,options,options[0]);
+   		String option = JOptionsPane.showOptionDialog(null," What's the type of that Hex ","Select the type you want",0,4,null,options,options[0]);
    		if (option == "Wall Hex") {hex.setLabel("W");}else if (option == "Arrival Hex") {
    			hex.setLabel("A");
    		}else if (option == "Departure Hex") {
    			hex.setLabel("D");
    		}else{
    			hex.setLabel("E");
-   		}*/
-       }
+   		}
+       }*/
    }
-   public Polygon getHexagon(int x,int y) {
+   public Polygon getHexagon() {
        hexagon.reset();
        int h = 40 / 2;
        int w = (int) (40 * (Math.sqrt(3) / 2));

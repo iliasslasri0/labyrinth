@@ -20,7 +20,7 @@ public class Maze implements Graph {
 	public Maze(int colums,int lines) {
 		this.sizeMazeColum = colums;
 		this.sizeMazeLine = lines ;
-		this.maze =new MazeHex[lines][colums] ;
+		this.maze =new MazeHex[colums][lines] ;
 	}
 	
 	public int getsizeMazeLine() {
@@ -40,7 +40,9 @@ public class Maze implements Graph {
 		
 		for (MazeHex[] h : this.maze ) {
 			for (MazeHex hex : h){
-				if (!(hex.getLabel() == "W")) {
+				System.out.println(hex.getY());
+				if (!(hex.getLabel() == "W" )) {
+					
 					allPossibleMazeHex.add((Vertex)hex);
 				}
 			}
@@ -50,86 +52,74 @@ public class Maze implements Graph {
 	
 	
 	/**
-	 * @return A list of the neighbors of a box(Hexagon)
+	 * @return A list of the neighbors of a hex(Hexagon)
 	 */
-	public List<Vertex> getSuccessors(Vertex vertex){
-		
-		List<MazeHex> neighbors = new ArrayList<MazeHex>();
-		MazeHex Hex = (MazeHex) vertex ;
-		
-		int x = Hex.getX();
-		int y = Hex.getY();
-		if (x == 0) {
-			if (y == 0) {
-				neighbors.add(this.maze[0][1]);
-				neighbors.add(this.maze[1][0]);
-			}
-			else if (y!=sizeMazeColum){
-				neighbors.add(this.maze[x][y-1]);
-				neighbors.add(this.maze[x][y+1]);
-				neighbors.add(this.maze[x+1][y]);
-				
-			} else { if (sizeMazeColum % 2 == 0) {
-				neighbors.add(this.maze[sizeMazeColum][y+1]);
-				neighbors.add(this.maze[sizeMazeColum-1][y]);
-				}else {
-					neighbors.add(this.maze[sizeMazeColum][y+1]);
-					neighbors.add(this.maze[sizeMazeColum-1][y]);
-					neighbors.add(this.maze[sizeMazeColum-1][y+1]);
-				}
-				
-			}
-			
-		}else if(x==sizeMazeLine){
-			if (y==sizeMazeColum) {
-				neighbors.add(this.maze[sizeMazeColum][sizeMazeLine-1]);
-				neighbors.add(this.maze[sizeMazeColum-1][sizeMazeLine]);
-			}else if (y!=0) {
-				neighbors.add(this.maze[x][y-1]);
-				neighbors.add(this.maze[x][y+1]);
-				neighbors.add(this.maze[x-1][y]);
-			}else if(y==0) {
-				
-			}
-		}
-		if ( y==0 && x!=0) {
-			
-			neighbors.add(this.maze[x-1][1]);
-			neighbors.add(this.maze[x][1]);
-		}else if (y==9){
-			neighbors.add(this.maze[x+1][8]);
-			neighbors.add(this.maze[x][8]);
-		}
-		else if (y!=0 && x!=0 && x !=9 && y!=9){
-			neighbors.add(this.maze[x-1][y-1]);
-			neighbors.add(this.maze[x-1][y+1]);
-			neighbors.add(this.maze[x-1][y]);
-			neighbors.add(this.maze[x][y-1]);
-			neighbors.add(this.maze[x][y+1]);
-			neighbors.add(this.maze[x+1][y]);
-		}
-		List<Vertex> neighborsVertex = new ArrayList<Vertex>();
-		for (MazeHex mhex : neighbors) {
-			if (isntAWall(mhex)) {
-				neighborsVertex.add((Vertex) mhex);
-			}
-		}
-		return neighborsVertex;
-	}
+
 	
+
+	public ArrayList<Vertex> getSuccessors(Vertex vertex) {
+		ArrayList<Vertex> successors = new ArrayList<Vertex>();
+		MazeHex hex = (MazeHex) vertex;
+		int y = hex.getY();
+		int x = hex.getX();
+		if (hex.isWall() == true) {
+			return null;
+		}
+		if (!hexIsInBounds(x + 1, y) && maze[x + 1][y].isWall() == false) {
+			successors.add(maze[x + 1][y]);
+		}
+		if (!hexIsInBounds(x - 1, y) && maze[x - 1][y].isWall() == false) {
+			successors.add(maze[x - 1][y]);
+		}
+		if (y % 2 == 0) {
+			if (!hexIsInBounds(x - 1, y - 1) && maze[x - 1][y - 1].isWall() == false) {
+				successors.add(maze[x - 1][y - 1]);
+			}
+			if (!hexIsInBounds(x, y - 1) && maze[x][y - 1].isWall() == false) {
+				successors.add(maze[x][y - 1]);
+			}
+
+			if (!hexIsInBounds(x, y + 1) && maze[x][y + 1].isWall() == false) {
+				successors.add(maze[x][y + 1]);
+			}
+			if (!hexIsInBounds(x - 1, y + 1) && maze[x - 1][y + 1].isWall() == false) {
+				successors.add(maze[x - 1][y + 1]);
+			}
+
+		} else {
+			if (!hexIsInBounds(x, y - 1) && maze[x][y - 1].isWall() == false) {
+				successors.add(maze[x][y - 1]);
+			}
+			if (!hexIsInBounds(x + 1, y - 1) && maze[x + 1][y - 1].isWall() == false) {
+				successors.add(maze[x + 1][y - 1]);
+			}
+
+			if (!hexIsInBounds(x + 1, y + 1) && maze[x + 1][y + 1].isWall() == false) {
+				successors.add(maze[x + 1][y + 1]);
+			}
+			if (!hexIsInBounds(x, y + 1) && maze[x][y + 1].isWall() == false) {
+				successors.add(maze[x][y + 1]);
+			}
+
+		}
+
+		return successors;
+		
+		
+	}
 	/**
 	 * 
-	 * @param un MazeHex V
-	 * @return false si le MazeHex est de type Wall, true sinon
+	 * @param x 
+	 * @param y : les coordonnées d'un hex
+	 * @return true si le hex est situé dans les bornes de notre maze,false sinon
 	 */
-	private boolean isntAWall(MazeHex v) {
-		if (v.getLabel() == "W"){
-				return false;
-		}else {
+	public boolean hexIsInBounds(int x, int y) {
+		if (x < 0 || x > (sizeMazeColum - 1) || y < 0 || y > (sizeMazeLine - 1)) {
 			return true;
 		}
-		
+		return false;
 	}
+	
 	
 	/**
 	 * Read the text file that describes the maze
@@ -149,14 +139,11 @@ public class Maze implements Graph {
 					for (int colonNum = 0; colonNum < this.sizeMazeColum ;colonNum++) {
 						switch (line.charAt(colonNum))
 						{
-						case 'A':
-								this.maze[lineNum][colonNum] =new ArrivalHex(this,lineNum,colonNum);break;
-						case 'D':
-						        this.maze[lineNum][colonNum] =new DepartureHex(this,lineNum,colonNum);break;
+						// case D case A
 						case 'E':
-								this.maze[lineNum][colonNum] =new EmptyHex(this,lineNum,colonNum);break;
+								this.maze[colonNum][lineNum] =new EmptyHex(this,colonNum,lineNum);break;
 						case 'W':
-								this.maze[lineNum][colonNum] =new WallHex(this,lineNum,colonNum);break;
+								this.maze[colonNum][lineNum] =new WallHex(this,colonNum,lineNum);break;
 				        default :
 				        	throw new MazeReadingException(fileName , lineNum , "Inkown character");
 						

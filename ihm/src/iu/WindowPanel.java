@@ -3,9 +3,11 @@ package iu;
 import javax.swing.* ;
 
 import Buttons.ButtonsPanel;
+import Hex.HexJPanel;
 import Hex.HexesJPanel;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class WindowPanel extends JPanel {
 

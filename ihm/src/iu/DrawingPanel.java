@@ -1,4 +1,4 @@
-/*package iu;
+package iu;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -33,4 +33,4 @@ public class DrawingPanel extends JPanel {
 		   repaint() ;		
 		}
 	   
-	}*/
+	}

@@ -31,7 +31,6 @@ public class MazeHex implements Vertex {
 	}
 	
 
-	
 	/**
 	 * 
 	 * @return Ordonné de la case (l'Hexagone)
@@ -47,4 +46,13 @@ public class MazeHex implements Vertex {
 	public final String getLabel() {
 		return this.label;	
 	}
+	
+	
+	/**
+	 * @return boolean : true si se hex est wall, false sinon
+	 */
+	public boolean isWall() {
+		return false;
+}
+
 }

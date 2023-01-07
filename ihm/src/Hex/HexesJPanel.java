@@ -1,8 +1,10 @@
 package Hex;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -10,12 +12,12 @@ import iu.DrawingApp;
 import model.DrawingAppModel;
 
 public class HexesJPanel extends JPanel {
-	private DrawingApp drawingApp; 
-	private HexJPanel[][] hexesJPanel ;
-	HexJPanelMouseListener	hexJPanelMouseListener = new HexJPanelMouseListener(drawingApp);
-	
+	private final DrawingApp drawingApp; 
+	private  ArrayList<ArrayList<HexJPanel>> hexesJPanel = new ArrayList<ArrayList<HexJPanel>>();
+	private HexJPanel hexJPanel;
 	
 	public HexesJPanel(DrawingApp drawingApp){
+		
 		this.drawingApp = drawingApp ;
 		
 		setBackground(Color.WHITE) ;
@@ -23,23 +25,25 @@ public class HexesJPanel extends JPanel {
 	      // for pack() instruction
 	     setPreferredSize(new Dimension(300,300)) ;  
 	      
-		addMouseListener(hexJPanelMouseListener);
 		DrawingAppModel drawingAppModel = drawingApp.getDrawingAppModel();
 		int width = drawingAppModel.getWidth();
 		int height = drawingAppModel.getHeight();
-
-		hexesJPanel = new HexJPanel[height][width];
-		
+		ArrayList<ArrayList<HexJPanel>> hexes = drawingAppModel.getHexes();
+		/*
 		for(int i =0;i< height;i++) {
+			ArrayList<HexJPanel> list = new ArrayList<HexJPanel>();
 			for(int j =0;j< width;j++) {
-				Hex hex = new Hex(j, j,"E");
-				HexJPanel hexPanel = new HexJPanel(drawingApp,hex);
-				hexesJPanel[i][j] = hexPanel;
-				add(hexPanel);
+				
+				HexJPanel hex = new HexJPanel(i, j);
+				list.add(j,hex);
+				drawingApp.add(hex);
 			}
-		}
-		setBackground(Color.WHITE);
+			hexesJPanel.add(i,list);
+		}*/
+
 		
+		
+		setBackground(Color.WHITE);
 	}
 	
 	   @Override
@@ -48,12 +52,25 @@ public class HexesJPanel extends JPanel {
 	      super.paintComponent(graphics) ;
 			
 	  
-	      drawingApp.getDrawingAppModel().paint(graphics) ;
-	   }
+	      for(int x=0;x<10;x++) {
+	    	  for (int y=0;y<10;y++) {
+	    		  add( hexJPanel = new HexJPanel(drawingApp, x,y));
+	    		  
+	    		  
+	    	  }
 	   
-	   public void notifyForUpdate() {
-		   repaint() ;		
-		}
+	    	  
+	      }
+	      setBackground(Color.WHITE) ;
+			
+	      setPreferredSize(new Dimension(300,300)) ;
+	   }
+
+	public void notifyForUpdate() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 
 }

@@ -12,5 +12,10 @@ public class WallHex extends MazeHex {
 		super(maze,x,y,"W");
 	}
 	
+	@Override
+	public boolean isWall() {
+		return true;
+	}
+	
 	
 }

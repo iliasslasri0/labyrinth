@@ -1,12 +1,12 @@
 package iu;
 import model.*;
+
 import javax.swing.* ;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import Buttons.ButtonsPanel;
 import Menu.DrawingMenuBar;
 
+//View : interface
 public class DrawingApp extends JFrame implements ChangeListener{
 	
    /**
@@ -26,19 +26,11 @@ public class DrawingApp extends JFrame implements ChangeListener{
       setContentPane(windowPanel = new WindowPanel(this)) ;
       // Window content creation
       		
-      drawingAppModel.addObserver(this);
+      //drawingAppModel.addObserver(this);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
       pack() ;
       setVisible(true) ;
    }
-
-public DrawingAppModel getDrawingAppModel() {
-	return drawingAppModel;
-}
-
-public void setDrawingAppModel(DrawingAppModel drawingAppModel) {
-	this.drawingAppModel = drawingAppModel;
-}
 
 @Override
 public void stateChanged(ChangeEvent e) {

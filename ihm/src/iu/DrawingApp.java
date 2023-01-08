@@ -1,6 +1,4 @@
 package iu;
-import model.*;
-
 import java.awt.Dimension;
 
 import javax.swing.* ;

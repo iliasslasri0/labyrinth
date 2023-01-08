@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 
 import iu.DrawingApp;
-import model.DrawingAppModel;
+import iu.DrawingAppModel;
 
 
 public class HexJPanelMouseListener extends MouseAdapter implements MouseListener{

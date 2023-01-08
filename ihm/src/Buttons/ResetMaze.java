@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
 import iu.DrawingApp;
-import model.DrawingAppModel;
+import iu.DrawingAppModel;
 
 public class ResetMaze extends JButton implements ActionListener{
 

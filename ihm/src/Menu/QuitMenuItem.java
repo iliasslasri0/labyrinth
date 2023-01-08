@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.* ;
 
 import iu.DrawingApp;
-import model.DrawingAppModel;
+import iu.DrawingAppModel;
 
 public class QuitMenuItem extends JMenuItem implements ActionListener{
 

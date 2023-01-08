@@ -1,4 +1,4 @@
-package model;
+package iu;
 
 import java.awt.* ;
 
@@ -11,7 +11,6 @@ import javax.swing.event.*;
 
 
 import javax.swing.JPanel;
-import Hex.HexJPanel;
 
 
 // modèle : Data & Methods

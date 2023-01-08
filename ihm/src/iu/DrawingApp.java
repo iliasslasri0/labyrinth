@@ -28,15 +28,20 @@ public class DrawingApp extends JFrame implements ChangeListener{
       		
       //drawingAppModel.addObserver(this);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
-      pack() ;
+      this.pack() ;
       setVisible(true) ;
    }
 
 @Override
 public void stateChanged(ChangeEvent e) {
-	// TODO Auto-generated method stub
+
 	windowPanel.notifyForUpdate() ;	
 		
 	}
+
+public DrawingAppModel getDrawingAppModel() {
+
+	return drawingAppModel;
+}
 
 }

@@ -14,12 +14,12 @@ public class MainTest {
 		//Maze(nombre de colonnes , Nmbr de lines)
 		Maze maze = new Maze(10,16);
 		
-		System.out.println(maze.maze.length);
-		System.out.println(maze.maze[0].length);
+		//System.out.println(maze.maze.length);
+		//System.out.println(maze.maze[0].length);
 		maze.initFromTextFile("C:\\Users\\user\\inf103tp\\tp04\\data\\labyrinthe.maze");
 		
 		// [colonne][line]
-		MazeHex d = maze.maze[9][14];
+		MazeHex d = maze.maze[3][14];
 		MazeHex a = maze.maze[0][0];
 		
 		ShortestPathsImpl path;

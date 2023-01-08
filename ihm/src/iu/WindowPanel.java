@@ -3,7 +3,7 @@ package iu;
 import javax.swing.* ;
 
 import Buttons.ButtonsPanel;
-import Hex.HexJPanel;
+
 import Hex.HexesJPanel;
 
 import java.awt.*;
@@ -16,14 +16,14 @@ public class WindowPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-   private final ButtonsPanel buttonsPanel ;
-   private final HexesJPanel panel ;
+   private ButtonsPanel buttonsPanel ;
+   private HexesJPanel panel ;
     
    public WindowPanel(DrawingApp drawingApp) {
       setLayout(new BorderLayout()) ;
 		
-      add(panel = new HexesJPanel(drawingApp),BorderLayout.CENTER);
-      add(buttonsPanel = new ButtonsPanel (drawingApp), BorderLayout.SOUTH) ;
+      this.add(panel = new HexesJPanel(10,10,40),BorderLayout.CENTER);
+      this.add(buttonsPanel = new ButtonsPanel (drawingApp), BorderLayout.SOUTH) ;
       
    }
    public void notifyForUpdate() {

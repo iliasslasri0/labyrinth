@@ -40,7 +40,6 @@ public class Maze implements Graph {
 		
 		for (MazeHex[] h : this.maze ) {
 			for (MazeHex hex : h){
-				System.out.println(hex.getY());
 				if (!(hex.getLabel() == "W" )) {
 					
 					allPossibleMazeHex.add((Vertex)hex);

@@ -41,6 +41,11 @@ public class HexesJPanel extends JPanel {
 	        this.side = side;
 	        mousePressed = false;
 	        dimension = getHexagon(0, 0).getBounds().getSize();
+	        for(int i=0;i<columns;i++) {
+	        	for(int j=0;j<rows;j++) {
+	        		hexes[i][j] = new Hex(i,j);
+	        	}
+	        }
 	        MouseInputAdapter mouseHandler = new MouseInputAdapter() {
 	            @Override
 	            public void mouseMoved(final MouseEvent e) {
@@ -52,9 +57,11 @@ public class HexesJPanel extends JPanel {
 	                if (current_x != -1 && current_y != -1) {
 	                	System.out.println(current_x);
 	                	System.out.println(current_y);
-	                	hexes[current_y][current_x].setLabel("E");
+	                	hexes[current_y][current_x].setLabel("W");
 	                	System.out.println(hexes[current_y][current_x].getLabel());
+	                	repaint();
 	                }
+	                repaint();
 	                mousePressed = true;
 	            }
 	        };
@@ -84,11 +91,12 @@ public class HexesJPanel extends JPanel {
 	                    
 	                }
 	                
-	                hexes[column][row] = new Hex(column,row);
 	                
 	                g2d.setColor(Color.black);
+	                
 	                g2d.draw(hexagon);
 	                g2d.setColor(Color.ORANGE);
+					if(hexes[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}
 	                g2d.fillPolygon(hexagon);
 	              
 	            }
@@ -104,10 +112,11 @@ public class HexesJPanel extends JPanel {
 	                    current_x=column;
 	                    current_y=row;
 	                }
-	                hexes[column][row] = new Hex(column,row);
+	                
 	                g2d.setColor(Color.black);
 	                g2d.draw(hexagon);
 	                g2d.setColor(Color.ORANGE);
+	                if(hexes[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}
 	                g2d.fillPolygon(hexagon);
 	                
 	                
@@ -119,7 +128,8 @@ public class HexesJPanel extends JPanel {
 	            Polygon focusedHexagon = getHexagon(focusedHexagonLocation.x,
 	                    focusedHexagonLocation.y);
 	            g2d.draw(focusedHexagon);
-	            if (hexes[current_y][current_x].isWall()) {
+	            System.out.println((hexes[current_y][current_x].getLabel()));
+	            if (hexes[current_y][current_x].getLabel()=="W") {
 		            g2d.setColor(Color.black);
 		            g2d.fillPolygon(focusedHexagon);
 	            }

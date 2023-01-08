@@ -1,6 +1,8 @@
 package iu;
 import model.*;
 
+import java.awt.Dimension;
+
 import javax.swing.* ;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -22,7 +24,7 @@ public class DrawingApp extends JFrame implements ChangeListener{
 		
       setJMenuBar(drawingMenuBar = new DrawingMenuBar(this)) ;
       
-		
+      this.setPreferredSize(new Dimension(1000,1000));
       setContentPane(windowPanel = new WindowPanel(this)) ;
       // Window content creation
       		

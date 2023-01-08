@@ -22,4 +22,9 @@ public class Hex {
 		this.Label = lf;
 	}
 
+	public String getLabel() {
+		// TODO Auto-generated method stub
+		return Label;
+	}
+
 }

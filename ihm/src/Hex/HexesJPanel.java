@@ -31,6 +31,7 @@ public class HexesJPanel extends JPanel {
 	    private int current_x = -1;
 	    private int current_y =-1;
 	    private Hex[][] hexes;
+	    private boolean mousePressed;
 	    
 	    
 	    public HexesJPanel(final int rows, final int columns, final int side) {
@@ -38,6 +39,7 @@ public class HexesJPanel extends JPanel {
 	        this.rows = rows;
 	        this.columns = columns;
 	        this.side = side;
+	        mousePressed = false;
 	        dimension = getHexagon(0, 0).getBounds().getSize();
 	        MouseInputAdapter mouseHandler = new MouseInputAdapter() {
 	            @Override
@@ -48,8 +50,12 @@ public class HexesJPanel extends JPanel {
 	            @Override
 	            public void mousePressed(final MouseEvent e) {
 	                if (current_x != -1 && current_y != -1) {
+	                	System.out.println(current_x);
+	                	System.out.println(current_y);
 	                	hexes[current_y][current_x].setLabel("E");
+	                	System.out.println(hexes[current_y][current_x].getLabel());
 	                }
+	                mousePressed = true;
 	            }
 	        };
 	        addMouseMotionListener(mouseHandler);
@@ -99,17 +105,10 @@ public class HexesJPanel extends JPanel {
 	                    current_y=row;
 	                }
 	                hexes[column][row] = new Hex(column,row);
-	                if(column ==5 && row ==5) {
-	                	hexes[column][row].setLabel("E");
-	                }
 	                g2d.setColor(Color.black);
 	                g2d.draw(hexagon);
 	                g2d.setColor(Color.ORANGE);
 	                g2d.fillPolygon(hexagon);
-	                if (hexes[column][row].isWall()) {
-			            g2d.setColor(Color.black);
-			            g2d.fillPolygon(hexagon);
-		            }
 	                
 	                
 	            }
@@ -120,7 +119,10 @@ public class HexesJPanel extends JPanel {
 	            Polygon focusedHexagon = getHexagon(focusedHexagonLocation.x,
 	                    focusedHexagonLocation.y);
 	            g2d.draw(focusedHexagon);
-	            
+	            if (hexes[current_y][current_x].isWall()) {
+		            g2d.setColor(Color.black);
+		            g2d.fillPolygon(focusedHexagon);
+	            }
 	            //System.out.println( "x"+current_x + "this is y"+current_y);
 
 	            

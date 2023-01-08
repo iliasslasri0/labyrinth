@@ -26,7 +26,7 @@ public class DrawingPanel extends JPanel {
 	      super.paintComponent(graphics) ;
 			
 	  
-	      drawingApp.getDrawingAppModel().paint(graphics) ;
+	    //  drawingApp.getDrawingAppModel().paint(graphics) ;
 	   }
 	   
 	   public void notifyForUpdate() {

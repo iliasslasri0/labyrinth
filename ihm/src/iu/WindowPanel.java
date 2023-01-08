@@ -27,7 +27,7 @@ public class WindowPanel extends JPanel {
       
    }
    public void notifyForUpdate() {
-	   panel.notifyForUpdate() ;
+	  // panel.notifyForUpdate() ;
 	   
 	}
 }

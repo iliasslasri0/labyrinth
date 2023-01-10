@@ -35,7 +35,7 @@ public class HexesJPanel extends JPanel {
 	    
 	    
 	    public HexesJPanel(final int rows, final int columns, final int side) {
-	    	hexes = new Hex[columns][rows];
+	    	hexes = new Hex[rows][columns];
 	        this.rows = rows;
 	        this.columns = columns;
 	        this.side = side;
@@ -43,7 +43,7 @@ public class HexesJPanel extends JPanel {
 	        dimension = getHexagon(0, 0).getBounds().getSize();
 	        for(int i=0;i<columns;i++) {
 	        	for(int j=0;j<rows;j++) {
-	        		hexes[i][j] = new Hex(i,j);
+	        		hexes[j][i] = new Hex(j,i);
 	        	}
 	        }
 	        MouseInputAdapter mouseHandler = new MouseInputAdapter() {
@@ -57,7 +57,12 @@ public class HexesJPanel extends JPanel {
 	                if (current_x != -1 && current_y != -1) {
 	                	System.out.println(current_x);
 	                	System.out.println(current_y);
-	                	hexes[current_y][current_x].setLabel("W");
+	                	if(hexes[current_y][current_x].getLabel() == "W") {
+	                		hexes[current_y][current_x].setLabel("E");
+	                	}else {
+	                		hexes[current_y][current_x].setLabel("W");
+	                	}
+	                	
 	                	System.out.println(hexes[current_y][current_x].getLabel());
 	                	repaint();
 	                }

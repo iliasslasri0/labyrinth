@@ -23,17 +23,7 @@ public class ResetMaze extends JButton implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		// Used twice
-	      DrawingAppModel drawingAppModel = drawingApp.getDrawingAppModel() ;
-
-	      // Show JColorChooser dialog		
-	      Color newColor = JColorChooser.showDialog(drawingApp,
-	                                                "Change segment color",
-							drawingAppModel.getCurrentColor()) ;
-	      // Changing color triggers refresh	
-	      if (newColor != null)
-	         drawingAppModel.setCurrentColor(newColor) ;
+		
 	}
 	}
 

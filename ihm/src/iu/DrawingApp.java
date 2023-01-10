@@ -25,7 +25,7 @@ public class DrawingApp extends JFrame implements ChangeListener{
       this.setPreferredSize(new Dimension(1000,1000));
       setContentPane(windowPanel = new WindowPanel(this)) ;
       // Window content creation
-      		
+      drawingAppModel.addObserver(this);
       //drawingAppModel.addObserver(this);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
       this.pack() ;
@@ -42,6 +42,11 @@ public void stateChanged(ChangeEvent e) {
 public DrawingAppModel getDrawingAppModel() {
 
 	return drawingAppModel;
+}
+
+public void setDrawingAppModel(DrawingAppModel drawingAppModel) {
+	   this.drawingAppModel = drawingAppModel;
+	
 }
 
 }

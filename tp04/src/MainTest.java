@@ -20,7 +20,7 @@ public class MainTest {
 		
 		// [colonne][line]
 		MazeHex d = maze.maze[3][14];
-		MazeHex a = maze.maze[0][0];
+		MazeHex a = maze.maze[2][2];
 		
 		ShortestPathsImpl path;
 		

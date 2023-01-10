@@ -15,12 +15,13 @@ public class DrawingApp extends JFrame implements ChangeListener{
 	private static final long serialVersionUID = 1L;
 	private final DrawingMenuBar drawingMenuBar ;
 	private final WindowPanel windowPanel ;
-	private DrawingAppModel drawingAppModel = new DrawingAppModel();
+	private DrawingAppModel drawingAppModel = new DrawingAppModel(10,10);
 	
 	public DrawingApp() {
       super("Labyrinthe") ;
-		
+
       setJMenuBar(drawingMenuBar = new DrawingMenuBar(this)) ;
+      
       
       this.setPreferredSize(new Dimension(1000,1000));
       setContentPane(windowPanel = new WindowPanel(this)) ;

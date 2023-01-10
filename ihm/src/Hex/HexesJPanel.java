@@ -11,13 +11,18 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
-
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.MouseInputAdapter;
 
+import iu.DrawingApp;
+import iu.DrawingAppModel;
 
-public class HexesJPanel extends JPanel {
+
+public class HexesJPanel extends JPanel implements ChangeListener, MouseListener {
 	  
 		private static final long serialVersionUID = 1L;
 		
@@ -30,29 +35,29 @@ public class HexesJPanel extends JPanel {
 	    private Point mousePosition;
 	    private int current_x = -1;
 	    private int current_y =-1;
-	    private Hex[][] hexes;
+	    //private Hex[][] hexes;
 	    private boolean mousePressed;
+
+		private DrawingApp drawingApp;
+
+		private DrawingAppModel drawingAppModel;
 	    
-	    
-	    public HexesJPanel(final int rows, final int columns, final int side) {
-	    	hexes = new Hex[rows][columns];
-	        this.rows = rows;
+	    public HexesJPanel(final int rows, final int columns, final int side, final DrawingApp drawingApp) {
+	        this.drawingApp = drawingApp;
+	    	this.rows = rows;
 	        this.columns = columns;
 	        this.side = side;
 	        mousePressed = false;
+	        
 	        dimension = getHexagon(0, 0).getBounds().getSize();
-	        for(int i=0;i<columns;i++) {
-	        	for(int j=0;j<rows;j++) {
-	        		hexes[j][i] = new Hex(j,i);
-	        	}
-	        }
+	        
 	        MouseInputAdapter mouseHandler = new MouseInputAdapter() {
 	            @Override
 	            public void mouseMoved(final MouseEvent e) {
 	                mousePosition = e.getPoint();
 	                repaint();
 	            }
-	            @Override
+	           /* @Override
 	            public void mousePressed(final MouseEvent e) {
 	                if (current_x != -1 && current_y != -1) {
 	                	System.out.println(current_x);
@@ -68,7 +73,7 @@ public class HexesJPanel extends JPanel {
 	                }
 	                repaint();
 	                mousePressed = true;
-	            }
+	            }*/
 	        };
 	        addMouseMotionListener(mouseHandler);
 	        addMouseListener(mouseHandler);
@@ -82,6 +87,7 @@ public class HexesJPanel extends JPanel {
 	                RenderingHints.VALUE_ANTIALIAS_ON);
 	        current_x = -1;
 	        current_y = -1;
+	        drawingAppModel = drawingApp.getDrawingAppModel();
 	        g2d.setStroke(bs1);
 	        for (int row = 0; row < rows; row += 2) {
 	            for (int column = 0; column < columns; column++) {
@@ -93,6 +99,7 @@ public class HexesJPanel extends JPanel {
 	                    focusedHexagonLocation.y = (int) (row * side * 1.5);
 	                    current_x=column;
 	                    current_y=row;
+	                    drawingAppModel.setcurrentXY(column,row);
 	                    
 	                }
 	                
@@ -101,7 +108,7 @@ public class HexesJPanel extends JPanel {
 	                
 	                g2d.draw(hexagon);
 	                g2d.setColor(Color.ORANGE);
-					if(hexes[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}
+					if(drawingAppModel.getHexes()[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}
 	                g2d.fillPolygon(hexagon);
 	              
 	            }
@@ -121,7 +128,7 @@ public class HexesJPanel extends JPanel {
 	                g2d.setColor(Color.black);
 	                g2d.draw(hexagon);
 	                g2d.setColor(Color.ORANGE);
-	                if(hexes[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}
+	                if(drawingAppModel.getHexes()[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}
 	                g2d.fillPolygon(hexagon);
 	                
 	                
@@ -133,8 +140,8 @@ public class HexesJPanel extends JPanel {
 	            Polygon focusedHexagon = getHexagon(focusedHexagonLocation.x,
 	                    focusedHexagonLocation.y);
 	            g2d.draw(focusedHexagon);
-	            System.out.println((hexes[current_y][current_x].getLabel()));
-	            if (hexes[current_y][current_x].getLabel()=="W") {
+	            System.out.println((drawingAppModel.getHexes()[current_y][current_x].getLabel()));
+	            if (drawingAppModel.getHexes()[current_y][current_x].getLabel()=="W") {
 		            g2d.setColor(Color.black);
 		            g2d.fillPolygon(focusedHexagon);
 	            }
@@ -155,7 +162,42 @@ public class HexesJPanel extends JPanel {
 	        hexagon.addPoint(x, y + (int) (1.5 * side));
 	        return hexagon;
 	    }
-	    
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			drawingAppModel.mousePressed(e);
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	    
 
 }

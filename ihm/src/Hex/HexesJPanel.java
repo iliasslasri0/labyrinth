@@ -32,12 +32,6 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	    private final Point focusedHexagonLocation = new Point();
 	    private final Dimension dimension;
 	    private final int rows, columns, side;
-	    private Point mousePosition;
-	    private int current_x = -1;
-	    private int current_y =-1;
-	    //private Hex[][] hexes;
-	    private boolean mousePressed;
-
 		private DrawingApp drawingApp;
 
 		private DrawingAppModel drawingAppModel;
@@ -47,11 +41,10 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	    	this.rows = rows;
 	        this.columns = columns;
 	        this.side = side;
-	        mousePressed = false;
 	        
 	        dimension = getHexagon(0, 0).getBounds().getSize();
 	        
-	        MouseInputAdapter mouseHandler = new MouseInputAdapter() {
+	      /*  MouseInputAdapter mouseHandler = new MouseInputAdapter() {
 	            @Override
 	            public void mouseMoved(final MouseEvent e) {
 	                mousePosition = e.getPoint();
@@ -74,9 +67,10 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	                repaint();
 	                mousePressed = true;
 	            }*/
-	        };
-	        addMouseMotionListener(mouseHandler);
-	        addMouseListener(mouseHandler);
+	       // };
+	        //addMouseMotionListener(this);
+	        //addMouseListener(mouseHandler);
+	        addMouseListener(this);
 	    }
 
 	    @Override
@@ -85,22 +79,24 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	        Graphics2D g2d = (Graphics2D) g;
 	        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 	                RenderingHints.VALUE_ANTIALIAS_ON);
-	        current_x = -1;
-	        current_y = -1;
+	       
 	        drawingAppModel = drawingApp.getDrawingAppModel();
+	        drawingAppModel.setcurrent_x(-1);
+	        drawingAppModel.setcurrent_y(-1);
 	        g2d.setStroke(bs1);
+	        System.out.println("oui je repaint");
 	        for (int row = 0; row < rows; row += 2) {
 	            for (int column = 0; column < columns; column++) {
 	                getHexagon(column * dimension.width,
 	                        (int) (row * side * 1.5));
 	                
-	                if (mousePosition !=null && hexagon.contains(mousePosition)){
+	                if (drawingAppModel.getMousePosition() !=null && hexagon.contains(drawingAppModel.getMousePosition())){
 	                    focusedHexagonLocation.x = column * dimension.width;
 	                    focusedHexagonLocation.y = (int) (row * side * 1.5);
-	                    current_x=column;
-	                    current_y=row;
-	                    drawingAppModel.setcurrentXY(column,row);
-	                    
+	                    drawingAppModel.setcurrent_x(column);
+	                    drawingAppModel.setcurrent_y(row);
+	                    System.out.println(drawingAppModel.getcurrent_x());
+	                    System.out.println(drawingAppModel.getcurrent_y());
 	                }
 	                
 	                
@@ -117,12 +113,13 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	            for (int column = 0; column < columns; column++) {
 	                getHexagon(column * dimension.width + dimension.width / 2,
 	                        (int) (row * side * 1.5 + 0.5));
-	                if (mousePosition!= null && hexagon.contains(mousePosition)){
-	                    focusedHexagonLocation.x = column * dimension.width
-	                            + dimension.width / 2;
+	                if (drawingAppModel.getMousePosition()!= null && hexagon.contains(drawingAppModel.getMousePosition())){
+	                    focusedHexagonLocation.x = column * dimension.width + dimension.width / 2;
 	                    focusedHexagonLocation.y =(int) (row * side * 1.5 + 0.5);
-	                    current_x=column;
-	                    current_y=row;
+	                    drawingAppModel.setcurrent_x(column);
+	                    drawingAppModel.setcurrent_y(row);
+	                    System.out.println(drawingAppModel.getcurrent_x());
+	                    System.out.println(drawingAppModel.getcurrent_y());
 	                }
 	                
 	                g2d.setColor(Color.black);
@@ -134,17 +131,18 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	                
 	            }
 	        }
-	        if (current_x != -1 && current_y != -1) {
+	        if (drawingAppModel.getcurrent_x() != -1 && drawingAppModel.getcurrent_y() != -1) {
 	            g2d.setColor(Color.red);
 	            g2d.setStroke(bs3);
 	            Polygon focusedHexagon = getHexagon(focusedHexagonLocation.x,
 	                    focusedHexagonLocation.y);
 	            g2d.draw(focusedHexagon);
-	            System.out.println((drawingAppModel.getHexes()[current_y][current_x].getLabel()));
-	            if (drawingAppModel.getHexes()[current_y][current_x].getLabel()=="W") {
+	            System.out.println((drawingAppModel.getHexes()[drawingAppModel.getcurrent_y()][drawingAppModel.getcurrent_x()].getLabel()));
+	            if (drawingAppModel.getHexes()[drawingAppModel.getcurrent_y()][drawingAppModel.getcurrent_x()].getLabel()=="W") {
 		            g2d.setColor(Color.black);
 		            g2d.fillPolygon(focusedHexagon);
 	            }
+	            
 	            //System.out.println( "x"+current_x + "this is y"+current_y);
 
 	            
@@ -165,14 +163,14 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			drawingAppModel.mousePressed(e);
+			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+			drawingAppModel.mousePressed(e);
 		}
 
 		@Override
@@ -195,9 +193,11 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			// TODO Auto-generated method stub
+			repaint();
 			
 		}
-	    
-
+		
+		public void mouseMoved(final MouseEvent e) {
+			drawingAppModel.mouseMoved(e);
+		}
 }

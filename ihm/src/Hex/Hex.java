@@ -7,9 +7,10 @@ public class Hex {
 	private int coulum;
 	private String Label;
 	
-	public Hex(int x,int y) {
+	public Hex(int x,int y, String Label) {
 		this.row = y;
 		this.coulum=x;
+		this.Label = Label;
 	}
 	
 	public boolean isWall() {

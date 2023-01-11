@@ -2,6 +2,7 @@ package iu;
 
 import java.awt.* ;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.event.*;
@@ -12,7 +13,7 @@ import javax.swing.JPanel;
 
 
 // modèle : Data & Methods
-public class DrawingAppModel implements ChangeListener{
+public class DrawingAppModel{
 	
 	
 	private final ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>() ;
@@ -20,11 +21,12 @@ public class DrawingAppModel implements ChangeListener{
     private int height;
     private boolean departurechoosed;
     private boolean arrivalchoosed;
-	private int current_x;
-	private int current_y;
+	private int current_x = -1;
+	private int current_y =-1;
 	private Hex[][] hexes;
 	private boolean mousePressed;
 	private boolean modified = false ;
+	private Point mousePosition;
 	 
     public DrawingAppModel(int width,int height) {
     	this.width=width;
@@ -34,7 +36,7 @@ public class DrawingAppModel implements ChangeListener{
     	hexes = new Hex[width][height];
     	for(int i=0;i<width;i++) {
         	for(int j=0;j<height;j++) {
-        		hexes[j][i] = new Hex(j,i);
+        		hexes[j][i] = new Hex(j,i,"E");
         	}
         }
     }
@@ -60,18 +62,26 @@ public class DrawingAppModel implements ChangeListener{
 	}
 	
     public void mousePressed(final MouseEvent e) {
+    	System.out.println("oui je presse");
+    	mousePosition = e.getPoint();
         if (current_x != -1 && current_y != -1) {
         	if(hexes[current_y][current_x].getLabel() == "W") {
         		hexes[current_y][current_x].setLabel("E");
         	}else {
         		hexes[current_y][current_x].setLabel("W");
+        		System.out.println(hexes[current_y][current_x].getLabel());
         	}
         	
-        	System.out.println(hexes[current_y][current_x].getLabel());
+        	//System.out.println(hexes[current_y][current_x].getLabel());
         	stateChanged(e);
         }
         stateChanged(e);
         mousePressed = true;
+    }
+    
+    public void mouseMoved(final MouseEvent e) {
+        mousePosition = e.getPoint();
+        stateChanged(e);
     }
 
 	public int getWidth() {
@@ -105,19 +115,12 @@ public class DrawingAppModel implements ChangeListener{
 	public void setArrivalchoosed(boolean arrivalchoosed) {
 		this.arrivalchoosed = arrivalchoosed;
 	}
-
-
-	public void setcurrentXY(int column, int row) {
-		this.current_x = column;
-		this.current_y=row;
-		
-	}
 	
 	public void createHexes(final int rows, final int columns) {
 		hexes = new Hex[rows][columns];
 		for(int i=0;i<columns;i++) {
         	for(int j=0;j<rows;j++) {
-        		hexes[j][i] = new Hex(j,i);
+        		hexes[j][i] = new Hex(j,i,"E");
         	}
         }
 	}
@@ -127,10 +130,34 @@ public class DrawingAppModel implements ChangeListener{
 	}
 
 
-	@Override
-	public void stateChanged(ChangeEvent e) {
-		// TODO Auto-generated method stub
+
+
+
+	public Point getMousePosition() {
+		return mousePosition;
+	}
+
+
+	public void setcurrent_x(int column) {
+		this.current_x = column;
 		
+	}
+
+
+	public void setcurrent_y(int row) {
+		// TODO Auto-generated method stub
+		this.current_y = row;
+	}
+
+
+	public int getcurrent_y() {
+		// TODO Auto-generated method stub
+		return current_y;
+	}
+
+	public int getcurrent_x() {
+		// TODO Auto-generated method stub
+		return current_x;
 	}
 	
 }

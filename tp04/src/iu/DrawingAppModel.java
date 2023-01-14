@@ -24,7 +24,7 @@ public class DrawingAppModel{
 	private int width;
     private int height;
     private boolean departurechoosed =false;
-    private boolean arrivalchoosed;
+    private boolean arrivalchoosed =false;
 	private int current_x = -1;
 	private int current_y =-1;
 	private Hex[][] hexes;
@@ -34,7 +34,8 @@ public class DrawingAppModel{
 	private File file;
 	private Hex arrivalHex;
 	private Hex departHex;
-	private boolean departEncours;
+	private boolean departEncours =false;
+	private boolean arrivalEncours =false;
 	
 	 
     public DrawingAppModel(int width,int height) {
@@ -84,6 +85,12 @@ public class DrawingAppModel{
         		departHex = hexes[current_y][current_x];
         		departEncours = false;
         		departurechoosed = true;
+        	}
+        	if (arrivalEncours ) {
+        		hexes[current_y][current_x].setLabel("E");
+        		arrivalHex = hexes[current_y][current_x];
+        		arrivalEncours = false;
+        		arrivalchoosed = true;
         	}
         	
         	//System.out.println(hexes[current_y][current_x].getLabel());
@@ -223,8 +230,8 @@ public class DrawingAppModel{
 	}
 
 
-	public void setArrivalHex(Hex arrivalHex) {
-		arrivalHex = arrivalHex;
+	public void setArrivalHex() {
+		arrivalEncours= true;
 	}
 
 

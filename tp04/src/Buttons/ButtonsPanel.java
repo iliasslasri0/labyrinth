@@ -15,6 +15,7 @@ public class ButtonsPanel extends JPanel {
    private final ResetMaze resetMaze ;
    private final SolveButton solveButton;
    private final DepartButton departButton;
+   private final ArrivalButton arrivalButton;
    
    public ButtonsPanel(DrawingApp drawingApp) {
 	   drawingApp.setLayout(new GridLayout(3,1)) ; // 3 row, 1 columns
@@ -23,6 +24,7 @@ public class ButtonsPanel extends JPanel {
 	   add(resetMaze   = new ResetMaze(drawingApp)) ;
 	   add(solveButton   = new SolveButton(drawingApp)) ;
 	   add(departButton = new DepartButton(drawingApp));
+	   add(arrivalButton = new ArrivalButton(drawingApp));
    }
    /*public void notifyForUpdate() {
 	   resetMaze.notifyForUpdate() ;

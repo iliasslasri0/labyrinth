@@ -97,6 +97,8 @@ public class HexesJPanel extends JPanel {
 	                g2d.setColor(Color.ORANGE);
 					if(drawingAppModel.getHexes()[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getDepartHex())) {
 						g2d.setColor(Color.green);
+					}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getArrivalHex())) {
+						g2d.setColor(Color.red);
 					}
 	                g2d.fillPolygon(hexagon);
 	              
@@ -121,6 +123,8 @@ public class HexesJPanel extends JPanel {
 	                g2d.setColor(Color.ORANGE);
 	                if(drawingAppModel.getHexes()[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getDepartHex())) {
 						g2d.setColor(Color.green);
+					}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getArrivalHex())) {
+						g2d.setColor(Color.red);
 					}
 	                g2d.fillPolygon(hexagon);
 	                
@@ -139,6 +143,9 @@ public class HexesJPanel extends JPanel {
 		            g2d.fillPolygon(focusedHexagon);
 	            }else if (drawingAppModel.getHexes()[drawingAppModel.getcurrent_y()][drawingAppModel.getcurrent_x()].equals(drawingAppModel.getDepartHex())) {
 					g2d.setColor(Color.green);
+					g2d.fillPolygon(focusedHexagon);
+				}else if (drawingAppModel.getHexes()[drawingAppModel.getcurrent_y()][drawingAppModel.getcurrent_x()].equals(drawingAppModel.getArrivalHex())) {
+					g2d.setColor(Color.red);
 					g2d.fillPolygon(focusedHexagon);
 				}
 	            

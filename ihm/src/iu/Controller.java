@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //Controler
-public class Controller implements ActionListener{
+public class Controller{
 	private DrawingApp drawingApp;
 	private DrawingAppModel drawingAppModel;
 	
@@ -14,10 +14,5 @@ public class Controller implements ActionListener{
 		this.drawingAppModel = drawingAppModel;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

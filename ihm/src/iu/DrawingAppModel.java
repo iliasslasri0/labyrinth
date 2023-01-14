@@ -3,12 +3,16 @@ package iu;
 import java.awt.* ;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.event.*;
 
 import Hex.Hex;
 
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 
@@ -27,6 +31,8 @@ public class DrawingAppModel{
 	private boolean mousePressed;
 	private boolean modified = false ;
 	private Point mousePosition;
+	private File file;
+	
 	 
     public DrawingAppModel(int width,int height) {
     	this.width=width;
@@ -54,11 +60,12 @@ public class DrawingAppModel{
 
 	public void stateChanged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		ChangeEvent evt = new ChangeEvent(this) ;
+		/*ChangeEvent evt = new ChangeEvent(this) ;
 		   
 		   for (ChangeListener listener : listeners) {
 		      listener.stateChanged(evt);
-		   }
+		   }*/
+		
 	}
 	
     public void mousePressed(final MouseEvent e) {
@@ -130,7 +137,9 @@ public class DrawingAppModel{
 	}
 
 
-
+	public void setMousePosition(Point mousePosition ) {
+		this.mousePosition=mousePosition;
+	}
 
 
 	public Point getMousePosition() {
@@ -158,6 +167,47 @@ public class DrawingAppModel{
 	public int getcurrent_x() {
 		// TODO Auto-generated method stub
 		return current_x;
+	}
+	
+	
+	/**
+	 * This method saves the state of the maze into a text file
+	 */
+	public final void saveToTextFile()throws FileNotFoundException{
+		JFileChooser fileChooser = new JFileChooser();
+		
+		fileChooser.setCurrentDirectory(new File(".")); //sets current directory
+		
+		int response = fileChooser.showOpenDialog(null); //select file to open
+		//int response = fileChooser.showSaveDialog(null); //select file to save
+		File file = null ;
+		if(response == JFileChooser.APPROVE_OPTION) {
+			file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+			this.setcurrent_file(file);
+		}
+		 
+		try (PrintWriter pw = new PrintWriter(file)) {
+			for (int lineNum = 0; lineNum < this.width; lineNum++) {
+				for (int columNum=0; columNum < this.height; columNum++ ) {
+					pw.print(this.hexes[lineNum][columNum].getLabel());
+					
+				}
+				pw.println();
+			}
+		}catch(Exception ex) {	
+		}
+	}
+
+
+	private void setcurrent_file(File file) {
+		this.file = file;
+		
+	}
+
+
+	public Object getFile() {
+		// TODO Auto-generated method stub
+		return file;
 	}
 	
 }

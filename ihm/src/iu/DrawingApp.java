@@ -29,7 +29,7 @@ public class DrawingApp extends JFrame implements ChangeListener{
       drawingAppModel.addObserver(this);
       //drawingAppModel.addObserver(this);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
-      this.pack() ;
+      pack() ;
       setVisible(true) ;
    }
 

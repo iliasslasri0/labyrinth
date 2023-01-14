@@ -22,7 +22,7 @@ import iu.DrawingApp;
 import iu.DrawingAppModel;
 
 
-public class HexesJPanel extends JPanel implements ChangeListener, MouseListener {
+public class HexesJPanel extends JPanel {
 	  
 		private static final long serialVersionUID = 1L;
 		
@@ -33,6 +33,7 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	    private final Dimension dimension;
 	    private final int rows, columns, side;
 		private DrawingApp drawingApp;
+		private static final int SIZE = 200;
 
 		private DrawingAppModel drawingAppModel;
 	    
@@ -43,34 +44,23 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	        this.side = side;
 	        
 	        dimension = getHexagon(0, 0).getBounds().getSize();
+	        setPreferredSize(dimension);
 	        
-	      /*  MouseInputAdapter mouseHandler = new MouseInputAdapter() {
+	      MouseInputAdapter mouseHandler = new MouseInputAdapter() {
 	            @Override
 	            public void mouseMoved(final MouseEvent e) {
-	                mousePosition = e.getPoint();
+	                drawingAppModel.mouseMoved(e);
 	                repaint();
 	            }
-	           /* @Override
+	            @Override
 	            public void mousePressed(final MouseEvent e) {
-	                if (current_x != -1 && current_y != -1) {
-	                	System.out.println(current_x);
-	                	System.out.println(current_y);
-	                	if(hexes[current_y][current_x].getLabel() == "W") {
-	                		hexes[current_y][current_x].setLabel("E");
-	                	}else {
-	                		hexes[current_y][current_x].setLabel("W");
-	                	}
-	                	
-	                	System.out.println(hexes[current_y][current_x].getLabel());
-	                	repaint();
-	                }
+	                drawingAppModel.mousePressed(e);
 	                repaint();
-	                mousePressed = true;
-	            }*/
-	       // };
-	        //addMouseMotionListener(this);
-	        //addMouseListener(mouseHandler);
-	        addMouseListener(this);
+	            }
+	        };
+	        addMouseMotionListener(mouseHandler);
+	        addMouseListener(mouseHandler);
+	        
 	    }
 
 	    @Override
@@ -83,6 +73,7 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	        drawingAppModel = drawingApp.getDrawingAppModel();
 	        drawingAppModel.setcurrent_x(-1);
 	        drawingAppModel.setcurrent_y(-1);
+	      //  drawingAppModel.setMousePosition(e.getPoint());
 	        g2d.setStroke(bs1);
 	        System.out.println("oui je repaint");
 	        for (int row = 0; row < rows; row += 2) {
@@ -118,6 +109,7 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	                    focusedHexagonLocation.y =(int) (row * side * 1.5 + 0.5);
 	                    drawingAppModel.setcurrent_x(column);
 	                    drawingAppModel.setcurrent_y(row);
+	                    
 	                    System.out.println(drawingAppModel.getcurrent_x());
 	                    System.out.println(drawingAppModel.getcurrent_y());
 	                }
@@ -160,44 +152,6 @@ public class HexesJPanel extends JPanel implements ChangeListener, MouseListener
 	        hexagon.addPoint(x, y + (int) (1.5 * side));
 	        return hexagon;
 	    }
+	    
 
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			drawingAppModel.mousePressed(e);
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			repaint();
-			
-		}
-		
-		public void mouseMoved(final MouseEvent e) {
-			drawingAppModel.mouseMoved(e);
-		}
 }

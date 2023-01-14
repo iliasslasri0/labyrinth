@@ -3,6 +3,7 @@ package Buttons;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -40,7 +41,7 @@ public class SolveButton extends JButton implements ActionListener{
 			e1.printStackTrace();
 		}
 		
-		/*
+		
 		Dijkstra dij = new Dijkstra();
 		//Maze(nombre de colonnes , Nmbr de lines)
 		Maze maze = new Maze(drawingAppModel.getWidth(),drawingAppModel.getHeight());
@@ -76,6 +77,25 @@ public class SolveButton extends JButton implements ActionListener{
 			}
 			System.out.print("\n");
 		}
-	*/	
+		
+		try (PrintWriter pw = new PrintWriter(drawingAppModel.getFile())) {
+			for (int i=0;i<maze.getsizeMazeLine() ;i++) {
+				for (int j=0;j<maze.getsizeMazeColum();j++) {
+					if (chemin.contains(maze.maze[j][i])) {
+						
+						pw.print('.');
+					}else if((maze.maze[j][i]).isWall()) {
+						pw.print("W");
+						
+					}else {
+						pw.print("E");
+					}
+				}
+				
+				pw.println();
+			}
+		}catch(Exception ex) {	
+		}
+		
 	}
 }

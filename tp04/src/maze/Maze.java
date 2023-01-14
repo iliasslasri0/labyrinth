@@ -8,6 +8,7 @@ import graph.Vertex;
 
 import java.io.PrintWriter;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -122,18 +123,18 @@ public class Maze implements Graph {
 	
 	/**
 	 * Read the text file that describes the maze
-	 * @param fileName
+	 * @param object
 	 * @throws Exception 
 	 */
-	public final void initFromTextFile(String fileName) throws Exception {
+	public final void initFromTextFile(File object) throws Exception {
 		
-		try (BufferedReader readMazeParam = new BufferedReader(new FileReader(fileName))) {
+		try (BufferedReader readMazeParam = new BufferedReader(new FileReader(object))) {
 			String line;
 			for (int lineNum=0; lineNum < this.sizeMazeLine ; lineNum++) {
 					line = readMazeParam.readLine();
-					if (line == null) {throw new MazeReadingException(fileName, lineNum, "Increasing the number of lines is required");}
-					if ( line.length() > this.sizeMazeColum) { throw new MazeReadingException(fileName,lineNum,"Reducing the number of columns is required");}
-					if ( line.length() < this.sizeMazeColum) { throw new MazeReadingException(fileName,lineNum,"Increasing the number of columns is required");}
+					if (line == null) {throw new MazeReadingException(object, lineNum, "Increasing the number of lines is required");}
+					if ( line.length() > this.sizeMazeColum) { throw new MazeReadingException(object,lineNum,"Reducing the number of columns is required");}
+					if ( line.length() < this.sizeMazeColum) { throw new MazeReadingException(object,lineNum,"Increasing the number of columns is required");}
 					
 					for (int colonNum = 0; colonNum < this.sizeMazeColum ;colonNum++) {
 						switch (line.charAt(colonNum))
@@ -144,7 +145,7 @@ public class Maze implements Graph {
 						case 'W':
 								this.maze[colonNum][lineNum] =new WallHex(this,colonNum,lineNum);break;
 				        default :
-				        	throw new MazeReadingException(fileName , lineNum , "Inkown character");
+				        	throw new MazeReadingException(object , lineNum , "Inkown character");
 						
 						}
 					 }

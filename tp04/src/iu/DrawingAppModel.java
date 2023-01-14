@@ -23,7 +23,7 @@ public class DrawingAppModel{
 	private final ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>() ;
 	private int width;
     private int height;
-    private boolean departurechoosed;
+    private boolean departurechoosed =false;
     private boolean arrivalchoosed;
 	private int current_x = -1;
 	private int current_y =-1;
@@ -32,6 +32,9 @@ public class DrawingAppModel{
 	private boolean modified = false ;
 	private Point mousePosition;
 	private File file;
+	private Hex arrivalHex;
+	private Hex departHex;
+	private boolean departEncours;
 	
 	 
     public DrawingAppModel(int width,int height) {
@@ -69,14 +72,18 @@ public class DrawingAppModel{
 	}
 	
     public void mousePressed(final MouseEvent e) {
-    	System.out.println("oui je presse");
     	mousePosition = e.getPoint();
         if (current_x != -1 && current_y != -1) {
         	if(hexes[current_y][current_x].getLabel() == "W") {
         		hexes[current_y][current_x].setLabel("E");
-        	}else {
+        	}else if(hexes[current_y][current_x].getLabel() == "E"){
         		hexes[current_y][current_x].setLabel("W");
-        		System.out.println(hexes[current_y][current_x].getLabel());
+        	}
+        	if (departEncours ) {
+        		hexes[current_y][current_x].setLabel("E");
+        		departHex = hexes[current_y][current_x];
+        		departEncours = false;
+        		departurechoosed = true;
         	}
         	
         	//System.out.println(hexes[current_y][current_x].getLabel());
@@ -205,9 +212,31 @@ public class DrawingAppModel{
 	}
 
 
-	public Object getFile() {
+	public File getFile() {
 		// TODO Auto-generated method stub
 		return file;
+	}
+
+
+	public Hex getArrivalHex() {
+		return arrivalHex;
+	}
+
+
+	public void setArrivalHex(Hex arrivalHex) {
+		arrivalHex = arrivalHex;
+	}
+
+
+	public Hex getDepartHex() {
+		return departHex;
+	}
+
+
+	public void setDepartHex() {
+		
+		departEncours = true;
+		
 	}
 	
 }

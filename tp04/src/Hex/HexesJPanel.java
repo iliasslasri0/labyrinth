@@ -100,6 +100,10 @@ public class HexesJPanel extends JPanel {
 					}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getArrivalHex())) {
 						g2d.setColor(Color.red);
 					}
+					if (drawingAppModel.getHexes()[row][column].getLabel() == "C") {
+						g2d.setColor(Color.white);
+					}
+					
 	                g2d.fillPolygon(hexagon);
 	              
 	            }
@@ -126,6 +130,11 @@ public class HexesJPanel extends JPanel {
 					}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getArrivalHex())) {
 						g2d.setColor(Color.red);
 					}
+	                if (drawingAppModel.getHexes()[row][column].getLabel() == "C") {
+						g2d.setColor(Color.white);
+					}
+					
+	                
 	                g2d.fillPolygon(hexagon);
 	                
 	                
@@ -147,7 +156,10 @@ public class HexesJPanel extends JPanel {
 				}else if (drawingAppModel.getHexes()[drawingAppModel.getcurrent_y()][drawingAppModel.getcurrent_x()].equals(drawingAppModel.getArrivalHex())) {
 					g2d.setColor(Color.red);
 					g2d.fillPolygon(focusedHexagon);
-				}
+				}else if (drawingAppModel.getHexes()[drawingAppModel.getcurrent_y()][drawingAppModel.getcurrent_x()].getLabel()=="C") {
+		            g2d.setColor(Color.white);
+		            g2d.fillPolygon(focusedHexagon);
+	            }
 	            
 	            //System.out.println( "x"+current_x + "this is y"+current_y);
 

@@ -37,6 +37,11 @@ public class DrawingAppModel{
 	private boolean departEncours =false;
 	private boolean arrivalEncours =false;
 	
+	private int a_x;
+	private int a_y;
+	private int d_x;
+	private int d_y;
+	
 	 
     public DrawingAppModel(int width,int height) {
     	this.width=width;
@@ -83,12 +88,16 @@ public class DrawingAppModel{
         	if (departEncours ) {
         		hexes[current_y][current_x].setLabel("E");
         		departHex = hexes[current_y][current_x];
+        		d_x = current_x;
+        		d_y = current_y;
         		departEncours = false;
         		departurechoosed = true;
         	}
         	if (arrivalEncours ) {
         		hexes[current_y][current_x].setLabel("E");
         		arrivalHex = hexes[current_y][current_x];
+        		a_x = current_x;
+        		a_y = current_y;
         		arrivalEncours = false;
         		arrivalchoosed = true;
         	}
@@ -244,6 +253,23 @@ public class DrawingAppModel{
 		
 		departEncours = true;
 		
+	}
+
+
+	public int getA_x() {
+		return a_x;
+	}
+	
+	public int getA_y() {
+		return a_y;
+	}
+	
+	public int getD_x() {
+		return d_x;
+	}
+	
+	public int getD_y() {
+		return d_y;
 	}
 	
 }

@@ -16,11 +16,11 @@ public class MainTest {
 		
 		//System.out.println(maze.maze.length);
 		//System.out.println(maze.maze[0].length);
-		maze.initFromTextFile("C:\\Users\\user\\inf103tp\\tp04\\data\\labyrinthe.maze");
+		maze.initFromTextFileX("C:\\Users\\user\\inf103tp\\tp04\\data\\labyrinthe.maze");
 		
 		// [colonne][line]
-		MazeHex d = maze.maze[3][14];
-		MazeHex a = maze.maze[2][2];
+		MazeHex d = maze.maze[0][0];
+		MazeHex a = maze.maze[8][15];
 		
 		ShortestPathsImpl path;
 		

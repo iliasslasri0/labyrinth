@@ -12,7 +12,7 @@ public class MainTest {
 	public static void main(String[] args) throws Exception {
 		Dijkstra dij = new Dijkstra();
 		//Maze(nombre de colonnes , Nmbr de lines)
-		Maze maze = new Maze(10,16);
+		Maze maze = new Maze(10,10);
 		
 		//System.out.println(maze.maze.length);
 		//System.out.println(maze.maze[0].length);
@@ -20,7 +20,7 @@ public class MainTest {
 		
 		// [colonne][line]
 		MazeHex d = maze.maze[0][0];
-		MazeHex a = maze.maze[8][15];
+		MazeHex a = maze.maze[8][1];
 		
 		ShortestPathsImpl path;
 		
@@ -30,22 +30,22 @@ public class MainTest {
 		List<Vertex> chemin = path.getShortestPath(a);
 
 		
-		
+		PrintWriter out = new PrintWriter("C:\\\\Users\\\\user\\\\inf103tp\\\\tp04\\\\data\\\\labyrinthe.maze");
 		for (int i=0;i<maze.getsizeMazeLine() ;i++) {
 			for (int j=0;j<maze.getsizeMazeColum();j++) {
 				if (chemin.contains(maze.maze[j][i])) {
 					
-					System.out.print('.');
+					out.print('.');
 				}else if((maze.maze[j][i]).isWall()) {
-					System.out.print("W");
+					out.print("W");
 					
 				}else {
-					System.out.print("E");
+					out.print("E");
 				}
 			}
-			System.out.print("\n");
+			out.println();
 		}
-		maze.saveToTextFile("C:\\Users\\user\\inf103tp\\tp04\\data\\labirinther.maze");
+		out.close();
 
 	}
 	

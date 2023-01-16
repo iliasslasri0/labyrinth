@@ -75,7 +75,6 @@ public class HexesJPanel extends JPanel {
 	        drawingAppModel.setcurrent_y(-1);
 	      //  drawingAppModel.setMousePosition(e.getPoint());
 	        g2d.setStroke(bs1);
-	        System.out.println("oui je repaint");
 	        for (int row = 0; row < rows; row += 2) {
 	            for (int column = 0; column < columns; column++) {
 	                getHexagon(column * dimension.width,
@@ -84,10 +83,8 @@ public class HexesJPanel extends JPanel {
 	                if (drawingAppModel.getMousePosition() !=null && hexagon.contains(drawingAppModel.getMousePosition())){
 	                    focusedHexagonLocation.x = column * dimension.width;
 	                    focusedHexagonLocation.y = (int) (row * side * 1.5);
-	                    drawingAppModel.setcurrent_x(column);
-	                    drawingAppModel.setcurrent_y(row);
-	                    System.out.println(drawingAppModel.getcurrent_x());
-	                    System.out.println(drawingAppModel.getcurrent_y());
+	                    drawingAppModel.setcurrent_x(row);
+	                    drawingAppModel.setcurrent_y(column);
 	                }
 	                
 	                
@@ -95,12 +92,12 @@ public class HexesJPanel extends JPanel {
 	                
 	                g2d.draw(hexagon);
 	                g2d.setColor(Color.ORANGE);
-					if(drawingAppModel.getHexes()[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getDepartHex())) {
+					if(drawingAppModel.getHexes()[column][row].getLabel() == "W") {g2d.setColor(Color.BLACK);}else if (drawingAppModel.getHexes()[column][row].equals(drawingAppModel.getDepartHex())) {
 						g2d.setColor(Color.green);
-					}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getArrivalHex())) {
+					}else if (drawingAppModel.getHexes()[column][row].equals(drawingAppModel.getArrivalHex())) {
 						g2d.setColor(Color.red);
 					}
-					if (drawingAppModel.getHexes()[row][column].getLabel() == "C") {
+					if (drawingAppModel.getHexes()[column][row].getLabel() == "C") {
 						g2d.setColor(Color.white);
 					}
 					
@@ -115,22 +112,19 @@ public class HexesJPanel extends JPanel {
 	                if (drawingAppModel.getMousePosition()!= null && hexagon.contains(drawingAppModel.getMousePosition())){
 	                    focusedHexagonLocation.x = column * dimension.width + dimension.width / 2;
 	                    focusedHexagonLocation.y =(int) (row * side * 1.5 + 0.5);
-	                    drawingAppModel.setcurrent_x(column);
-	                    drawingAppModel.setcurrent_y(row);
-	                    
-	                    System.out.println(drawingAppModel.getcurrent_x());
-	                    System.out.println(drawingAppModel.getcurrent_y());
+	                    drawingAppModel.setcurrent_x(row);
+	                    drawingAppModel.setcurrent_y(column);
 	                }
 	                
 	                g2d.setColor(Color.black);
 	                g2d.draw(hexagon);
 	                g2d.setColor(Color.ORANGE);
-	                if(drawingAppModel.getHexes()[row][column].getLabel() == "W") {g2d.setColor(Color.BLACK);}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getDepartHex())) {
+	                if(drawingAppModel.getHexes()[column][row].getLabel() == "W") {g2d.setColor(Color.BLACK);}else if (drawingAppModel.getHexes()[column][row].equals(drawingAppModel.getDepartHex())) {
 						g2d.setColor(Color.green);
-					}else if (drawingAppModel.getHexes()[row][column].equals(drawingAppModel.getArrivalHex())) {
+					}else if (drawingAppModel.getHexes()[column][row].equals(drawingAppModel.getArrivalHex())) {
 						g2d.setColor(Color.red);
 					}
-	                if (drawingAppModel.getHexes()[row][column].getLabel() == "C") {
+	                if (drawingAppModel.getHexes()[column][row].getLabel() == "C") {
 						g2d.setColor(Color.white);
 					}
 					
@@ -146,7 +140,6 @@ public class HexesJPanel extends JPanel {
 	            Polygon focusedHexagon = getHexagon(focusedHexagonLocation.x,
 	                    focusedHexagonLocation.y);
 	            g2d.draw(focusedHexagon);
-	            System.out.println((drawingAppModel.getHexes()[drawingAppModel.getcurrent_y()][drawingAppModel.getcurrent_x()].getLabel()));
 	            if (drawingAppModel.getHexes()[drawingAppModel.getcurrent_y()][drawingAppModel.getcurrent_x()].getLabel()=="W") {
 		            g2d.setColor(Color.black);
 		            g2d.fillPolygon(focusedHexagon);
@@ -160,12 +153,9 @@ public class HexesJPanel extends JPanel {
 		            g2d.setColor(Color.white);
 		            g2d.fillPolygon(focusedHexagon);
 	            }
-	            
-	            //System.out.println( "x"+current_x + "this is y"+current_y);
-
-	            
 	        }
 	    }
+	    
 	    public Polygon getHexagon(final int x, final int y) {
 	        hexagon.reset();
 	        int h = side / 2;

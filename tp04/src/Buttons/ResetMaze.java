@@ -23,7 +23,7 @@ public class ResetMaze extends JButton implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		drawingApp.getDrawingAppModel().resetAll();
 	}
 	}
 

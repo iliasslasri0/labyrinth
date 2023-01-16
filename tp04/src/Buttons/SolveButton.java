@@ -67,10 +67,11 @@ public class SolveButton extends JButton implements ActionListener{
 		List<Vertex> chemin = path.getShortestPath(a);
 
 		
-		try (PrintWriter pw = new PrintWriter(drawingAppModel.getFile())) {
+		/*try (PrintWriter pw = new PrintWriter(drawingAppModel.getFile())) {
+			for (int j=0;j<maze.getsizeMazeColum();j++) {
 			for (int i=0;i<maze.getsizeMazeLine() ;i++) {
-				for (int j=0;j<maze.getsizeMazeColum();j++) {
-					if (chemin.contains(maze.maze[i][j]) && !maze.maze[i][j].equals(d) && !maze.maze[i][j].equals(a) ) {
+				
+					if (chemin.contains(maze.maze[i][j]) ) {
 						drawingAppModel.getHexes()[i][j].setLabel("C");
 						pw.print('C');
 					}else if((maze.maze[i][j]).isWall()) {
@@ -83,8 +84,34 @@ public class SolveButton extends JButton implements ActionListener{
 				
 				pw.println();
 			}
+			pw.close();
 		}catch(Exception ex) {	
+		}*/
+		
+		
+		PrintWriter out=null;
+		try {
+			out = new PrintWriter(drawingAppModel.getFile());
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		for (int j=0;j<maze.getsizeMazeColum();j++) {
+		for (int i=0;i<maze.getsizeMazeLine() ;i++) {
+			
+				if (chemin.contains(maze.maze[i][j]) && !maze.maze[i][j].equals(d) && !maze.maze[i][j].equals(a) ) {
+					drawingAppModel.getHexes()[i][j].setLabel("C");
+					out.print('C');
+				}else if((maze.maze[i][j]).isWall()) {
+					out.print("W");
+					
+				}else {
+					out.print("E");
+				}
+			}
+			out.println();
+		}
+		out.close();
 		
 	}
 }

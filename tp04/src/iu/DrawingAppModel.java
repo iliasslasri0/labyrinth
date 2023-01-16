@@ -271,5 +271,15 @@ public class DrawingAppModel{
 	public int getD_y() {
 		return d_y;
 	}
+
+
+	public void resetAll() {
+		// TODO Auto-generated method stub
+		for(int i=0;i<width;i++) {
+        	for(int j=0;j<height;j++) {
+        		hexes[j][i] = new Hex(j,i,"E");
+        	}
+        }
+	}
 	
 }

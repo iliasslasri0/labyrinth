@@ -21,8 +21,8 @@ public class DrawingAppModel{
 	
 	
 	private final ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>() ;
-	private int width;
-    private int height;
+	private int NmbrOfcolumns;
+    private int NmbrOfrows;
     private boolean departurechoosed =false;
     private boolean arrivalchoosed =false;
 	private int current_x = -1;
@@ -43,17 +43,18 @@ public class DrawingAppModel{
 	private int d_y;
 	
 	 
-    public DrawingAppModel(int width,int height) {
-    	this.width=width;
-    	this.height = height;
+    public DrawingAppModel(int NmbrOfcolumns,int NmbrOfrows) {
+    	this.NmbrOfcolumns=NmbrOfcolumns;
+    	this.NmbrOfrows = NmbrOfrows;
     	this.departurechoosed = false;
     	this.arrivalchoosed=false;
-    	hexes = new Hex[width][height];
-    	for(int i=0;i<width;i++) {
-        	for(int j=0;j<height;j++) {
-        		hexes[j][i] = new Hex(j,i,"E");
+    	hexes = new Hex[NmbrOfcolumns][NmbrOfrows];
+    	for(int i=0;i<NmbrOfcolumns;i++) {
+        	for(int j=0;j<NmbrOfrows;j++) {
+        		hexes[i][j] = new Hex(j,i,"E");
         	}
         }
+    	
     }
     
     
@@ -67,13 +68,13 @@ public class DrawingAppModel{
 	}
 	
 
-	public void stateChanged(MouseEvent e) {
+	public void stateChanged() {
 		// TODO Auto-generated method stub
-		/*ChangeEvent evt = new ChangeEvent(this) ;
+		ChangeEvent evt = new ChangeEvent(this) ;
 		   
 		   for (ChangeListener listener : listeners) {
 		      listener.stateChanged(evt);
-		   }*/
+		   }
 		
 	}
 	
@@ -103,31 +104,31 @@ public class DrawingAppModel{
         	}
         	
         	//System.out.println(hexes[current_y][current_x].getLabel());
-        	stateChanged(e);
+        	stateChanged();
         }
-        stateChanged(e);
+        stateChanged();
         mousePressed = true;
     }
     
     public void mouseMoved(final MouseEvent e) {
         mousePosition = e.getPoint();
-        stateChanged(e);
+        stateChanged();
     }
 
-	public int getWidth() {
-		return width;
+	public int getNmbrOfcolumns() {
+		return NmbrOfcolumns;
 	}
 
-	public void setWidth(int width) {
-		this.width = width;
+	public void setNmbrOfcolumns(int NmbrOfcolumns) {
+		this.NmbrOfcolumns = NmbrOfcolumns;
 	}
 
-	public int getHeight() {
-		return height;
+	public int getNmbrOfrows() {
+		return NmbrOfrows;
 	}
 
-	public void setHeight(int height) {
-		this.height = height;
+	public void setNmbrOfrows(int NmbrOfrows) {
+		this.NmbrOfrows = NmbrOfrows;
 	}
 
 	public boolean isDeparturechoosed() {
@@ -197,28 +198,20 @@ public class DrawingAppModel{
 	 * This method saves the state of the maze into a text file
 	 */
 	public final void saveToTextFile()throws FileNotFoundException{
-		JFileChooser fileChooser = new JFileChooser();
-		
-		fileChooser.setCurrentDirectory(new File(".")); //sets current directory
-		
-		int response = fileChooser.showOpenDialog(null); //select file to open
-		//int response = fileChooser.showSaveDialog(null); //select file to save
-		File file = null ;
-		if(response == JFileChooser.APPROVE_OPTION) {
-			file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-			this.setcurrent_file(file);
-		}
-		 
+
+		File file = new File(".\\data\\labyrinthe.maze");
+		this.setcurrent_file(file);
 		try (PrintWriter pw = new PrintWriter(file)) {
-			for (int lineNum = 0; lineNum < this.width; lineNum++) {
-				for (int columNum=0; columNum < this.height; columNum++ ) {
-					pw.print(this.hexes[lineNum][columNum].getLabel());
+			for (int lineNum = 0; lineNum < this.NmbrOfrows; lineNum++) {
+				for (int columNum=0; columNum < this.NmbrOfcolumns; columNum++ ) {
+					pw.print(this.hexes[columNum][lineNum].getLabel());
 					
 				}
 				pw.println();
 			}
 		}catch(Exception ex) {	
 		}
+		stateChanged();
 	}
 
 
@@ -275,11 +268,12 @@ public class DrawingAppModel{
 
 	public void resetAll() {
 		// TODO Auto-generated method stub
-		for(int i=0;i<width;i++) {
-        	for(int j=0;j<height;j++) {
-        		hexes[j][i] = new Hex(j,i,"E");
+		for(int i=0;i<NmbrOfcolumns;i++) {
+        	for(int j=0;j<NmbrOfrows;j++) {
+        		hexes[i][j] = new Hex(j,i,"E");
         	}
         }
+		stateChanged();
 	}
 	
 }

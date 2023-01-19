@@ -141,9 +141,9 @@ public class Maze implements Graph {
 						{
 						// case D case A
 						case 'E':
-								this.maze[lineNum][colonNum] =new EmptyHex(this,lineNum,colonNum);break;
+								this.maze[colonNum][lineNum] =new EmptyHex(this,colonNum,lineNum);break;
 						case 'W':
-								this.maze[lineNum][colonNum] =new WallHex(this,lineNum,colonNum);break;
+								this.maze[colonNum][lineNum] =new WallHex(this,colonNum,lineNum);break;
 				        default :
 				        	throw new MazeReadingException(object , lineNum , "Inkown character");
 						

@@ -22,7 +22,7 @@ public class WindowPanel extends JPanel {
    public WindowPanel(DrawingApp drawingApp) {
       setLayout(new BorderLayout()) ;
 		
-      this.add(panel = new HexesJPanel(10,10,40,drawingApp),BorderLayout.CENTER);
+      this.add(panel = new HexesJPanel(40,drawingApp),BorderLayout.CENTER);
       this.add(buttonsPanel = new ButtonsPanel (drawingApp), BorderLayout.SOUTH) ;
       
    }

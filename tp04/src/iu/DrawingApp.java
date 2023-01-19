@@ -1,5 +1,6 @@
 package iu;
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
 
 import javax.swing.* ;
 import javax.swing.event.ChangeEvent;
@@ -15,11 +16,21 @@ public class DrawingApp extends JFrame implements ChangeListener{
 	private static final long serialVersionUID = 1L;
 	private final DrawingMenuBar drawingMenuBar ;
 	private final WindowPanel windowPanel ;
-	private DrawingAppModel drawingAppModel = new DrawingAppModel(10,10);
+	private DrawingAppModel drawingAppModel;
 	
 	public DrawingApp() {
-      super("Labyrinthe") ;
-
+		
+		super("Labyrinthe") ;
+      
+      /*	String x = JOptionPane.showInputDialog("Type the width");
+		
+		String y = JOptionPane.showInputDialog("Type the height");*/
+		drawingAppModel = new DrawingAppModel(24,15);
+		try {
+			drawingAppModel.saveToTextFile();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
       setJMenuBar(drawingMenuBar = new DrawingMenuBar(this)) ;
       
       

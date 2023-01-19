@@ -22,7 +22,7 @@ import iu.DrawingApp;
 import iu.DrawingAppModel;
 
 
-public class HexesJPanel extends JPanel {
+public class HexesJPanel extends JPanel  implements ChangeListener, MouseListener {
 	  
 		private static final long serialVersionUID = 1L;
 		
@@ -31,17 +31,22 @@ public class HexesJPanel extends JPanel {
 	    private final BasicStroke bs3 = new BasicStroke(3);
 	    private final Point focusedHexagonLocation = new Point();
 	    private final Dimension dimension;
-	    private final int rows, columns, side;
+	    private int rows;
+
+		private int columns;
+
+		private final int side;
 		private DrawingApp drawingApp;
 		private static final int SIZE = 200;
 
 		private DrawingAppModel drawingAppModel;
 	    
-	    public HexesJPanel(final int rows, final int columns, final int side, final DrawingApp drawingApp) {
+	    public HexesJPanel(final int side, final DrawingApp drawingApp) {
 	        this.drawingApp = drawingApp;
-	    	this.rows = rows;
-	        this.columns = columns;
+	    	this.rows = drawingApp.getDrawingAppModel().getNmbrOfrows();
+	        this.columns =drawingApp.getDrawingAppModel().getNmbrOfcolumns();
 	        this.side = side;
+	        drawingApp.getDrawingAppModel().addObserver(this);
 	        
 	        dimension = getHexagon(0, 0).getBounds().getSize();
 	        setPreferredSize(dimension);
@@ -65,6 +70,9 @@ public class HexesJPanel extends JPanel {
 
 	    @Override
 	    public void paintComponent(final Graphics g) {
+	    	this.rows = drawingApp.getDrawingAppModel().getNmbrOfrows();
+	        this.columns =drawingApp.getDrawingAppModel().getNmbrOfcolumns();
+	        
 	        super.paintComponent(g);
 	        Graphics2D g2d = (Graphics2D) g;
 	        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -168,6 +176,42 @@ public class HexesJPanel extends JPanel {
 	        hexagon.addPoint(x, y + (int) (1.5 * side));
 	        return hexagon;
 	    }
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			// TODO Auto-generated method stub
+			repaint();
+		}
 	    
 
 }

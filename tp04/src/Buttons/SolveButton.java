@@ -25,7 +25,7 @@ public class SolveButton extends JButton implements ActionListener{
 	private final DrawingApp drawingApp ;
 		
 	   public SolveButton(DrawingApp drawingApp)	{
-	      super("Solve the maze") ; // Button's text
+	      super("Solve the maze") ;
 			
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;
@@ -37,21 +37,16 @@ public class SolveButton extends JButton implements ActionListener{
 		try {
 			drawingAppModel.saveToTextFile();
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		
 		Dijkstra dij = new Dijkstra();
 		//Maze(nombre de colonnes , Nmbr de lines)
-		Maze maze = new Maze(drawingAppModel.getWidth(),drawingAppModel.getHeight());
-		
-		//System.out.println(maze.maze.length);
-		//System.out.println(maze.maze[0].length);
+		Maze maze = new Maze(drawingAppModel.getNmbrOfcolumns(),drawingAppModel.getNmbrOfrows());
 		try {
 			maze.initFromTextFile(drawingAppModel.getFile());
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -65,44 +60,20 @@ public class SolveButton extends JButton implements ActionListener{
 	
 		
 		List<Vertex> chemin = path.getShortestPath(a);
-
-		
-		/*try (PrintWriter pw = new PrintWriter(drawingAppModel.getFile())) {
-			for (int j=0;j<maze.getsizeMazeColum();j++) {
-			for (int i=0;i<maze.getsizeMazeLine() ;i++) {
-				
-					if (chemin.contains(maze.maze[i][j]) ) {
-						drawingAppModel.getHexes()[i][j].setLabel("C");
-						pw.print('C');
-					}else if((maze.maze[i][j]).isWall()) {
-						pw.print("W");
-						
-					}else {
-						pw.print("E");
-					}
-				}
-				
-				pw.println();
-			}
-			pw.close();
-		}catch(Exception ex) {	
-		}*/
-		
 		
 		PrintWriter out=null;
 		try {
 			out = new PrintWriter(drawingAppModel.getFile());
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		for (int j=0;j<maze.getsizeMazeColum();j++) {
 		for (int i=0;i<maze.getsizeMazeLine() ;i++) {
 			
-				if (chemin.contains(maze.maze[i][j]) && !maze.maze[i][j].equals(d) && !maze.maze[i][j].equals(a) ) {
-					drawingAppModel.getHexes()[i][j].setLabel("C");
+				if (chemin.contains(maze.maze[j][i]) && !maze.maze[j][i].equals(d) && !maze.maze[j][i].equals(a) ) {
+					drawingAppModel.getHexes()[j][i].setLabel("C");
 					out.print('C');
-				}else if((maze.maze[i][j]).isWall()) {
+				}else if((maze.maze[j][i]).isWall()) {
 					out.print("W");
 					
 				}else {
@@ -112,6 +83,7 @@ public class SolveButton extends JButton implements ActionListener{
 			out.println();
 		}
 		out.close();
+		drawingAppModel.stateChanged();
 		
 	}
 }

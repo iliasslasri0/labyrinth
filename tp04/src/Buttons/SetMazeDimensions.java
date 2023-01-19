@@ -24,12 +24,41 @@ public class SetMazeDimensions extends JButton implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String x = JOptionPane.showInputDialog("Type the nombre of columns : max is 24");
-		drawingApp.getDrawingAppModel().setNmbrOfcolumns(Integer.parseInt(x));
-		drawingApp.getDrawingAppModel().stateChanged();
+		String x,y;
+		while (true) {
+			x = JOptionPane.showInputDialog("Type the numbre of columns : max is 24");
+			if (x==null){
+				break;
+			}
+			if (Integer.parseInt(x) > 24 | Integer.parseInt(x)< 1) {
+				JOptionPane.showMessageDialog( drawingApp, "Enter a valid number please!","Invalid number",JOptionPane.ERROR_MESSAGE);
+			}else {
+				break;
+			}
+		}
 		
-		x = JOptionPane.showInputDialog("Type the nombre of rows : max is 15");
-		drawingApp.getDrawingAppModel().setNmbrOfrows(Integer.parseInt(x));
-		drawingApp.getDrawingAppModel().stateChanged();
+		if (x!=null) {
+			drawingApp.getDrawingAppModel().setNmbrOfcolumns(Integer.parseInt(x));
+			drawingApp.getDrawingAppModel().stateChanged();
+		}
+		
+		
+		
+		while (true) {
+			y = JOptionPane.showInputDialog("Type the numbre of rows : max is 15");
+			if (y==null){
+				break;
+			}
+			if (Integer.parseInt(y) > 15 | Integer.parseInt(y)< 1) {
+				JOptionPane.showMessageDialog( drawingApp, "Enter a valid number please!","Invalid number",JOptionPane.ERROR_MESSAGE);
+			}else {
+				break;
+			}
+		}
+		if (y!=null) {
+			drawingApp.getDrawingAppModel().setNmbrOfrows(Integer.parseInt(y));
+			drawingApp.getDrawingAppModel().stateChanged();
+		}
+		
 	}
 	}

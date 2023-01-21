@@ -2,7 +2,9 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 
+
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 import javax.swing.* ;
 
@@ -39,7 +41,17 @@ public class QuitMenuItem extends JMenuItem implements ActionListener{
 			   case JOptionPane.CANCEL_OPTION:
 				   return ;
 			   case JOptionPane.OK_OPTION:
-				   //drawingAppModel.saveToFile() ;
+				   String fileName = JOptionPane.showInputDialog(drawingApp, "Name of the File");
+					int n = fileName.length();
+					for (int i = 0; i < n; i++) {
+						String c = String.valueOf(fileName.charAt(i));
+					}
+				try {
+					drawingApp.getDrawingAppModel().saveToTextFile("./data/"+fileName+".txt");
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				   break ;
 			   case JOptionPane.NO_OPTION:
 				   break ;

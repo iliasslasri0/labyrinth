@@ -1,6 +1,7 @@
 package iu;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.* ;
 import javax.swing.event.ChangeEvent;
@@ -18,7 +19,7 @@ public class DrawingApp extends JFrame implements ChangeListener{
 	private final WindowPanel windowPanel ;
 	private DrawingAppModel drawingAppModel;
 	
-	public DrawingApp() {
+	public DrawingApp() throws IOException {
 		
 		super("Labyrinthe") ;
       

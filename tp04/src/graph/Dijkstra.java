@@ -23,9 +23,10 @@ public class Dijkstra {
 			minDistance.replaceMinDistance(Integer.MAX_VALUE,v);
 			
 		}
-		
+		int N=0;
 		minDistance.replaceMinDistance(0,startVertex);
 		while ( !( processedVertexes.isInProcessedVertexes( endVertex ) ) ){
+			N+=1;
 			if(graph.getSuccessors(pivotVertex) ==null) {
 				break;
 			}
@@ -58,7 +59,9 @@ public class Dijkstra {
 				}
 			}
 			processedVertexes.unionPivot(pivotVertex);
-			
+			if(N>=24*15) {
+				break;
+			}
 		}
 		return path;
 	}

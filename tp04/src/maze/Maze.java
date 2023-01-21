@@ -142,6 +142,8 @@ public class Maze implements Graph {
 						// case D case A
 						case 'E':
 								this.maze[colonNum][lineNum] =new EmptyHex(this,colonNum,lineNum);break;
+						case 'C':
+							this.maze[colonNum][lineNum] =new EmptyHex(this,colonNum,lineNum);break;
 						case 'W':
 								this.maze[colonNum][lineNum] =new WallHex(this,colonNum,lineNum);break;
 				        default :

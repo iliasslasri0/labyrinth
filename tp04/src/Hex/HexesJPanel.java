@@ -37,7 +37,7 @@ public class HexesJPanel extends JPanel  implements ChangeListener, MouseListene
 
 		private final int side;
 		private DrawingApp drawingApp;
-		private static final int SIZE = 200;
+		private static final int SIZE = 100;
 
 		private DrawingAppModel drawingAppModel;
 	    

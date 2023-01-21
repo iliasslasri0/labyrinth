@@ -28,7 +28,6 @@ public class DrawingAppModel{
 	private int current_x = -1;
 	private int current_y =-1;
 	private Hex[][] hexes;
-	private boolean mousePressed;
 	private boolean modified = false ;
 	private Point mousePosition;
 	private File file;
@@ -83,7 +82,14 @@ public class DrawingAppModel{
         if (current_x != -1 && current_y != -1) {
         	if(hexes[current_y][current_x].getLabel() == "W") {
         		hexes[current_y][current_x].setLabel("E");
-        	}else if(hexes[current_y][current_x].getLabel() == "E"){
+        	}else if(hexes[current_y][current_x].getLabel() == "E" | hexes[current_y][current_x].getLabel() == "C"){
+			if (hexes[current_y][current_x].equals(departHex)) {
+							departurechoosed = false;
+							departHex = null;
+			        		}else if (hexes[current_y][current_x].equals(arrivalHex)) {
+			        			arrivalchoosed = false;
+			        			arrivalHex = null;
+			        		}
         		hexes[current_y][current_x].setLabel("W");
         	}
         	if (departEncours ) {
@@ -107,7 +113,6 @@ public class DrawingAppModel{
         	stateChanged();
         }
         stateChanged();
-        mousePressed = true;
     }
     
     public void mouseMoved(final MouseEvent e) {
@@ -213,7 +218,21 @@ public class DrawingAppModel{
 		}
 		stateChanged();
 	}
+	
+	public final void saveToTextFile(String fileName)throws FileNotFoundException{
 
+		try (PrintWriter pw = new PrintWriter(fileName)) {
+			for (int lineNum = 0; lineNum < this.NmbrOfrows; lineNum++) {
+				for (int columNum=0; columNum < this.NmbrOfcolumns; columNum++ ) {
+					pw.print(this.hexes[columNum][lineNum].getLabel());
+					
+				}
+				pw.println();
+			}
+		}catch(Exception ex) {	
+		}
+		stateChanged();
+	}
 
 	private void setcurrent_file(File file) {
 		this.file = file;
@@ -246,6 +265,10 @@ public class DrawingAppModel{
 		
 		departEncours = true;
 		
+	}
+	
+	public boolean getIfdepartEncours() {
+		return departEncours;
 	}
 
 

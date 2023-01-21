@@ -1,5 +1,6 @@
 package Buttons;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,12 +17,12 @@ public class ArrivalButton  extends JButton implements ActionListener{
 			
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;
+	     
 	   }
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		DrawingAppModel drawingAppModel = drawingApp.getDrawingAppModel();
 		drawingAppModel.setArrivalHex();
-		
 	}
 }

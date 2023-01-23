@@ -17,6 +17,13 @@ public class Controller{
 		this.drawingAppModel = drawingAppModel;
 	}
 	
+
+	public void mouseMoved(final MouseEvent e) {
+        drawingAppModel.setMousePosition(e.getPoint());
+        drawingAppModel.stateChanged();
+    }
+	
+
 	public void mousePressed(final MouseEvent e) {
 		drawingAppModel.setMousePosition(e.getPoint());
 		int current_x = drawingAppModel.getCurrent_x();
@@ -56,6 +63,5 @@ public class Controller{
         drawingAppModel.stateChanged();
         drawingAppModel.setModified(true);
     }
-
 
 }

@@ -71,11 +71,6 @@ public class DrawingAppModel{
 		
 	}
 	
-    public void mouseMoved(final MouseEvent e) {
-        mousePosition = e.getPoint();
-        stateChanged();
-    }
-
 	public int getNmbrOfcolumns() {
 		return NmbrOfcolumns;
 	}

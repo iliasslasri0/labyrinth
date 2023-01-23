@@ -61,7 +61,7 @@ public class HexesJPanel extends JPanel  implements ChangeListener, MouseListene
 	      MouseInputAdapter mouseHandler = new MouseInputAdapter() {
 	            @Override
 	            public void mouseMoved(final MouseEvent e) {
-	                drawingAppModel.mouseMoved(e);
+	                controller.mouseMoved(e);
 	                repaint();
 	            }
 	            @Override

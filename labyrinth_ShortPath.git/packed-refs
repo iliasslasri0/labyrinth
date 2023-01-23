@@ -1,0 +1,4 @@
+# pack-refs with: peeled fully-peeled sorted 
+391b127c807bb673c84b1eddc894e43d04f05988 refs/heads/checkout
+90381a7bab07883019051698443dfa532002bf55 refs/heads/master
+90381a7bab07883019051698443dfa532002bf55 refs/remotes/origin/master

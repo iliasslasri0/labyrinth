@@ -1,4 +1,4 @@
 ## LABYRINTH PROJECT
 
 The user interface is simple : 
-![UserInterface!](./data/mazedefault.png)
+![UserInterface!](./tp04/data/mazedefault.png)

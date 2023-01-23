@@ -290,6 +290,10 @@ public class DrawingAppModel{
         		hexes[i][j] = new Hex(j,i,"E");
         	}
         }
+		arrivalHex= null;
+		departHex=null;
+		departurechoosed =false;
+		arrivalchoosed =false;
 		stateChanged();
 	}
 

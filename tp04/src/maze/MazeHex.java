@@ -49,7 +49,7 @@ public class MazeHex implements Vertex {
 	
 	
 	/**
-	 * @return boolean : true si se hex est wall, false sinon
+	 * @return boolean : true si ce hex est wall, false sinon
 	 */
 	public boolean isWall() {
 		return false;

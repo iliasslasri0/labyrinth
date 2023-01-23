@@ -43,7 +43,7 @@ public class DrawingAppModel{
 
 	private Hex hexprev;
 	 
-    public DrawingAppModel(int NmbrOfcolumns,int NmbrOfrows) {
+    public DrawingAppModel(final int NmbrOfcolumns,final int NmbrOfrows) {
     	this.NmbrOfcolumns=NmbrOfcolumns;
     	this.NmbrOfrows = NmbrOfrows;
     	this.departurechoosed = false;
@@ -58,12 +58,11 @@ public class DrawingAppModel{
     }
     
     
-	public void addObserver(ChangeListener listener) {
+	public void addObserver(final ChangeListener listener) {
 		listeners.add(listener) ;
 	}
 	
 	public void stateChanged() {
-		// TODO Auto-generated method stub
 		ChangeEvent evt = new ChangeEvent(this) ;
 		   
 		   for (ChangeListener listener : listeners) {
@@ -72,43 +71,6 @@ public class DrawingAppModel{
 		
 	}
 	
-    public void mousePressed(final MouseEvent e) {
-    	mousePosition = e.getPoint();
-        if (current_x != -1 && current_y != -1) {
-        	if(hexes[current_y][current_x].getLabel() == "W") {
-        		hexes[current_y][current_x].setLabel("E");
-        	}else if(hexes[current_y][current_x].getLabel() == "E" | hexes[current_y][current_x].getLabel() == "C"){
-			if (hexes[current_y][current_x].equals(departHex)) {
-							departurechoosed = false;
-							departHex = null;
-			        		}else if (hexes[current_y][current_x].equals(arrivalHex)) {
-			        			arrivalchoosed = false;
-			        			arrivalHex = null;
-			        		}
-        		hexes[current_y][current_x].setLabel("W");
-        	}
-        	if (departEncours ) {
-        		hexes[current_y][current_x].setLabel("E");
-        		departHex = hexes[current_y][current_x];
-        		d_x = current_x;
-        		d_y = current_y;
-        		departEncours = false;
-        		departurechoosed = true;
-        	}
-        	if (arrivalEncours ) {
-        		hexes[current_y][current_x].setLabel("E");
-        		arrivalHex = hexes[current_y][current_x];
-        		a_x = current_x;
-        		a_y = current_y;
-        		arrivalEncours = false;
-        		arrivalchoosed = true;
-        	}
-        	stateChanged();
-        }
-        stateChanged();
-        modified = true;
-    }
-    
     public void mouseMoved(final MouseEvent e) {
         mousePosition = e.getPoint();
         stateChanged();
@@ -118,7 +80,7 @@ public class DrawingAppModel{
 		return NmbrOfcolumns;
 	}
 
-	public void setNmbrOfcolumns(int NmbrOfcolumns) {
+	public void setNmbrOfcolumns(final int NmbrOfcolumns) {
 		this.NmbrOfcolumns = NmbrOfcolumns;
 	}
 
@@ -126,7 +88,7 @@ public class DrawingAppModel{
 		return NmbrOfrows;
 	}
 
-	public void setNmbrOfrows(int NmbrOfrows) {
+	public void setNmbrOfrows(final int NmbrOfrows) {
 		this.NmbrOfrows = NmbrOfrows;
 	}
 
@@ -134,7 +96,7 @@ public class DrawingAppModel{
 		return departurechoosed;
 	}
 
-	public void setDeparturechoosed(boolean departurechoosed) {
+	public void setDeparturechoosed(final boolean departurechoosed) {
 		this.departurechoosed = departurechoosed;
 	}
 
@@ -142,7 +104,7 @@ public class DrawingAppModel{
 		return arrivalchoosed;
 	}
 
-	public void setArrivalchoosed(boolean arrivalchoosed) {
+	public void setArrivalchoosed(final boolean arrivalchoosed) {
 		this.arrivalchoosed = arrivalchoosed;
 	}
 	
@@ -174,7 +136,14 @@ public class DrawingAppModel{
 		this.current_x = column;
 		
 	}
-
+	
+	public int getCurrent_x() {
+		return current_x;
+	}
+	
+	public int getCurrent_y() {
+		return current_y;
+	}
 
 	public void setcurrent_y(int row) {
 		// TODO Auto-generated method stub
@@ -213,7 +182,7 @@ public class DrawingAppModel{
 		stateChanged();
 	}
 	
-	public final void saveToTextFile(String fileName)throws FileNotFoundException{
+	public final void saveToTextFile(final String fileName)throws FileNotFoundException{
 
 		try (PrintWriter pw = new PrintWriter(fileName)) {
 			for (int lineNum = 0; lineNum < this.NmbrOfrows; lineNum++) {
@@ -298,7 +267,7 @@ public class DrawingAppModel{
 	}
 
 
-	public void mouseDragged(MouseEvent e) {
+	public void mouseDragged(final MouseEvent e) {
 		mousePosition = e.getPoint();
         if (current_x != -1 && current_y != -1) {
         	
@@ -330,5 +299,58 @@ public class DrawingAppModel{
 
 	public boolean isModified() {
 		return modified;
+	}
+
+
+	public void setdepartHex(Hex hex) {
+		departHex = hex;
+	}
+
+
+	public void setArrivalHex(Hex hex) {
+		arrivalHex = hex;
+	}
+
+
+	public void setD_x(int current_x2) {
+		d_x=current_x2;
+		
+	}
+	
+	public void setD_y(int current_y2) {
+		d_y=current_y2;
+		
+	}
+	
+	public void setA_x(int current_x2) {
+		a_x=current_x2;
+		
+	}
+	
+	public void setA_y(int current_y2) {
+		a_y=current_y2;
+		
+	}
+
+
+	public void setDepartureEncours(boolean b) {
+		departEncours = b;
+		
+	}
+
+
+	public boolean getIfarrivalEncours() {
+		return arrivalEncours;
+	}
+
+
+	public void setArrivalEncours(boolean b) {
+		arrivalEncours = b;
+		
+	}
+
+
+	public void setModified(boolean b) {
+		modified = b;
 	}
 }

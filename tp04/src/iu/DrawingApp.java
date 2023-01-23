@@ -18,11 +18,13 @@ public class DrawingApp extends JFrame implements ChangeListener{
 	private final DrawingMenuBar drawingMenuBar ;
 	private final WindowPanel windowPanel ;
 	private  DrawingAppModel drawingAppModel;
+	private Controller controller;
 	
 	public DrawingApp() throws IOException {
 		
 		super("Labyrinthe") ;
 		drawingAppModel = new DrawingAppModel(24,15);
+		controller = new Controller(this, drawingAppModel);
 		try {
 			drawingAppModel.saveToTextFile();
 		} catch (FileNotFoundException e1) {
@@ -57,6 +59,10 @@ public DrawingAppModel getDrawingAppModel() {
 public void setDrawingAppModel(DrawingAppModel drawingAppModel) {
 	   this.drawingAppModel = drawingAppModel;
 	
+}
+public Controller getController() {
+
+	return controller;
 }
 
 }

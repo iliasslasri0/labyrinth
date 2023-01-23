@@ -22,6 +22,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.MouseInputAdapter;
 
+import iu.Controller;
 import iu.DrawingApp;
 import iu.DrawingAppModel;
 
@@ -44,11 +45,13 @@ public class HexesJPanel extends JPanel  implements ChangeListener, MouseListene
 		private static final int SIZE = 100;
 
 		private DrawingAppModel drawingAppModel;
+		private Controller controller;
 	    
 	    public HexesJPanel(final int side, final DrawingApp drawingApp) {
 	        this.drawingApp = drawingApp;
 	    	this.rows = drawingApp.getDrawingAppModel().getNmbrOfrows();
 	        this.columns =drawingApp.getDrawingAppModel().getNmbrOfcolumns();
+	        this.controller = drawingApp.getController();
 	        this.side = side;
 	        drawingApp.getDrawingAppModel().addObserver(this);
 	        
@@ -63,7 +66,7 @@ public class HexesJPanel extends JPanel  implements ChangeListener, MouseListene
 	            }
 	            @Override
 	            public void mousePressed(final MouseEvent e) {
-	                drawingAppModel.mousePressed(e);
+	                controller.mousePressed(e);
 	                repaint();
 	            }
 	            

@@ -1,5 +1,6 @@
 package Buttons;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,7 +14,7 @@ public class DepartButton extends JButton implements ActionListener{
 	
 	public DepartButton(DrawingApp drawingApp)	{
 	      super("Select the departure") ; // Button's text
-			
+	      this.setFont(new Font("Arial", Font.HANGING_BASELINE , 20));
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;
 	   }

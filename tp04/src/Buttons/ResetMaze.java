@@ -1,6 +1,7 @@
 package Buttons;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,7 +17,7 @@ public class ResetMaze extends JButton implements ActionListener{
 		
 	   public ResetMaze(DrawingApp drawingApp)	{
 	      super("Reset the maze") ; // Button's text
-			
+	      this.setFont(new Font("Arial", Font.HANGING_BASELINE , 20));
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;
 	   }

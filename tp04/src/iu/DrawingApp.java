@@ -17,15 +17,11 @@ public class DrawingApp extends JFrame implements ChangeListener{
 	private static final long serialVersionUID = 1L;
 	private final DrawingMenuBar drawingMenuBar ;
 	private final WindowPanel windowPanel ;
-	private DrawingAppModel drawingAppModel;
+	private  DrawingAppModel drawingAppModel;
 	
 	public DrawingApp() throws IOException {
 		
 		super("Labyrinthe") ;
-      
-      /*	String x = JOptionPane.showInputDialog("Type the width");
-		
-		String y = JOptionPane.showInputDialog("Type the height");*/
 		drawingAppModel = new DrawingAppModel(24,15);
 		try {
 			drawingAppModel.saveToTextFile();
@@ -41,7 +37,8 @@ public class DrawingApp extends JFrame implements ChangeListener{
       drawingAppModel.addObserver(this);
       //drawingAppModel.addObserver(this);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
-      pack() ;
+      pack();
+      this.setExtendedState(JFrame.MAXIMIZED_BOTH);
       setVisible(true) ;
    }
 

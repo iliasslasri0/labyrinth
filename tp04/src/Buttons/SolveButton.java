@@ -1,5 +1,7 @@
 package Buttons;
 import javax.sound.sampled.*;
+
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -28,7 +30,7 @@ public class SolveButton extends JButton implements ActionListener{
 		
 	   public SolveButton(DrawingApp drawingApp)	{
 	      super("Solve the maze") ;
-			
+	      this.setFont(new Font("Arial", Font.HANGING_BASELINE , 20));
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;
 	   }

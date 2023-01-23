@@ -12,7 +12,11 @@ import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -62,6 +66,13 @@ public class HexesJPanel extends JPanel  implements ChangeListener, MouseListene
 	                drawingAppModel.mousePressed(e);
 	                repaint();
 	            }
+	            
+	            @Override
+	            public void mouseDragged(final MouseEvent e) {
+	            	drawingAppModel.mouseDragged(e);
+	                repaint();
+	            }
+	            
 	        };
 	        addMouseMotionListener(mouseHandler);
 	        addMouseListener(mouseHandler);
@@ -108,7 +119,6 @@ public class HexesJPanel extends JPanel  implements ChangeListener, MouseListene
 					if (drawingAppModel.getHexes()[column][row].getLabel() == "C") {
 						g2d.setColor(Color.white);
 					}
-					
 	                g2d.fillPolygon(hexagon);
 	              
 	            }

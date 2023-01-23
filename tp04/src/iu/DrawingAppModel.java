@@ -40,7 +40,8 @@ public class DrawingAppModel{
 	private int a_y;
 	private int d_x;
 	private int d_y;
-	
+
+	private Hex hexprev;
 	 
     public DrawingAppModel(int NmbrOfcolumns,int NmbrOfrows) {
     	this.NmbrOfcolumns=NmbrOfcolumns;
@@ -53,20 +54,14 @@ public class DrawingAppModel{
         		hexes[i][j] = new Hex(j,i,"E");
         	}
         }
-    	
+    	hexprev =  hexes[0][0];
     }
     
     
 	public void addObserver(ChangeListener listener) {
 		listeners.add(listener) ;
 	}
-
-	public boolean isModified() {
-		// TODO Auto-generated method stub
-		return true;
-	}
 	
-
 	public void stateChanged() {
 		// TODO Auto-generated method stub
 		ChangeEvent evt = new ChangeEvent(this) ;
@@ -108,11 +103,10 @@ public class DrawingAppModel{
         		arrivalEncours = false;
         		arrivalchoosed = true;
         	}
-        	
-        	//System.out.println(hexes[current_y][current_x].getLabel());
         	stateChanged();
         }
         stateChanged();
+        modified = true;
     }
     
     public void mouseMoved(final MouseEvent e) {
@@ -298,5 +292,39 @@ public class DrawingAppModel{
         }
 		stateChanged();
 	}
-	
+
+
+	public void mouseDragged(MouseEvent e) {
+		mousePosition = e.getPoint();
+        if (current_x != -1 && current_y != -1) {
+        	
+        	if(!hexprev.equals(hexes[current_y][current_x])) {
+        		if(hexes[current_y][current_x].getLabel() == "W") {
+                	hexes[current_y][current_x].setLabel("E");
+        		}else if(hexes[current_y][current_x].getLabel() == "E" | hexes[current_y][current_x].getLabel() == "C"){
+        			if (hexes[current_y][current_x].equals(departHex)) {
+        							departurechoosed = false;
+        							departHex = null;
+        			        		}else if (hexes[current_y][current_x].equals(arrivalHex)) {
+        			        			arrivalchoosed = false;
+        			        			arrivalHex = null;
+        			        		}
+                		hexes[current_y][current_x].setLabel("W");
+                		
+                	}
+                	
+                	stateChanged();
+                	 	
+        	}
+        	hexprev = hexes[current_y][current_x];
+        	modified = true;
+        }
+        stateChanged();
+		
+	}
+
+
+	public boolean isModified() {
+		return modified;
+	}
 }

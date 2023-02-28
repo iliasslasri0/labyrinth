@@ -9,7 +9,7 @@ public class DepartureHex extends MazeHex {
 	 */
 	
 	public DepartureHex(Maze maze,int x,int y) throws Exception {
-		super(maze,x,y,"D");
+		super(maze,x,y);
 	}
 
 }

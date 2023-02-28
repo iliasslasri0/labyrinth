@@ -16,6 +16,6 @@ public interface Graph {
 	/**
 	 * @return A list of the neighbors of a box(Hexagon)
 	 */
-	public List<Vertex> getSuccessors(Vertex vertex);
+	public List<Vertex> getSuccessors(final Vertex vertex);
 	
 }

@@ -9,7 +9,7 @@ public class WallHex extends MazeHex {
 	 * @throws Exception 
 	 */
 	public WallHex(Maze maze,int x,int y) throws Exception {
-		super(maze,x,y,"W");
+		super(maze,x,y);
 	}
 	
 	@Override

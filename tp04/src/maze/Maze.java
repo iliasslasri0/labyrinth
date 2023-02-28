@@ -41,7 +41,7 @@ public class Maze implements Graph {
 		
 		for (MazeHex[] h : this.maze ) {
 			for (MazeHex hex : h){
-				if (!(hex.getLabel() == "W" )) {
+				if (!(hex.isWall())) {
 					
 					allPossibleMazeHex.add((Vertex)hex);
 				}
@@ -126,15 +126,15 @@ public class Maze implements Graph {
 	 * @param object
 	 * @throws Exception 
 	 */
-	public final void initFromTextFile(File object) throws Exception {
+	public final void initFromTextFile(File file) throws Exception {
 		
-		try (BufferedReader readMazeParam = new BufferedReader(new FileReader(object))) {
+		try (BufferedReader readMazeParam = new BufferedReader(new FileReader(file))) {
 			String line;
 			for (int lineNum=0; lineNum < this.sizeMazeLine ; lineNum++) {
 					line = readMazeParam.readLine();
-					if (line == null) {throw new MazeReadingException(object, lineNum, "Increasing the number of lines is required");}
-					if ( line.length() > this.sizeMazeColum) { throw new MazeReadingException(object,lineNum,"Reducing the number of columns is required");}
-					if ( line.length() < this.sizeMazeColum) { throw new MazeReadingException(object,lineNum,"Increasing the number of columns is required");}
+					if (line == null) {throw new MazeReadingException(file, lineNum, "Increasing the number of lines is required");}
+					if ( line.length() > this.sizeMazeColum) { throw new MazeReadingException(file,lineNum,"Reducing the number of columns is required");}
+					if ( line.length() < this.sizeMazeColum) { throw new MazeReadingException(file,lineNum,"Increasing the number of columns is required");}
 					
 					for (int colonNum = 0; colonNum < this.sizeMazeColum ;colonNum++) {
 						switch (line.charAt(colonNum))
@@ -142,12 +142,16 @@ public class Maze implements Graph {
 						// case D case A
 						case 'E':
 								this.maze[colonNum][lineNum] =new EmptyHex(this,colonNum,lineNum);break;
-						case 'C':
-							this.maze[colonNum][lineNum] =new EmptyHex(this,colonNum,lineNum);break;
+						case '.':
+							this.maze[colonNum][lineNum] = new EmptyHex(this,colonNum,lineNum);break;
 						case 'W':
 								this.maze[colonNum][lineNum] =new WallHex(this,colonNum,lineNum);break;
+						case 'D':
+							this.maze[colonNum][lineNum] = new EmptyHex(this,colonNum,lineNum);break;
+						case 'A':
+							this.maze[colonNum][lineNum] = new EmptyHex(this,colonNum,lineNum);break;
 				        default :
-				        	throw new MazeReadingException(object , lineNum , "Inkown character");
+				        	throw new MazeReadingException(file , lineNum , "Inkown character");
 						
 						}
 					 }
@@ -157,53 +161,5 @@ public class Maze implements Graph {
 			System.out.println("Please, Enter a valid directory.");
 		}
 	}
-	
-	
-	
-public final void initFromTextFileX(String object) throws Exception {
-		
-		try (BufferedReader readMazeParam = new BufferedReader(new FileReader(object))) {
-			String line;
-			for (int lineNum=0; lineNum < this.sizeMazeLine ; lineNum++) {
-					line = readMazeParam.readLine();
-					//if (line == null) {throw new MazeReadingException(object, lineNum, "Increasing the number of lines is required");}
-					//if ( line.length() > this.sizeMazeColum) { throw new MazeReadingException(object,lineNum,"Reducing the number of columns is required");}
-					//if ( line.length() < this.sizeMazeColum) { throw new MazeReadingException(object,lineNum,"Increasing the number of columns is required");}
-					
-					for (int colonNum = 0; colonNum < this.sizeMazeColum ;colonNum++) {
-						switch (line.charAt(colonNum))
-						{
-						// case D case A
-						case 'E':
-								this.maze[colonNum][lineNum] =new EmptyHex(this,colonNum,lineNum);break;
-						case 'W':
-								this.maze[colonNum][lineNum] =new WallHex(this,colonNum,lineNum);break;
-				        default :
-				        //	throw new MazeReadingException(object , lineNum , "Inkown character");
-						
-						}
-					 }
-			}
-			readMazeParam.close();	
-		} catch (IOException e) {
-			System.out.println("Please, Enter a valid directory.");
-		}
-	}
-	
-	
-	/**
-	 * This method saves the state of the maze into a text file
-	 */
-	public final void saveToTextFile(String fileName)throws FileNotFoundException{
-		try (PrintWriter pw = new PrintWriter(fileName)) {
-			for (int lineNum = 0; lineNum < this.sizeMazeLine; lineNum++) {
-				for (int columNum=0; columNum < this.sizeMazeColum; columNum++ ) {
-					pw.print(this.maze[lineNum][columNum].getLabel());
-					
-				}
-				pw.println();
-			}
-		}catch(Exception ex) {	
-		}
-	}
+
 }

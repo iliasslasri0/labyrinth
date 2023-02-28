@@ -1,5 +1,7 @@
 package iu;
 import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -19,50 +21,47 @@ public class DrawingApp extends JFrame implements ChangeListener{
 	private final WindowPanel windowPanel ;
 	private  DrawingAppModel drawingAppModel;
 	private Controller controller;
-	
+	public int size,width,height;
 	public DrawingApp() throws IOException {
 		
 		super("Labyrinthe") ;
 		drawingAppModel = new DrawingAppModel(24,15);
 		controller = new Controller(this, drawingAppModel);
 		try {
-			drawingAppModel.saveToTextFile();
+			controller.saveToTextFile(".\\data\\labyrinthe.maze");
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
       setJMenuBar(drawingMenuBar = new DrawingMenuBar(this)) ;
       
-      
       this.setPreferredSize(new Dimension(1000,1000));
       setContentPane(windowPanel = new WindowPanel(this)) ;
       // Window content creation
       drawingAppModel.addObserver(this);
-      //drawingAppModel.addObserver(this);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
       pack();
       this.setExtendedState(JFrame.MAXIMIZED_BOTH);
       setVisible(true) ;
    }
 
-@Override
-public void stateChanged(ChangeEvent e) {
-
-	windowPanel.notifyForUpdate() ;	
-		
-	}
-
-public DrawingAppModel getDrawingAppModel() {
-
-	return drawingAppModel;
-}
-
-public void setDrawingAppModel(DrawingAppModel drawingAppModel) {
-	   this.drawingAppModel = drawingAppModel;
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		windowPanel.notifyForUpdate() ;	
+		}
 	
-}
-public Controller getController() {
-
-	return controller;
-}
+	
+	public DrawingAppModel getDrawingAppModel() {
+		return drawingAppModel;
+		}
+	
+	
+	public void setDrawingAppModel(DrawingAppModel drawingAppModel) {
+		   this.drawingAppModel = drawingAppModel;
+		}
+	
+	
+	public Controller getController() {
+		return controller;
+		}
 
 }

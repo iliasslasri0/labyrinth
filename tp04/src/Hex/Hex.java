@@ -5,27 +5,37 @@ package Hex;
 public class Hex {
 	private int row;
 	private int coulum;
-	private String Label;
+	private boolean isInPath;
+	private boolean isWall;
 	
-	public Hex(int x,int y, String Label) {
+	public Hex(int x,int y, boolean b, boolean c) {
 		this.row = y;
-		this.coulum=x;
-		this.Label = Label;
+		this.coulum = x;
+		isWall = b;
+		isInPath = c;
+	}
+
+	public void setIsInPath(boolean bool) {
+		isInPath =bool;
 	}
 	
+	public void setIsWall(boolean bool) {
+		isWall = bool;
+	}
+
 	public boolean isWall() {
-		if(Label=="E") {
-			return true;
-		}
-		return false;
-	}
-	public void setLabel(String lf) {
-		this.Label = lf;
+		return isWall;
 	}
 
-	public String getLabel() {
-		// TODO Auto-generated method stub
-		return Label;
+	public boolean isInPath() {
+		return isInPath;
 	}
 
+	public int getRow() {
+		return row;
+	}
+
+	public int getCoulum() {
+		return coulum;
+	}
 }

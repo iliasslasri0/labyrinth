@@ -10,13 +10,13 @@ public interface ShortestPaths {
 	 * @param vertex2
 	 * @param vertex1
 	 */
-	public void path(Vertex vertex2,
-										Vertex vertex1);
+	public void path(final Vertex vertex2,
+										final Vertex vertex1);
 	/**
 	 * 
 	 * @param path
 	 * @param departVertex
 	 * @return
 	 */
-	public List<Vertex> getShortestPath(Vertex V);
+	public List<Vertex> getShortestPath(final Vertex V);
 }

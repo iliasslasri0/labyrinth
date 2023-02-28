@@ -12,12 +12,12 @@ public class ShortestPathsImpl extends HashMap<Vertex,Vertex> implements Shortes
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	public void path(Vertex vertex1,Vertex vertex2) {
+	public void path(final Vertex vertex1, final Vertex vertex2) {
 		this.put(vertex1, vertex2);
 	}
 
 	@Override
-	public ArrayList<Vertex> getShortestPath(Vertex endVertex) {
+	public ArrayList<Vertex> getShortestPath(final Vertex endVertex) {
 		ArrayList<Vertex> path = new ArrayList<Vertex>();
 		Vertex v=endVertex;
 		while (v != null) {

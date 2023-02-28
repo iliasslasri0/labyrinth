@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Dijkstra {
 
-	public ShortestPathsImpl dijkstra(Graph graph,
-			Vertex startVertex,
-			Vertex endVertex) {
+	public ShortestPathsImpl dijkstra(final Graph graph,
+			final Vertex startVertex,
+			final Vertex endVertex) {
 		
 		MinDistanceImpl minDistance = new MinDistanceImpl();
 		

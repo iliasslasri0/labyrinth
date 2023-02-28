@@ -2,21 +2,14 @@ package iu;
 
 import java.awt.* ;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
 import javax.swing.event.*;
-
 import Hex.Hex;
 
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-
-
-// modèle : Data & Methods
+// Model : Data & Getters & Setters
 public class DrawingAppModel{
 	
 	
@@ -25,23 +18,26 @@ public class DrawingAppModel{
     private int NmbrOfrows;
     private boolean departurechoosed =false;
     private boolean arrivalchoosed =false;
-	private int current_x = -1;
-	private int current_y =-1;
+	private int current_x = -1; // to refer to the box that includes the mouse
+	private int current_y =-1; // to refer to the box that includes the mouse
 	private Hex[][] hexes;
-	private boolean modified = false ;
+	private boolean modified = false ; // to know if the maze has been modified or not,
+										// to propose to the user a save option while quiting if modified
 	private Point mousePosition;
-	private File file;
+	private File file = new File(".\\data\\labyrinthe.maze"); // this is the file that we use to store our
+													// maze and solve there the applaud it to the interface
 	private Hex arrivalHex;
 	private Hex departHex;
-	private boolean departEncours =false;
-	private boolean arrivalEncours =false;
+	private boolean departEncours =false; // indicates if we are proceding to the chosing of the departure
+	private boolean arrivalEncours =false;// or the arrival ( the buttons (choose a departure/arrival are On)
 	
-	private int a_x;
+	private int a_x; // coordinates of the arrival
 	private int a_y;
-	private int d_x;
+	private int d_x;// coordinates of the departure
 	private int d_y;
 
-	private Hex hexprev;
+	private Hex hexprev; // used in the dragging function to avoid the excessive change of state 
+						//when the user is dragging the mouse
 	 
     public DrawingAppModel(final int NmbrOfcolumns,final int NmbrOfrows) {
     	this.NmbrOfcolumns=NmbrOfcolumns;
@@ -51,7 +47,7 @@ public class DrawingAppModel{
     	hexes = new Hex[NmbrOfcolumns][NmbrOfrows];
     	for(int i=0;i<NmbrOfcolumns;i++) {
         	for(int j=0;j<NmbrOfrows;j++) {
-        		hexes[i][j] = new Hex(j,i,"E");
+        		hexes[i][j] = new Hex(j,i,false,false);
         	}
         }
     	hexprev =  hexes[0][0];
@@ -69,6 +65,14 @@ public class DrawingAppModel{
 		      listener.stateChanged(evt);
 		   }
 		
+	}
+	
+	public Hex gethexprev() {
+		return hexprev;
+	}
+	
+	public void sethexprev(Hex hex) {
+		hexprev = hex;
 	}
 	
 	public int getNmbrOfcolumns() {
@@ -103,15 +107,6 @@ public class DrawingAppModel{
 		this.arrivalchoosed = arrivalchoosed;
 	}
 	
-	public void createHexes(final int rows, final int columns) {
-		hexes = new Hex[rows][columns];
-		for(int i=0;i<columns;i++) {
-        	for(int j=0;j<rows;j++) {
-        		hexes[j][i] = new Hex(j,i,"E");
-        	}
-        }
-	}
-	
 	public Hex[][] getHexes(){
 		return hexes;
 	}
@@ -141,65 +136,24 @@ public class DrawingAppModel{
 	}
 
 	public void setcurrent_y(int row) {
-		// TODO Auto-generated method stub
 		this.current_y = row;
 	}
 
 
 	public int getcurrent_y() {
-		// TODO Auto-generated method stub
 		return current_y;
 	}
 
 	public int getcurrent_x() {
-		// TODO Auto-generated method stub
 		return current_x;
 	}
 	
-	
-	/**
-	 * This method saves the state of the maze into a text file
-	 */
-	public final void saveToTextFile()throws FileNotFoundException{
-
-		File file = new File(".\\data\\labyrinthe.maze");
-		this.setcurrent_file(file);
-		try (PrintWriter pw = new PrintWriter(file)) {
-			for (int lineNum = 0; lineNum < this.NmbrOfrows; lineNum++) {
-				for (int columNum=0; columNum < this.NmbrOfcolumns; columNum++ ) {
-					pw.print(this.hexes[columNum][lineNum].getLabel());
-					
-				}
-				pw.println();
-			}
-		}catch(Exception ex) {	
-		}
-		stateChanged();
-	}
-	
-	public final void saveToTextFile(final String fileName)throws FileNotFoundException{
-
-		try (PrintWriter pw = new PrintWriter(fileName)) {
-			for (int lineNum = 0; lineNum < this.NmbrOfrows; lineNum++) {
-				for (int columNum=0; columNum < this.NmbrOfcolumns; columNum++ ) {
-					pw.print(this.hexes[columNum][lineNum].getLabel());
-					
-				}
-				pw.println();
-			}
-		}catch(Exception ex) {	
-		}
-		stateChanged();
-	}
-
-	private void setcurrent_file(File file) {
+	public void setcurrent_file(File file) {
 		this.file = file;
 		
 	}
 
-
 	public File getFile() {
-		// TODO Auto-generated method stub
 		return file;
 	}
 
@@ -213,16 +167,13 @@ public class DrawingAppModel{
 		arrivalEncours= true;
 	}
 
-
+	
 	public Hex getDepartHex() {
 		return departHex;
 	}
 
-
-	public void setDepartHex() {
-		
-		departEncours = true;
-		
+	public void setdepartHex(Hex hex) {
+		departHex = hex;
 	}
 	
 	public boolean getIfdepartEncours() {
@@ -246,61 +197,13 @@ public class DrawingAppModel{
 		return d_y;
 	}
 
-
-	public void resetAll() {
-		// TODO Auto-generated method stub
-		for(int i=0;i<NmbrOfcolumns;i++) {
-        	for(int j=0;j<NmbrOfrows;j++) {
-        		hexes[i][j] = new Hex(j,i,"E");
-        	}
-        }
-		arrivalHex= null;
-		departHex=null;
-		departurechoosed =false;
-		arrivalchoosed =false;
-		stateChanged();
-	}
-
-
-	public void mouseDragged(final MouseEvent e) {
-		mousePosition = e.getPoint();
-        if (current_x != -1 && current_y != -1) {
-        	
-        	if(!hexprev.equals(hexes[current_y][current_x])) {
-        		if(hexes[current_y][current_x].getLabel() == "W") {
-                	hexes[current_y][current_x].setLabel("E");
-        		}else if(hexes[current_y][current_x].getLabel() == "E" | hexes[current_y][current_x].getLabel() == "C"){
-        			if (hexes[current_y][current_x].equals(departHex)) {
-        							departurechoosed = false;
-        							departHex = null;
-        			        		}else if (hexes[current_y][current_x].equals(arrivalHex)) {
-        			        			arrivalchoosed = false;
-        			        			arrivalHex = null;
-        			        		}
-                		hexes[current_y][current_x].setLabel("W");
-                		
-                	}
-                	
-                	stateChanged();
-                	 	
-        	}
-        	hexprev = hexes[current_y][current_x];
-        	modified = true;
-        }
-        stateChanged();
-		
-	}
-
-
 	public boolean isModified() {
 		return modified;
 	}
-
-
-	public void setdepartHex(Hex hex) {
-		departHex = hex;
+	
+	public void setDepartHex() {
+		departEncours = true;
 	}
-
 
 	public void setArrivalHex(Hex hex) {
 		arrivalHex = hex;

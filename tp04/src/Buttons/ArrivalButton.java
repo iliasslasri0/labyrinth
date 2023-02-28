@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
@@ -14,10 +15,12 @@ import iu.DrawingAppModel;
 public class ArrivalButton  extends JButton implements ActionListener{
 	private final DrawingApp drawingApp ;
 	
-	public ArrivalButton(DrawingApp drawingApp)	{
+	public ArrivalButton(final DrawingApp drawingApp)	{
 		
 	      super("Select the Arrival") ; // Button's text
-	      this.setFont(new Font("Arial", Font.HANGING_BASELINE , 20));
+	      this.setBackground(Color.YELLOW);
+	      this.setFont(new Font("Arial", Font.BOLD, 16));
+	      this.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;
 	     

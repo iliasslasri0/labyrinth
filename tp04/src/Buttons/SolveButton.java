@@ -1,6 +1,7 @@
 package Buttons;
 import javax.sound.sampled.*;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -21,32 +23,37 @@ import maze.Maze;
 import maze.MazeHex;
 
 public class SolveButton extends JButton implements ActionListener{
-
-	   /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final DrawingApp drawingApp ;
 		
-	   public SolveButton(DrawingApp drawingApp)	{
+	   public SolveButton(final DrawingApp drawingApp)	{
 	      super("Solve the maze") ;
-	      this.setFont(new Font("Arial", Font.HANGING_BASELINE , 20));
+	      this.setBackground(Color.YELLOW);
+	      this.setFont(new Font("Arial", Font.BOLD, 16));
+	      this.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
 	      this.drawingApp = drawingApp ;
 	      addActionListener(this) ;
 	   }
+	   /**
 
+	   * This method is called when the Solve button is clicked. It solves the maze using Dijkstra's 
+	   * algorithm implemented and highlights the shortest path from the departure point to the arrival point.
+	   * If there is no path between the departure and arrival points or
+	   * if the departure and arrival points are not selected, it displays an error message. 
+	   
+	   @param e the ActionEvent object
+	   */
+	   
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		DrawingAppModel drawingAppModel = drawingApp.getDrawingAppModel();
 		if (drawingAppModel.isDeparturechoosed() && drawingAppModel.isArrivalchoosed()){
 			try {
-				drawingAppModel.saveToTextFile();
+				drawingApp.getController().saveToTextFile(".\\data\\labyrinthe.maze");
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-			
-			
 			Dijkstra dij = new Dijkstra();
+			
 			//Maze(nombre de colonnes ,Nmbr de lines)
 			Maze maze = new Maze(drawingAppModel.getNmbrOfcolumns(),drawingAppModel.getNmbrOfrows());
 			try {
@@ -75,18 +82,23 @@ public class SolveButton extends JButton implements ActionListener{
 			
 			if(chemin.contains(d)) {
 				for (int j=0;j<maze.getsizeMazeColum();j++) {
-					for (int i=0;i<maze.getsizeMazeLine() ;i++) {
-						
+					for (int i=0;i<maze.getsizeMazeLine() ;i++) {	
 							if (chemin.contains(maze.maze[j][i]) && !maze.maze[j][i].equals(d) && !maze.maze[j][i].equals(a) ) {
-								drawingAppModel.getHexes()[j][i].setLabel("C");
-								out.print('C');
+								drawingAppModel.getHexes()[j][i].setIsInPath(true);
+								out.print('.');
 								drawingAppModel.stateChanged();
 							}else if((maze.maze[j][i]).isWall()) {
 								out.print("W");
-								
+							}else if (maze.maze[j][i].equals(d)){
+								drawingAppModel.getHexes()[j][i].setIsInPath(false);
+								out.print("D");
+							}else if (maze.maze[j][i].equals(a)){
+								drawingAppModel.getHexes()[j][i].setIsInPath(false);
+								out.print("A");
 							}else {
-								if (drawingAppModel.getHexes()[j][i].getLabel()=="C") {
-									drawingAppModel.getHexes()[j][i].setLabel("E");
+								drawingAppModel.getHexes()[j][i].setIsInPath(false);
+								if (drawingAppModel.getHexes()[j][i].isWall()) {
+									drawingAppModel.getHexes()[j][i].setIsWall(false);
 								}
 								out.print("E");
 							}
@@ -94,6 +106,7 @@ public class SolveButton extends JButton implements ActionListener{
 						out.println();
 					}
 					out.close();
+					drawingAppModel.stateChanged();
 					try {
 			            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./data/victory.wav"));
 			            Clip clip = AudioSystem.getClip();
@@ -101,10 +114,7 @@ public class SolveButton extends JButton implements ActionListener{
 			            clip.start();
 			        } catch (Exception e3) {
 			            e3.printStackTrace();
-			        }
-					JOptionPane.showMessageDialog(drawingApp,"Congrats!");
-					drawingAppModel.stateChanged();
-					
+			        }			
 			}else {
 				try {
 		            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./data/GearWarning.wav"));
@@ -114,12 +124,10 @@ public class SolveButton extends JButton implements ActionListener{
 		        } catch (Exception e3) {
 		            e3.printStackTrace();
 		        }
-				JOptionPane.showMessageDialog(drawingApp,"this is no path between the departure and the arrival",
+				JOptionPane.showMessageDialog(drawingApp,"this is no path between the departure and the arrival !",
 					    "Failed!",
 					    JOptionPane.ERROR_MESSAGE);
-			}
-			
-			
+			}	
 		}else {
 			JOptionPane.showMessageDialog(drawingApp,"Please! choose a departure and an arrival.",
 				    "detecting the arrival and the departure failed",

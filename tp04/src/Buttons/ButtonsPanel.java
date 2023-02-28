@@ -19,7 +19,7 @@ public class ButtonsPanel extends JPanel {
    private final SetMazeDimensions setMazeDimensions;
    
    
-   public ButtonsPanel(DrawingApp drawingApp) {
+   public ButtonsPanel(final DrawingApp drawingApp) {
 	   drawingApp.setLayout(new GridLayout(3,1)) ; // 3 row, 1 columns
 		
 	  add(setMazeDimensions = new SetMazeDimensions(drawingApp));
@@ -28,9 +28,5 @@ public class ButtonsPanel extends JPanel {
 	   add(departButton = new DepartButton(drawingApp));
 	   add(arrivalButton = new ArrivalButton(drawingApp));
    }
-   /*public void notifyForUpdate() {
-	   resetMaze.notifyForUpdate() ;
-	   solveButton.notifyForUpdate() ;
-	}*/
 }
 
